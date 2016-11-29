@@ -40,13 +40,12 @@
               此构建是对 #{environment_link_for_build(@build.project, @build)}的最近部署。
             - else
               此构建是对 #{environment_link_for_build(@build.project, @build)}的过期部署。
-              - if environment.last_deployment
-                查看最近 #{deployment_link(environment.last_deployment)}的部署。
+              查看最近 #{deployment_link(environment.last_deployment)}的部署。
           - elsif @build.complete? && !@build.success?
             将此构建部署到 #{environment_link_for_build(@build.project, @build)}未成功。
           - else
-            此构建正在创建一个部署到 #{environment_link_for_build(@build.project, @build)}
-            - if environment.last_deployment
+            T此构建正在创建一个部署到 #{environment_link_for_build(@build.project, @build)}
+            - if environment.try(:last_deployment)
               并将覆盖的
               = link_to '最新部署', deployment_link(environment.last_deployment)
 
