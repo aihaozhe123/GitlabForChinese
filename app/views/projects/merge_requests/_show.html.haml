@@ -33,7 +33,7 @@
         %span.label-branch
           = link_to @merge_request.target_branch, namespace_project_commits_path(@project.namespace, @project, @merge_request.target_branch)
         - if @merge_request.open? && @merge_request.diverged_from_target_branch?
-          %span (#{落后(@merge_request.diverged_commits_count, '次提交')} behind)
+          %span 落后#{@merge_request.diverged_commits_count}次提交
 
     - if @merge_request.source_branch_exists?
       = render "projects/merge_requests/show/how_to_merge"
