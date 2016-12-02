@@ -17,7 +17,7 @@
     w.gl.utils.days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
     w.gl.utils.formatDate = function(datetime) {
-      return dateFormat(datetime, 'mmm d, yyyy h:MMtt Z');
+      return dateFormat(datetime, 'yyyy-mm-dd HH:MM:ss');
     };
 
     w.gl.utils.getDayName = function(date) {

@@ -153,9 +153,7 @@
        * @returns {String}
        */
       createdDate() {
-        const timeagoInstance = new timeago(); // eslint-disable-line
-
-        return timeagoInstance.format(this.model.created_at);
+        return gl.utils.formatDate(this.model.created_at);
       },
 
       /**
@@ -185,7 +183,7 @@
         if (this.model.last_deployment &&
           this.model.last_deployment.user &&
           this.model.last_deployment.user.username) {
-          return `${this.model.last_deployment.user.username}'s avatar'`;
+          return `${this.model.last_deployment.user.username}'的头像'`;
         }
         return '';
       },
@@ -417,7 +415,7 @@
           </span>
 
           <span v-if="!isFolder && deploymentHasUser">
-            by
+            作者
             <a :href="deploymentUser.web_url" class="js-deploy-user-container">
               <img class="avatar has-tooltip s20"
                 :src="deploymentUser.avatar_url"
@@ -459,7 +457,7 @@
           </span>
         </td>
 
-        <td class="hidden-xs">
+        <td class="hidden-xs text-center">
           <div v-if="!isFolder">
             <div v-if="hasManualActions && canCreateDeployment"
               class="inline js-manual-actions-container">

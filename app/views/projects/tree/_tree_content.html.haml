@@ -17,7 +17,7 @@
                 = @commit.full_title
             %small.commit-history-link-spacer &#124;
             = link_to '历史', namespace_project_commits_path(@project.namespace, @project, @id), class: 'commit-history-link'
-          %th.text-right Last Update
+          %th.text-right 更新时间
       - if @path.present?
         %tr.tree-item
           %td.tree-item-file-name

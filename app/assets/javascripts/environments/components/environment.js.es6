@@ -214,7 +214,7 @@
                   <th class="environments-deploy">最后部署</th>
                   <th class="environments-build">构建</th>
                   <th class="environments-commit">提交</th>
-                  <th class="environments-date"></th>
+                  <th class="environments-date">操作时间</th>
                   <th class="hidden-xs environments-actions"></th>
                 </tr>
               </thead>
