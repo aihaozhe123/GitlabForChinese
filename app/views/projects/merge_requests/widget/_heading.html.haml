@@ -7,7 +7,7 @@
           管道
           = link_to "##{@pipeline.id}", namespace_project_pipeline_path(@pipeline.project.namespace, @pipeline.project, @pipeline.id), class: 'pipeline'
           = ci_label_for_status(status)
-        for
+        ，目标提交
         - commit = @merge_request.diff_head_commit
         = succeed "。" do
           = link_to @pipeline.short_sha, namespace_project_commit_path(@merge_request.source_project.namespace, @merge_request.source_project, @pipeline.sha), class: "monospace"
