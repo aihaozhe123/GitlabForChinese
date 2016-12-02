@@ -19,7 +19,7 @@ feature 'Multiple merge requests updating from merge_requests#index', feature: t
       end
 
       it 'closes merge request' do
-        change_status('Closed')
+        change_status('已关闭')
 
         expect(page).to have_selector('.merge-request', count: 0)
       end
@@ -32,7 +32,7 @@ feature 'Multiple merge requests updating from merge_requests#index', feature: t
       end
 
       it 'reopens merge request' do
-        change_status('Open')
+        change_status('未关闭')
 
         expect(page).to have_selector('.merge-request', count: 0)
       end

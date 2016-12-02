@@ -5,19 +5,19 @@
 
 - if @conflict
   .alert.alert-danger
-    Someone edited the #{issuable.class.model_name.human.downcase} the same time you did.
-    Please check out
-    = link_to "the #{issuable.class.model_name.human.downcase}", polymorphic_path([@project.namespace.becomes(Namespace), @project, issuable]), target: "_blank"
-    and make sure your changes will not unintentionally remove theirs
+    有人编辑了 #{issuable.class.model_name.human.downcase} 同时你也编辑了。
+    请检查
+    = link_to "#{issuable.class.model_name.human.downcase}", polymorphic_path([@project.namespace.becomes(Namespace), @project, issuable]), target: "_blank"
+    ，并确保您的更改不会无意中覆盖他人的更改！
 
 .form-group
-  = form.label :title, class: 'control-label'
+  = form.label :title,'标题', class: 'control-label'
 
   = render 'shared/issuable/form/template_selector', issuable: issuable
   = render 'shared/issuable/form/title', issuable: issuable, form: form
 
 .form-group.detail-page-description
-  = form.label :description, 'Description', class: 'control-label'
+  = form.label :description, '描述', class: 'control-label'
   .col-sm-10
 
     = render layout: 'projects/md_preview', locals: { preview_class: "md-preview", referenced_users: true } do
@@ -86,12 +86,12 @@
   %hr
   - if @merge_request.new_record?
     .form-group
-      = form.label :source_branch, class: 'control-label'
+      = form.label :source_branch, '源分支', class: 'control-label'
       .col-sm-10
         .issuable-form-select-holder
           = form.select(:source_branch, [@merge_request.source_branch], { }, { class: 'source_branch select2 span2', disabled: true })
   .form-group
-    = form.label :target_branch, class: 'control-label'
+    = form.label :target_branch, '目标分支', class: 'control-label'
     .col-sm-10
       .issuable-form-select-holder
         = form.select(:target_branch, @merge_request.target_branches, { include_blank: true }, { class: 'target_branch select2 span2', disabled: @merge_request.new_record?, data: {placeholder: "选择分支"} })
@@ -110,7 +110,7 @@
 - is_footer = !(issuable.is_a?(MergeRequest) && issuable.new_record?)
 .row-content-block{class: (is_footer ? "footer-block" : "middle-block")}
   - if issuable.new_record?
-    = form.submit "提交 #{issuable.class.model_name.human.downcase}", class: 'btn btn-create'
+    = form.submit "提交", class: 'btn btn-create'
   - else
     = form.submit '保存修改', class: 'btn btn-save'
 

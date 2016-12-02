@@ -24,22 +24,22 @@ describe IssuablesHelper do
 
       it 'returns "Open" when state is :opened' do
         expect(helper.issuables_state_counter_text(:issues, :opened)).
-          to eq('<span>Open</span> <span class="badge">42</span>')
+          to eq('<span>未合并</span> <span class="badge">42</span>')
       end
 
       it 'returns "Closed" when state is :closed' do
         expect(helper.issuables_state_counter_text(:issues, :closed)).
-          to eq('<span>Closed</span> <span class="badge">42</span>')
+          to eq('<span>已关闭</span> <span class="badge">42</span>')
       end
 
       it 'returns "Merged" when state is :merged' do
         expect(helper.issuables_state_counter_text(:merge_requests, :merged)).
-          to eq('<span>Merged</span> <span class="badge">42</span>')
+          to eq('<span>已合并</span> <span class="badge">42</span>')
       end
 
       it 'returns "All" when state is :all' do
         expect(helper.issuables_state_counter_text(:merge_requests, :all)).
-          to eq('<span>All</span> <span class="badge">42</span>')
+          to eq('<span>全部</span> <span class="badge">42</span>')
       end
     end
 
