@@ -85,7 +85,7 @@ module MilestonesHelper
     elsif milestone.due_date
       days    = milestone.remaining_days
       content = "剩余 "
-      content << content_tag(:strong, days)
+      content << days
       content << " 天"
     end
   end

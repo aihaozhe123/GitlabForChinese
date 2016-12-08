@@ -88,7 +88,7 @@ module IssuablesHelper
 
   def issuable_meta(issuable, project, text)
     output = content_tag :strong, "#{text} #{issuable.to_reference}", class: "identifier"
-    output << " 在 #{time_ago_with_tooltip(issuable.created_at)} 由 ".html_safe
+    output << " 创建于 #{time_ago_with_tooltip(issuable.created_at)} ，作者：".html_safe
     output << content_tag(:strong) do
       author_output = link_to_member(project, issuable.author, size: 24, mobile_classes: "hidden-xs", tooltip: true)
       author_output << link_to_member(project, issuable.author, size: 24, by_username: true, avatar: false, mobile_classes: "hidden-sm hidden-md hidden-lg")
@@ -113,7 +113,7 @@ module IssuablesHelper
     first, last = labels.partition.with_index{ |_, i| i < limit  }
 
     label_names = first.collect(&:name)
-    label_names << "and #{last.size} more" unless last.empty?
+    label_names << "和另外 #{last.size} 个" unless last.empty?
 
     label_names.join(', ')
   end
@@ -200,7 +200,7 @@ module IssuablesHelper
       when MergeRequest
         merge_request_template_names
       else
-        raise 'Unknown issuable type!'
+        raise '未知问题类型！'
       end
   end
 

@@ -11,7 +11,7 @@
     - if user.external?
       %span.label.label-default External
     - if user == current_user
-      %span 是你！
+      %span 自己！
     .user-email
       = mail_to user.email, user.email
   .controls
