@@ -32,6 +32,8 @@ module NotificationsHelper
       '被提及'
     when :global
       '全局'
+    when :custom
+      '自定义'
     else
       level.to_s.titlecase
     end
