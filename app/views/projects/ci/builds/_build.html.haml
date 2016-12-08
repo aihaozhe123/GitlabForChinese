@@ -53,10 +53,10 @@
         %span.label.label-info 手动的
 
   - if pipeline_link
-    %td
+    %td{:width=>"106px"}
       = link_to pipeline_path(build.pipeline) do
         %span.pipeline-id ##{build.pipeline.id}
-      %span 作者
+      %span
       - if build.pipeline.user
         = user_avatar(user: build.pipeline.user, size: 20)
       - else
@@ -81,7 +81,7 @@
   %td
     = build.name
 
-  %td
+  %td{:width=>"131px"}
     - if build.duration
       %p.duration
         = custom_icon("icon_timer")
@@ -92,10 +92,12 @@
         = icon("calendar")
         %span #{time_ago_with_tooltip(build.finished_at)}
 
-  %td.coverage
+  %td.coverage{:width=>"61px"}
     - if coverage
       - if build.try(:coverage)
         #{build.coverage}%
+      - else
+        未分析
 
   %td
     .pull-right

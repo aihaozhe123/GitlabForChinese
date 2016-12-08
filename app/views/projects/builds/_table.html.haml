@@ -16,7 +16,8 @@
             %th Runner
           %th 阶段
           %th 名称
-          %th 规模
+          %th 耗时
+          %th 覆盖率
           %th
 
       = render partial: "projects/ci/builds/build", collection: builds, as: :build, locals: { commit_sha: true, ref: true, pipeline_link: true, stage: true, allow_retry: true, coverage: admin || project.build_coverage_enabled?, admin: admin }
