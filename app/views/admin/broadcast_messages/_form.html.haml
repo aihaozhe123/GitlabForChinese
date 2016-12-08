@@ -29,11 +29,11 @@
   .form-group
     = f.label :starts_at, "开始时间", class: 'control-label'
     .col-sm-10.datetime-controls
-      = f.datetime_select :starts_at, {}, class: 'form-control form-control-inline'
+      = f.datetime_select :starts_at, { use_two_digit_numbers: true }, class: 'form-control form-control-inline'
   .form-group
     = f.label :ends_at, "结束时间", class: 'control-label'
     .col-sm-10.datetime-controls
-      = f.datetime_select :ends_at, {}, class: 'form-control form-control-inline'
+      = f.datetime_select :ends_at, { use_two_digit_numbers: true }, class: 'form-control form-control-inline'
   .form-actions
     - if @broadcast_message.persisted?
       = f.submit "更新广播信息", class: "btn btn-create"
