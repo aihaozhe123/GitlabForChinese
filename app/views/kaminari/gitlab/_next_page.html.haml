@@ -7,7 +7,7 @@
 -#    remote:        data-remote
 - if current_page.last?
   %li{ class: "next disabled" }
-    %span= raw(t 'views.pagination.next')
+    %span= '下一页'
 - else
   %li{ class: "next" }
-    = link_to raw(t 'views.pagination.next'), url, rel: 'next', remote: remote
+    = link_to '下一页', url, rel: 'next', remote: remote
