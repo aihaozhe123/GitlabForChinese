@@ -31,7 +31,7 @@
       %table.table.assigned-projects
         %thead
           %tr
-            %th 指派的项目
+            %th 已指派的项目
             %th
         - @runner.runner_projects.each do |runner_project|
           - project = runner_project.project
@@ -47,7 +47,7 @@
     %table.table.unassigned-projects
       %thead
         %tr
-          %th 项目
+          %th 未指派的项目
           %th
 
       %tr
@@ -104,4 +104,4 @@
 
           %td.timestamp
             - if build.finished_at
-              %span #{time_ago_in_words build.finished_at}之前
+              %span #{time_ago_with_tooltip build.finished_at}

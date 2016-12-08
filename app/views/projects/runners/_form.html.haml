@@ -5,19 +5,19 @@
     .col-sm-10
       .checkbox
         = f.check_box :active
-        %span.light 暂停的 Runner 不接受新构建
+        %span.light 暂停的 Runner 不会运行新的构建
   .form-group
     = label :run_untagged, '运行没有标签的作业', class: 'control-label'
     .col-sm-10
       .checkbox
         = f.check_box :run_untagged
-        %span.light 确定此 runner 可以运行没有任何标签的作业
+        %span.light 此 Runner 可以运行没有任何标签的作业
   .form-group
     = label :locked, '锁定到当前项目', class: 'control-label'
     .col-sm-10
       .checkbox
         = f.check_box :locked
-        %span.light 当 runner 被锁定时，它不能分配给其他项目
+        %span.light 当 Runner 被锁定时，它不能分配给其他项目
   .form-group
     = label_tag :token, class: 'control-label' do
       授权码
@@ -33,6 +33,6 @@
       标签
     .col-sm-10
       = f.text_field :tag_list, value: runner.tag_list.to_s, class: 'form-control'
-      .help-block 您可以设置构建只使用指定标签的 Runner
+      .help-block 您可以设置只有指定的标签构建才能使用此 Runner
   .form-actions
     = f.submit '保存修改', class: 'btn btn-save'
