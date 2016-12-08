@@ -11,19 +11,19 @@
 
 .prepend-top-default
   %p.light
-    上周构建图表
+    最近一周的构建
     (#{date_from_to(Date.today - 7.days, Date.today)})
   %canvas#weekChart{height: 200}
 
 .prepend-top-default
   %p.light
-    上月构建图表
+    最近一个月的构建
     (#{date_from_to(Date.today - 30.days, Date.today)})
   %canvas#monthChart{height: 200}
 
 .prepend-top-default
   %p.light
-    去年构建图表
+    最近一年的构建
   %canvas#yearChart.padded{height: 250}
 
 - [:week, :month, :year].each do |scope|
