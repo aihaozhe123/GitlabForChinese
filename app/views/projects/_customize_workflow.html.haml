@@ -3,6 +3,6 @@
     %h4
       自定义您的工作流！
     %p
-      通过启用最适合您的项目的功能，开始使用GitLab。从问题和Wiki，到合并请求和构建，GitLab可以帮助管理你的工作流从想法到生产！
+      通过启用最适合您的项目的功能，开始使用GitLab。从问题和Wiki，到合并请求和构建，GitLab可以帮助管理您的工作流从想法到生产！
     - if can?(current_user, :admin_project, @project)
       = link_to "Get started", edit_project_path(@project), class: "btn btn-success"

@@ -47,7 +47,7 @@
 - [回复电子邮件](administration/reply_by_email.md) 允许用户回复通知电子邮件，以便对问题和合并请求发表评论。
 - [将GitLab CI迁移到CE / EE](migrate_ci_to_ce/README.md) 按照本指南将现有的GitLab CI数据迁移到GitLab CE / EE。
 - [Git LFS配置](workflow/lfs/lfs_administration.md)
-- [维护](administration/housekeeping.md) 保持你的Git存储库整洁和快速。
+- [维护](administration/housekeeping.md) 保持您的Git存储库整洁和快速。
 - [GitLab性能监控](administration/monitoring/performance/introduction.md) 配置GitLab和InfluxDB以测量性能指标。
 - [请求分析](administration/monitoring/performance/request_profiling.md) 获取缓慢请求的详细配置文件。
 - [监控正常运行时间](user/admin_area/monitoring/health_check.md) 使用运行状况检查端点检查服务器状态。

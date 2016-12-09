@@ -187,7 +187,7 @@
           <div class="blank-state blank-state-no-icon"
             v-if="!isLoading && state.environments.length === 0">
             <h2 class="blank-state-title">
-              你现在没有任何环境。
+              您现在没有任何环境。
             </h2>
             <p class="blank-state-text">
               环境是部署代码的地方，例如暂存或生产。

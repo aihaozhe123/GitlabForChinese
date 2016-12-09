@@ -30,13 +30,13 @@
               - elsif user.blocked?
                 = link_to '解除锁定', unblock_admin_user_path(user), method: :put
               - else
-                = link_to '锁定', block_admin_user_path(user), data: { confirm: '用户将被锁定！你确定？' }, method: :put
+                = link_to '锁定', block_admin_user_path(user), data: { confirm: '用户将被锁定！您确定？' }, method: :put
             - if user.access_locked?
               %li
-                = link_to '解除锁定', unlock_admin_user_path(user), method: :put, class: 'btn-grouped btn btn-xs btn-success', data: { confirm: '你确定继续？' }
+                = link_to '解除锁定', unlock_admin_user_path(user), method: :put, class: 'btn-grouped btn btn-xs btn-success', data: { confirm: '您确定继续？' }
           - if user.can_be_removed?
             %li.divider
             %li
-              = link_to '删除用户', [:admin, user], data: { confirm: "用户 #{user.name} 将被删除！与此用户关联的所有问题，合并请求和群组也将被删除！请考虑取消此删除并阻止用户。你确定？" },
+              = link_to '删除用户', [:admin, user], data: { confirm: "用户 #{user.name} 将被删除！与此用户关联的所有问题，合并请求和群组也将被删除！请考虑取消此删除并阻止用户。您确定？" },
                                                    class: 'btn btn-remove btn-block',
                                                    method: :delete

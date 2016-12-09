@@ -34,7 +34,7 @@
         = link_to namespace_project_branch_path(@project.namespace, @project, branch.name),
           class: "btn btn-remove remove-row #{can_remove_branch?(@project, branch.name) ? '' : 'disabled'}",
           method: :delete,
-          data: { confirm: "删除 '#{branch.name}' 分支无法撤消。你确定？" },
+          data: { confirm: "删除 '#{branch.name}' 分支无法撤消。您确定？" },
           remote: true,
           "aria-label" => "删除分支" do
           = icon("trash-o")

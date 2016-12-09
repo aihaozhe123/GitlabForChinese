@@ -86,7 +86,7 @@
         %h4.text-center
           = Gitlab.config.gitlab.no_todos_messages.sample
         %p.text-center
-          你在找待办事项吗？查看
+          您在找待办事项吗？查看
           = succeed "，" do
             = link_to "已打开的问题", issues_dashboard_path
           帮助
@@ -101,11 +101,11 @@
         = render "shared/empty_states/todos_empty.svg"
       .todos-empty-content
         %h4
-          待办事项让你看看你应该做什么。
+          待办事项让您看看您应该做什么。
         %p
           当向您分配问题或合并请求时，或者在评论中
           %strong
             @mention
           时，这将自动在您的待办事项列表中触发一个新项目。
         %p
-          你总是知道接下来要做什么。
+          您总是知道接下来要做什么。

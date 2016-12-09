@@ -5,7 +5,7 @@
 
 - if @conflict
   .alert.alert-danger
-    有人编辑了 #{issuable.class.model_name.human.downcase} 同时你也编辑了。
+    有人编辑了 #{issuable.class.model_name.human.downcase} 同时您也编辑了。
     请检查
     = link_to "#{issuable.class.model_name.human.downcase}", polymorphic_path([@project.namespace.becomes(Namespace), @project, issuable]), target: "_blank"
     ，并确保您的更改不会无意中覆盖他人的更改！

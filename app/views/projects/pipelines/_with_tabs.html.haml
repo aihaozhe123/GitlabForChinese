@@ -33,7 +33,7 @@
         %ul
           - pipeline.yaml_errors.split(",").each do |error|
             %li= error
-        你也可以在#{link_to "Lint", ci_lint_path}中测试你的 .gitlab-ci.yml
+        您也可以在#{link_to "Lint", ci_lint_path}中测试您的 .gitlab-ci.yml
 
     - if pipeline.project.builds_enabled? && !pipeline.ci_yaml_file
       .bs-callout.bs-callout-warning

@@ -6,7 +6,7 @@
           = link_to "重试失败", retry_namespace_project_pipeline_path(pipeline.project.namespace, pipeline.project, pipeline.id), class: 'btn btn-grouped btn-primary', method: :post
 
         - if pipeline.builds.running_or_pending.any?
-          = link_to "取消运行", cancel_namespace_project_pipeline_path(pipeline.project.namespace, pipeline.project, pipeline.id), data: { confirm: '你确定继续?' }, class: 'btn btn-grouped btn-danger', method: :post
+          = link_to "取消运行", cancel_namespace_project_pipeline_path(pipeline.project.namespace, pipeline.project, pipeline.id), data: { confirm: '您确定继续?' }, class: 'btn btn-grouped btn-danger', method: :post
 
     .oneline.clearfix
       - if defined?(pipeline_details) && pipeline_details
@@ -43,7 +43,7 @@
     %ul
       - pipeline.yaml_errors.split(",").each do |error|
         %li= error
-    你也可以在.gitlab-ci.yml中测试 #{link_to "Lint", ci_lint_path}
+    您也可以在.gitlab-ci.yml中测试 #{link_to "Lint", ci_lint_path}
 
 - if pipeline.project.builds_enabled? && !pipeline.ci_yaml_file
   .bs-callout.bs-callout-warning
