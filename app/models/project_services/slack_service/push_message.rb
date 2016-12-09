@@ -47,15 +47,15 @@ class SlackService
     end
 
     def new_branch_message
-      "#{user_name} 推送了新的 #{ref_type} #{branch_link} 到了 #{project_link}"
+      "#{user_name} 为 #{project_link} 推送了新的 #{ref_type} #{branch_link}"
     end
 
     def removed_branch_message
-      "#{user_name} 删除了 #{project_link} 的 #{ref_type} #{ref}"
+      "#{user_name} 删除了 #{ref_type} #{ref} 的 #{project_link}"
     end
 
     def push_message
-      "#{user_name} 推送了 #{project_link} 的 #{ref_type} #{branch_link} (#{compare_link})"
+      "#{user_name} 推送了 #{ref_type} #{branch_link} (#{compare_link}) 的 #{project_link}"
     end
 
     def commit_messages
