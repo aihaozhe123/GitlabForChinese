@@ -134,7 +134,7 @@
     };
 
     ContributorsMasterGraph.prototype.create_axes = function() {
-      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom");
+      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom").tickFormat(d3.time.format("%Y-%m-%d"));
       return this.y_axis = d3.svg.axis().scale(this.y).orient("left").ticks(5);
     };
 
@@ -223,7 +223,7 @@
     };
 
     ContributorsAuthorGraph.prototype.create_axes = function() {
-      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom").ticks(8);
+      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom").ticks(8).tickFormat(d3.time.format("%Y-%m-%d"));
       return this.y_axis = d3.svg.axis().scale(this.y).orient("left").ticks(5);
     };
 
