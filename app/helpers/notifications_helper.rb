@@ -85,8 +85,30 @@ module NotificationsHelper
 
   def notification_event_name(event)
     case event
+    when :new_note
+      '新注释'
+    when :new_issue
+      '新问题'
+    when :reopen_issue
+      '重新打开问题'
+    when :close_issue
+      '关闭问题'
+    when :reassign_issue
+      '重新指派问题'
+    when :new_merge_request
+      '新合并请求'
+    when :reopen_merge_request
+      '重新打开合并请求'
+    when :close_merge_request
+      '关闭合并请求'
+    when :reassign_merge_request
+      '重新指派合并请求'
+    when :merge_merge_request
+      '合并合并请求'
+    when :failed_pipeline
+      '管道失败'
     when :success_pipeline
-      'Successful pipeline'
+      '管道成功'
     else
       event.to_s.humanize
     end
