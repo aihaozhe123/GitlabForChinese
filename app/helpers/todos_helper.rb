@@ -9,16 +9,20 @@ module TodosHelper
 
   def todo_action_name(todo)
     case todo.action
-    when Todo::ASSIGNED then 'assigned you'
-    when Todo::MENTIONED then 'mentioned you on'
-    when Todo::BUILD_FAILED then 'The build failed for your'
-    when Todo::MARKED then 'added a todo for'
-    when Todo::APPROVAL_REQUIRED then 'set you as an approver for'
+    when Todo::ASSIGNED then '已指派给您的'
+    when Todo::MENTIONED then '提到你的'
+    when Todo::BUILD_FAILED then '运行构建失败，因为'
+    when Todo::MARKED then '为代办事项添加了'
+    when Todo::APPROVAL_REQUIRED then '将您设置为审批者，您可以审批'
     end
   end
 
   def todo_target_link(todo)
-    target = todo.target_type.titleize.downcase
+    target =
+        case todo.target_type.titleize.downcase
+        when 'issue' then '问题'
+        when 'commit' then '提交'
+        end
     link_to "#{target} #{todo.target_reference}", todo_target_path(todo),
       class: 'has-tooltip',
       title: todo.target.title
