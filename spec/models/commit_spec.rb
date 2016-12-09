@@ -173,25 +173,26 @@ eos
 
   describe '#reverts_commit?' do
     let(:another_commit) { double(:commit, revert_description: "This reverts commit #{commit.sha}") }
+    let(:user) { commit.author }
 
-    it { expect(commit.reverts_commit?(another_commit)).to be_falsy }
+    it { expect(commit.reverts_commit?(another_commit, user)).to be_falsy }
 
     context 'commit has no description' do
       before { allow(commit).to receive(:description?).and_return(false) }
 
-      it { expect(commit.reverts_commit?(another_commit)).to be_falsy }
+      it { expect(commit.reverts_commit?(another_commit, user)).to be_falsy }
     end
 
     context "another_commit's description does not revert commit" do
       before { allow(commit).to receive(:description).and_return("Foo Bar") }
 
-      it { expect(commit.reverts_commit?(another_commit)).to be_falsy }
+      it { expect(commit.reverts_commit?(another_commit, user)).to be_falsy }
     end
 
     context "another_commit's description reverts commit" do
       before { allow(commit).to receive(:description).and_return("Foo #{another_commit.revert_description} Bar") }
 
-      it { expect(commit.reverts_commit?(another_commit)).to be_truthy }
+      it { expect(commit.reverts_commit?(another_commit, user)).to be_truthy }
     end
 
     context "another_commit's description reverts merged merge request" do
@@ -201,7 +202,7 @@ eos
         allow(commit).to receive(:description).and_return("Foo #{another_commit.revert_description} Bar")
       end
 
-      it { expect(commit.reverts_commit?(another_commit)).to be_truthy }
+      it { expect(commit.reverts_commit?(another_commit, user)).to be_truthy }
     end
   end
 
@@ -300,6 +301,23 @@ eos
 
     it "returns nil if the path doesn't exists" do
       expect(commit.uri_type('this/path/doesnt/exist')).to be_nil
+    end
+  end
+
+  describe '.from_hash' do
+    let(:new_commit) { described_class.from_hash(commit.to_hash, project) }
+
+    it 'returns a Commit' do
+      expect(new_commit).to be_an_instance_of(described_class)
+    end
+
+    it 'wraps a Gitlab::Git::Commit' do
+      expect(new_commit.raw).to be_an_instance_of(Gitlab::Git::Commit)
+    end
+
+    it 'stores the correct commit fields' do
+      expect(new_commit.id).to eq(commit.id)
+      expect(new_commit.message).to eq(commit.message)
     end
   end
 end

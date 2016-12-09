@@ -3,10 +3,8 @@
     = f.label "用户名 或 Email", for: :login
     = f.text_field :login, class: "form-control top", autofocus: "autofocus", autocapitalize: "off", autocorrect: "off", required: true, title: "这是必填项。"
   %div.form-group
-    = f.label :"密码"
+    = f.label "密码"
     = f.password_field :password, class: "form-control bottom", required: true, title: "这是必填项。"
-  %div.submit-container.move-submit-down
-    = f.submit "登录", class: "btn btn-save"
   - if devise_mapping.rememberable?
     .remember-me.checkbox
       %label{for: "user_remember_me"}
@@ -14,3 +12,5 @@
         %span 记住我
       .pull-right.forgot-password
         = link_to "忘记密码？", new_password_path(resource_name)
+  %div.submit-container.move-submit-down
+    = f.submit "登录", class: "btn btn-save"
