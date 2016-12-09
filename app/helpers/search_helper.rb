@@ -74,7 +74,7 @@ module SearchHelper
         { category: "当前项目", label: "问题",         url: namespace_project_issues_path(@project.namespace, @project) },
         { category: "当前项目", label: "合并请求", url: namespace_project_merge_requests_path(@project.namespace, @project) },
         { category: "当前项目", label: "里程碑",     url: namespace_project_milestones_path(@project.namespace, @project) },
-        { category: "当前项目", label: "代码片段",       url: namespace_project_snippets_path(@project.namespace, @project) },
+        { category: "当前项目", label: "代码段",       url: namespace_project_snippets_path(@project.namespace, @project) },
         { category: "当前项目", label: "成员",        url: namespace_project_project_members_path(@project.namespace, @project) },
         { category: "当前项目", label: "维基",           url: namespace_project_wikis_path(@project.namespace, @project) },
       ]

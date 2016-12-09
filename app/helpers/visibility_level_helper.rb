@@ -52,14 +52,14 @@ module VisibilityLevelHelper
     case level
     when Gitlab::VisibilityLevel::PRIVATE
       if snippet.is_a? ProjectSnippet
-        "该代码片段只有项目成员能看到。"
+        "该代码段只有项目成员能看到。"
       else
-        "该代码片段只有自己能看到。"
+        "该代码段只有自己能看到。"
       end
     when Gitlab::VisibilityLevel::INTERNAL
-      "该代码片段任何已登录用户都可以看到。"
+      "该代码段任何已登录用户都可以看到。"
     when Gitlab::VisibilityLevel::PUBLIC
-      "该代码片段可以被任何授权的用户访问。"
+      "该代码段可以被任何授权的用户访问。"
     end
   end
 

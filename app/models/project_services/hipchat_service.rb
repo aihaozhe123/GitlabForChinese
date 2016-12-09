@@ -227,7 +227,7 @@ class HipchatService < Service
       subj_attr = HashWithIndifferentAccess.new(data[:snippet])
       subject_id = subj_attr[:id]
       subject_desc = "##{subject_id}"
-      subject_type = "代码片段"
+      subject_type = "代码段"
       title = format_title(subj_attr[:title])
     end
 

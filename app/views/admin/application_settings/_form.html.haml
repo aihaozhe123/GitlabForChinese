@@ -12,7 +12,7 @@
       .col-sm-10
         = render('shared/visibility_radios', model_method: :default_project_visibility, form: f, selected_level: @application_setting.default_project_visibility, form_model: Project.new)
     .form-group.project-visibility-level-holder
-      = f.label :default_snippet_visibility, '默认代码片段可见度', class: 'control-label col-sm-2'
+      = f.label :default_snippet_visibility, '默认代码段可见度', class: 'control-label col-sm-2'
       .col-sm-10
         = render('shared/visibility_radios', model_method: :default_snippet_visibility, form: f, selected_level: @application_setting.default_snippet_visibility, form_model: ProjectSnippet.new)
     .form-group.project-visibility-level-holder
@@ -26,7 +26,7 @@
           .checkbox
             = level
         %span.help-block#restricted-visibility-help
-          选择的等级将无法用于非管理用户的项目和代码片段。
+          选择的等级将无法用于非管理用户的项目和代码段。
           如果公开等级被限制，用户个人资料只对已登录用户可见。
     .form-group
       = f.label :import_sources, '导入来源', class: 'control-label col-sm-2'

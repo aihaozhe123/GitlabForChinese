@@ -87,9 +87,9 @@
 
     - if project_nav_tab? :snippets
       = nav_link(controller: :snippets) do
-        = link_to namespace_project_snippets_path(@project.namespace, @project), title: '代码片段', class: 'shortcuts-snippets' do
+        = link_to namespace_project_snippets_path(@project.namespace, @project), title: '代码段', class: 'shortcuts-snippets' do
           %span
-            代码片段
+            代码段
 
     -# Global shortcut to network page for compatibility
     - if project_nav_tab? :network

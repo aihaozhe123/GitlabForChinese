@@ -1,7 +1,7 @@
 .hidden-xs
   - if current_user
-    = link_to new_snippet_path, class: "btn btn-grouped btn-create new-snippet-link", title: "新代码片段" do
-      新代码片段
+    = link_to new_snippet_path, class: "btn btn-grouped btn-create new-snippet-link", title: "新代码段" do
+      新代码段
   - if can?(current_user, :admin_personal_snippet, @snippet)
     = link_to snippet_path(@snippet), method: :delete, data: { confirm: "确定要继续么？" }, class: "btn btn-grouped btn-danger", title: 'Delete Snippet' do
       删除
@@ -16,11 +16,11 @@
     .dropdown-menu.dropdown-menu-full-width
       %ul
         %li
-          = link_to new_snippet_path, title: "新代码片段" do
-            新代码片段
+          = link_to new_snippet_path, title: "新代码段" do
+            新代码段
         - if can?(current_user, :admin_personal_snippet, @snippet)
           %li
-            = link_to snippet_path(@snippet), method: :delete, data: { confirm: "确定要继续么？" }, title: '删除代码片段' do
+            = link_to snippet_path(@snippet), method: :delete, data: { confirm: "确定要继续么？" }, title: '删除代码段' do
               删除
         - if can?(current_user, :update_personal_snippet, @snippet)
           %li

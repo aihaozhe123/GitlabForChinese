@@ -322,7 +322,7 @@ class Event < ActiveRecord::Base
     when "Issue"
       "问题"
     when "Snippet"
-      "代码片段"
+      "代码段"
     when "MergeRequest"
       "合并请求"
     else
