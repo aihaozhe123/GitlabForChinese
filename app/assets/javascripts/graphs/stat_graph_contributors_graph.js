@@ -12,7 +12,7 @@
 
     ContributorsGraph.prototype.MARGIN = {
       top: 20,
-      right: 20,
+      right: 30,
       bottom: 30,
       left: 50
     };
@@ -98,7 +98,7 @@
     function ContributorsMasterGraph(data1) {
       this.data = data1;
       this.update_content = bind(this.update_content, this);
-      this.width = $('.content').width() - 70;
+      this.width = 1248 - 70;
       this.height = 200;
       this.x = null;
       this.y = null;
@@ -206,7 +206,7 @@
       if ($(window).width() < 768) {
         this.width = $('.content').width() - 80;
       } else {
-        this.width = ($('.content').width() / 2) - 100;
+        this.width = 609 - 70;
       }
       this.height = 200;
       this.x = null;
@@ -258,7 +258,7 @@
       this.set_domain();
       this.create_area(this.x, this.y);
       this.create_svg();
-      this.draw_path(this.dates);
+      this.draw_path(this.dates);3
       this.draw_x_axis();
       return this.draw_y_axis();
     };
