@@ -28,8 +28,11 @@
         %span.milestone-stat
           完成
           %strong== #{milestone.percent_complete(current_user)}%
-        %span.milestone-stat
-          %span.remaining-days= milestone_remaining_days(milestone)
+        - remaining_days = milestone_remaining_days(milestone)
+        - if remaining_days.present?
+          %span.milestone-stat
+            %span.remaining-days= remaining_days
+
       .milestone-progress-buttons
         %span.tab-issues-buttons
           - if project && can?(current_user, :create_issue, project)
