@@ -606,10 +606,10 @@ class MergeRequest < ActiveRecord::Base
   end
 
   def merge_commit_message
-    message = "Merge branch '#{source_branch}' into '#{target_branch}'\n\n"
+    message = "合并分支 '#{source_branch}' 到 '#{target_branch}' 中\n\n"
     message << "#{title}\n\n"
     message << "#{description}\n\n" if description.present?
-    message << "See merge request #{to_reference}"
+    message << "请参阅合并请求 #{to_reference}"
 
     message
   end

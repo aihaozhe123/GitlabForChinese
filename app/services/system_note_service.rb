@@ -126,7 +126,7 @@ module SystemNoteService
   # Returns the created Note object
   def change_status(noteable, project, author, status, source)
     body = status.dup
-    body << " 由 #{source.gfm_reference(project)} 更改" if source
+    body << " ，更改于 #{source.gfm_reference(project)}" if source
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
