@@ -6,10 +6,6 @@ module CiStatusHelper
 
   # Is used by Commit and Merge Request Widget
   def ci_label_for_status(status)
-    if detailed_status?(status)
-      return status.label
-    end
-
     case status
     when 'success'
       '通过'

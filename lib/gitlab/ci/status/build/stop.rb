@@ -6,11 +6,11 @@ module Gitlab
           include Status::Extended
 
           def text
-            'manual'
+            '手动'
           end
 
           def label
-            'manual stop action'
+            '手动停止'
           end
 
           def icon
@@ -30,7 +30,7 @@ module Gitlab
           end
 
           def action_title
-            'Stop'
+            '停止'
           end
 
           def action_path

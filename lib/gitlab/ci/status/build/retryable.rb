@@ -14,7 +14,7 @@ module Gitlab
           end
 
           def action_title
-            'Retry'
+            '重试'
           end
 
           def action_path
