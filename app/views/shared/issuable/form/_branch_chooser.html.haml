@@ -15,10 +15,10 @@
   = form.label :target_branch, class: 'control-label'
   .col-sm-10
     .issuable-form-select-holder
-      = form.select(:target_branch, issuable.target_branches, { include_blank: true }, { class: 'target_branch select2 span2', disabled: issuable.new_record?, data: { placeholder: "Select branch" }})
+      = form.select(:target_branch, issuable.target_branches, { include_blank: true }, { class: 'target_branch select2 span2', disabled: issuable.new_record?, data: { placeholder: "选择分支" }})
     - if issuable.new_record?
       &nbsp;
-      = link_to 'Change branches', mr_change_branches_path(issuable)
+      = link_to '修改分支', mr_change_branches_path(issuable)
 
 - if issuable.can_remove_source_branch?(current_user)
   .form-group
@@ -27,4 +27,4 @@
         = label_tag 'merge_request[force_remove_source_branch]' do
           = hidden_field_tag 'merge_request[force_remove_source_branch]', '0', id: nil
           = check_box_tag 'merge_request[force_remove_source_branch]', '1', issuable.force_remove_source_branch?
-          Remove source branch when merge request is accepted.
+          在接受合并请求时删除源分支。

@@ -7,25 +7,25 @@
   0% {
     background-color: rgba($white-light, 1);
     box-shadow: 12px 0 0 0 rgba($white-light,0.2),
-                24px 0 0 0 rgba($white-light,0.2);
+    24px 0 0 0 rgba($white-light,0.2);
   }
 
   25% {
     background-color: rgba($white-light, 0.4);
     box-shadow: 12px 0 0 0 rgba($white-light,2),
-                24px 0 0 0 rgba($white-light,0.2);
+    24px 0 0 0 rgba($white-light,0.2);
   }
 
   75% {
     background-color: rgba($white-light, 0.4);
     box-shadow: 12px 0 0 0 rgba($white-light,0.2),
-                24px 0 0 0 rgba($white-light,1);
+    24px 0 0 0 rgba($white-light,1);
   }
 
   100% {
     background-color: rgba($white-light, 1);
     box-shadow: 12px 0 0 0 rgba($white-light,0.2),
-                24px 0 0 0 rgba($white-light,0.2);
+    24px 0 0 0 rgba($white-light,0.2);
   }
 }
 
@@ -108,19 +108,6 @@
     .scroll-link,
     .autoscroll-container {
       right: ($gutter_width + ($gl-padding * 2));
-    }
-  }
-
-  .environment-information {
-    background-color: $background-color;
-    border: 1px solid $border-color;
-    padding: 12px $gl-padding;
-    border-radius: $border-radius-default;
-
-    svg {
-      position: relative;
-      top: 1px;
-      margin-right: 5px;
     }
   }
 }
@@ -239,10 +226,6 @@
     .btn-group-justified {
       margin-top: 5px;
     }
-  }
-
-  .block-first {
-    padding: 5px 16px 11px;
   }
 
   .js-build-variable {

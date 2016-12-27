@@ -1,41 +1,42 @@
 %p
-  This service will be installed on the Mattermost instance at
+  您不是
   %strong= link_to Gitlab.config.mattermost.host, Gitlab.config.mattermost.host
+  的Mattermost实例上的任何团队的成员
 %hr
 = form_for(:mattermost, method: :post, url: namespace_project_mattermost_path(@project.namespace, @project)) do |f|
-  %h4 Team
+  %h4 团队
   %p
-    = @teams.one? ? 'The team' : 'Select the team'
-    where the slash commands will be used in
+    = @teams.one? ? '在团队中' : '选择团队中'
+    中使用斜杠命令
   - selected_id = @teams.keys.first if @teams.one?
   = f.select(:team_id, mattermost_teams_options(@teams), {}, { class: 'form-control', selected: "#{selected_id}", disabled: @teams.one? })
   .help-block
     - if @teams.one?
-      This is the only team where you are an administrator.
+      这是唯一一个您是管理员的团队。
     - else
-      The list shows teams where you are administrator
-    To create a team, ask your Mattermost system administrator.
-    To create a team,
+      该列表显示您是管理员的团队
+    要创建团队，请咨询您的Mattermost系统管理员。
+    创建一个团队，
     = link_to "#{Gitlab.config.mattermost.host}/create_team" do
-      use Mattermost's interface
+      使用Mattermost的界面
       = icon('external-link')
   %hr
-  %h4 Command trigger word
-  %p Choose the word that will trigger commands
+  %h4 命令触发文字
+  %p 选择将触发命令的词
   = f.text_field(:trigger, value: @project.path, class: 'form-control')
   .help-block
     %p
-      Trigger word must be unique, and can't begin with a slash or contain any spaces.
-      Use the word that works best for your team.
+      触发词必须是唯一的，不能以斜杠开头或包含任何空格。
+      使用最适合您团队的词。
     %p
-      Suggestions:
+      建议：
       %code= 'gitlab'
       %code= @project.path # Path contains no spaces, but dashes
       %code= @project.path_with_namespace
     %p
-      Reserved:
+      保留：
       = link_to 'https://docs.mattermost.com/help/messaging/executing-commands.html#built-in-commands', target: '__blank' do
-        see list of built-in slash commands
+        请参阅内置斜杠命令列表
         = icon('external-link')
   %hr
   .clearfix
