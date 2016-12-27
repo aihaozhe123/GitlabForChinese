@@ -84,9 +84,34 @@ module MilestonesHelper
       content_tag(:strong, '到期日')
     elsif milestone.due_date
       days    = milestone.remaining_days
-      content = "剩余 "
-      content << days
-      content << " 天"
+      content = "剩余"
+      content << content_tag(:strong, days)
+      content << "天"
+    elsif milestone.upcoming?
+      content_tag(:strong, 'Upcoming')
+    elsif milestone.start_date && milestone.start_date.past?
+      days    = milestone.elapsed_days
+      content = "剩余"
+      content << content_tag(:strong, days)
+      content << "天"
+    end
+  end
+
+  def milestone_date_range(milestone)
+    if milestone.start_date && milestone.due_date
+      "#{milestone.start_date.to_s(:medium)} - #{milestone.due_date.to_s(:medium)}"
+    elsif milestone.due_date
+      if milestone.due_date.past?
+        "过期于 #{milestone.due_date.to_s(:medium)}"
+      else
+        "在#{milestone.due_date.to_s(:medium)}过期"
+      end
+    elsif milestone.start_date
+      if milestone.start_date.past?
+        "开始于#{milestone.start_date.to_s(:medium)}"
+      else
+        "在#{milestone.start_date.to_s(:medium)}开始"
+      end
     end
   end
 end

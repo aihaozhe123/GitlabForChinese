@@ -1,7 +1,7 @@
 /* global Element */
 /* eslint-disable consistent-return, max-len, no-empty, no-plusplus, func-names */
 
-Element.prototype.closest = function closest(selector, selectedElement = this) {
+Element.prototype.closest = Element.prototype.closest || function closest(selector, selectedElement = this) {
   if (!selectedElement) return;
   return selectedElement.matches(selector) ? selectedElement : Element.prototype.closest(selector, selectedElement.parentElement);
 };

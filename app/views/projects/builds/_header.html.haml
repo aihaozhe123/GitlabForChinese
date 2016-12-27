@@ -1,18 +1,18 @@
 .content-block.build-header
   .header-content
-    = ci_status_with_icon(@build.status)
+    = render 'ci/status/badge', status: @build.detailed_status(current_user)
     管道
     = link_to pipeline_path(@build.pipeline) do
       %strong ##{@build.pipeline.id}
     中的
     %strong ##{@build.id}
     构建是分支
+    = link_to namespace_project_commit_path(@project.namespace, @project, @build.pipeline.sha) do
+      %strong= @build.pipeline.short_sha
+    的提交
     = link_to namespace_project_commits_path(@project.namespace, @project, @build.ref) do
       %code
         = @build.ref
-    的提交
-    = link_to ci_status_path(@build.pipeline) do
-      %strong= @build.pipeline.short_sha
     - if @build.user
       = render "user"
     ，触发于

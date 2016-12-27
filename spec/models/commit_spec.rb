@@ -34,24 +34,30 @@ describe Commit, models: true do
   end
 
   describe '#to_reference' do
+    let(:project) { create(:project, path: 'sample-project') }
+    let(:commit)  { project.commit }
+
     it 'returns a String reference to the object' do
       expect(commit.to_reference).to eq commit.id
     end
 
     it 'supports a cross-project reference' do
-      cross = double('project')
-      expect(commit.to_reference(cross)).to eq "#{project.to_reference}@#{commit.id}"
+      another_project = build(:project, name: 'another-project', namespace: project.namespace)
+      expect(commit.to_reference(another_project)).to eq "sample-project@#{commit.id}"
     end
   end
 
   describe '#reference_link_text' do
+    let(:project) { create(:project, path: 'sample-project') }
+    let(:commit)  { project.commit }
+
     it 'returns a String reference to the object' do
       expect(commit.reference_link_text).to eq commit.short_id
     end
 
     it 'supports a cross-project reference' do
-      cross = double('project')
-      expect(commit.reference_link_text(cross)).to eq "#{project.to_reference}@#{commit.short_id}"
+      another_project = build(:project, name: 'another-project', namespace: project.namespace)
+      expect(commit.reference_link_text(another_project)).to eq "sample-project@#{commit.short_id}"
     end
   end
 
@@ -207,23 +213,19 @@ eos
   end
 
   describe '#status' do
-    context 'without arguments for compound status' do
-      shared_examples 'giving the status from pipeline' do
-        it do
-          expect(commit.status).to eq(Ci::Pipeline.status)
+    context 'without ref argument' do
+      before do
+        %w[success failed created pending].each do |status|
+          create(:ci_empty_pipeline,
+                 project: project,
+                 sha: commit.sha,
+                 status: status)
         end
       end
 
-      context 'with pipelines' do
-        let!(:pipeline) do
-          create(:ci_empty_pipeline, project: project, sha: commit.sha)
-        end
-
-        it_behaves_like 'giving the status from pipeline'
-      end
-
-      context 'without pipelines' do
-        it_behaves_like 'giving the status from pipeline'
+      it 'gives compound status from latest pipelines' do
+        expect(commit.status).to eq(Ci::Pipeline.latest_status)
+        expect(commit.status).to eq('pending')
       end
     end
 
@@ -249,8 +251,9 @@ eos
         expect(commit.status('fix')).to eq(pipeline_from_fix.status)
       end
 
-      it 'gives compound status if ref is nil' do
-        expect(commit.status(nil)).to eq(commit.status)
+      it 'gives compound status from latest pipelines if ref is nil' do
+        expect(commit.status(nil)).to eq(Ci::Pipeline.latest_status)
+        expect(commit.status(nil)).to eq('failed')
       end
     end
   end

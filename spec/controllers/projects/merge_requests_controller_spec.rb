@@ -292,7 +292,9 @@ describe Projects::MergeRequestsController do
         it 'sets the MR to merge when the build succeeds' do
           service = double(:merge_when_build_succeeds_service)
 
-          expect(MergeRequests::MergeWhenBuildSucceedsService).to receive(:new).with(project, anything, anything).and_return(service)
+          expect(MergeRequests::MergeWhenPipelineSucceedsService)
+            .to receive(:new).with(project, anything, anything)
+            .and_return(service)
           expect(service).to receive(:execute).with(merge_request)
 
           merge_when_build_succeeds
@@ -645,10 +647,6 @@ describe Projects::MergeRequestsController do
         expect(JSON.parse(response.body)).to have_key('html')
       end
     end
-  end
-
-  describe 'GET builds' do
-    it_behaves_like "loads labels", :builds
   end
 
   describe 'GET pipelines' do

@@ -1,8 +1,8 @@
 .page-content-header
   .header-main-content
-    = ci_status_with_icon(@pipeline.status)
+    = render 'ci/status/badge', status: @pipeline.detailed_status(current_user)
     %strong 管道 ##{@commit.pipelines.last.id}
-    触发于 #{time_ago_with_tooltip(@commit.authored_date)} ，作者
+    触发于 #{time_ago_with_tooltip(@commit.authored_date)} by
     = author_avatar(@commit, size: 24)
     = commit_author_link(@commit)
   .header-action-buttons
@@ -10,7 +10,7 @@
       - if @pipeline.builds.latest.failed.any?(&:retryable?)
         = link_to "重试失败", retry_namespace_project_pipeline_path(@pipeline.project.namespace, @pipeline.project, @pipeline.id), class: 'btn btn-inverted-secondary', method: :post
       - if @pipeline.builds.running_or_pending.any?
-        = link_to "取消运行", cancel_namespace_project_pipeline_path(@pipeline.project.namespace, @pipeline.project, @pipeline.id), data: { confirm: '您确定继续吗？' }, class: 'btn btn-danger', method: :post
+        = link_to "取消运行", cancel_namespace_project_pipeline_path(@pipeline.project.namespace, @pipeline.project, @pipeline.id), data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', method: :post
 
 - if @commit
   .commit-box

@@ -1,5 +1,9 @@
-- page_title "不存在"
-%h1 404
-%h3 要找的资源不存在。
-%hr
-%p 可能弄错了地址或页面被删除。
+- content_for(:title, '不存在')
+%img{:alt => "GitLab Logo",
+     :src => image_path('logo.svg')}
+  %h1
+    404
+.container
+  %h3 要找的资源不存在。
+  %hr
+  %p 可能弄错了地址或页面被删除。

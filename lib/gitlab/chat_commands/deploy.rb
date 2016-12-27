@@ -4,7 +4,7 @@ module Gitlab
       include Gitlab::Routing.url_helpers
 
       def self.match(text)
-        /\Adeploy\s+(?<from>.*)\s+to+\s+(?<to>.*)\z/.match(text)
+        /\Adeploy\s+(?<from>\S+.*)\s+to+\s+(?<to>\S+.*)\z/.match(text)
       end
 
       def self.help_message
@@ -49,8 +49,9 @@ module Gitlab
       end
 
       def url(subject)
-        polymorphic_url(
-          [ subject.project.namespace.becomes(Namespace), subject.project, subject ])
+        project = subject.project
+
+        namespace_project_build_url(project.namespace.becomes(Namespace), project, subject)
       end
     end
   end

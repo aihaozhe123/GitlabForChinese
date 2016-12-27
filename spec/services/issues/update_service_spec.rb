@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe Issues::UpdateService, services: true do
+  include EmailHelpers
+
   let(:user) { create(:user) }
   let(:user2) { create(:user) }
   let(:user3) { create(:user) }
@@ -373,6 +375,11 @@ describe Issues::UpdateService, services: true do
     context 'updating mentions' do
       let(:mentionable) { issue }
       include_examples 'updating mentions', Issues::UpdateService
+    end
+
+    include_examples 'issuable update service' do
+      let(:open_issuable) { issue }
+      let(:closed_issuable) { create(:closed_issue, project: project) }
     end
   end
 end

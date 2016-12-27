@@ -111,16 +111,16 @@
           %span.label.label-primary
             = tag
 
-    - if @build.pipeline.stages.many?
+    - if @build.pipeline.stages_count > 1
       .dropdown.build-dropdown
         .title 阶段
         %button.dropdown-menu-toggle{type: 'button', 'data-toggle' => 'dropdown'}
           %span.stage-selection 更多
-          = icon('caret-down')
+          = icon('chevron-down')
         %ul.dropdown-menu
           - @build.pipeline.stages.each do |stage|
             %li
-              %a.stage-item= stage
+              %a.stage-item= stage.name
 
   .builds-container
     - HasStatus::ORDERED_STATUSES.each do |build_status|

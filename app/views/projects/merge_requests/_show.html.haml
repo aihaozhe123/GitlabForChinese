@@ -1,3 +1,4 @@
+- @content_class = "limit-container-width"
 - page_title           "#{@merge_request.title} (#{@merge_request.to_reference})", "合并请求"
 - page_description     @merge_request.description
 - page_card_attributes @merge_request.card_attributes
@@ -31,7 +32,7 @@
         %span.label-branch= source_branch_with_namespace(@merge_request)
         %span 到
         %span.label-branch
-          = link_to @merge_request.target_branch, namespace_project_commits_path(@project.namespace, @project, @merge_request.target_branch)
+          = link_to_if @merge_request.target_branch_exists?, @merge_request.target_branch, namespace_project_commits_path(@project.namespace, @project, @merge_request.target_branch)
         - if @merge_request.open? && @merge_request.diverged_from_target_branch?
           %span 落后#{@merge_request.diverged_commits_count}次提交
 
@@ -41,7 +42,7 @@
     = render "projects/merge_requests/widget/show.html.haml"
 
     - if @merge_request.source_branch_exists? && @merge_request.mergeable? && @merge_request.can_be_merged_by?(current_user)
-      .light.prepend-top-default.append-bottom-default
+      .merge-manually.light.prepend-top-default.append-bottom-default
         也可以使用
         = succeed '手工接受此合并请求。' do
           = link_to "命令行", "#modal_merge_info", class: "how_to_merge_link vlink", title: "如何合并", "data-toggle" => "modal"
@@ -64,11 +65,6 @@
                 = link_to pipelines_namespace_project_merge_request_path(@project.namespace, @project, @merge_request), data: { target: '#pipelines', action: 'pipelines', toggle: 'tab' } do
                   管道
                   %span.badge= @pipelines.size
-            - if @pipeline.present?
-              %li.builds-tab
-                = link_to builds_namespace_project_merge_request_path(@project.namespace, @project, @merge_request), data: { target: '#builds', action: 'builds', toggle: 'tab' } do
-                  构建
-                  %span.badge= @statuses_count
             %li.diffs-tab
               = link_to diffs_namespace_project_merge_request_path(@project.namespace, @project, @merge_request), data: { target: 'div#diffs', action: 'diffs', toggle: 'tab' } do
                 变更
@@ -96,8 +92,6 @@
                 = render "projects/merge_requests/discussion"
 
         #commits.commits.tab-pane
-          - # This tab is always loaded via AJAX
-        #builds.builds.tab-pane
           - # This tab is always loaded via AJAX
         #pipelines.pipelines.tab-pane
           - # This tab is always loaded via AJAX

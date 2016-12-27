@@ -31,7 +31,7 @@
                     &nbsp;
                   .light
                     = commit_author_link(commit, avatar: false)
-                    作者
+                    提交于
                     #{time_ago_with_tooltip(commit.committed_date)}
               %td.line-numbers
                 - line_count = blame_group[:lines].count

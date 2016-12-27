@@ -35,7 +35,7 @@ module Commits
         success
       else
         error_msg = "Sorry, we cannot #{action.to_s.dasherize} this #{@commit.change_type_title(current_user)} automatically.
-                     It may have already been #{action.to_s.dasherize}, or a more recent commit may have updated some of its content."
+                     A #{action.to_s.dasherize} may have already been performed with this #{@commit.change_type_title(current_user)}, or a more recent commit may have updated some of its content."
         raise ChangeError, error_msg
       end
     end
@@ -44,7 +44,7 @@ module Commits
       allowed = ::Gitlab::UserAccess.new(current_user, project: project).can_push_to_branch?(@target_branch)
 
       unless allowed
-        raise ValidationError.new('您不允许推送到此分支')
+        raise ValidationError.new('不允许您推送到此分支')
       end
 
       true
@@ -58,7 +58,7 @@ module Commits
                                   .execute(new_branch, @target_branch, source_project: @source_project)
 
       if result[:status] == :error
-        raise ChangeError, "There was an error creating the source branch: #{result[:message]}"
+        raise ChangeError, "创建源分支时出错： #{result[:message]}"
       end
     end
   end

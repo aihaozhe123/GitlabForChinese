@@ -1,4 +1,7 @@
-/* eslint-disable */
+/* eslint-disable comma-dangle, space-before-function-paren, max-len, no-plusplus */
+/* global Vue */
+/* global Sortable */
+
 //= require ./board_card
 //= require ./board_new_issue
 
@@ -80,6 +83,7 @@
     },
     mounted () {
       const options = gl.issueBoards.getBoardSortableDefaultOptions({
+        scroll: document.querySelectorAll('.boards-list')[0],
         group: 'issues',
         sort: false,
         disabled: this.disabled,

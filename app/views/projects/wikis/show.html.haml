@@ -1,15 +1,19 @@
 - @no_container = true
-- page_title @page.title.capitalize, "维基"
-= render 'nav'
+- page_title @page.title.capitalize, "Wiki"
 
 %div{ class: container_class }
-  .top-area
+  .wiki-page-header.has-sidebar-toggle
+    %button.btn.btn-default.sidebar-toggle.js-sidebar-wiki-toggle{ role: "button", type: "button" }
+      = icon('angle-double-left')
+
     .nav-text
-      %strong= @page.title.capitalize
+      %h2.wiki-page-title= @page.title.capitalize
 
       %span.wiki-last-edit-by
-        &middot;
-        #{@page.commit.author.name} #{time_ago_with_tooltip(@page.commit.authored_date)}最后编辑
+        最后修改人
+        %strong
+          #{@page.commit.author.name}
+        于#{time_ago_with_tooltip(@page.commit.authored_date)}
 
     .nav-controls
       = render 'main_links'
@@ -19,8 +23,9 @@
       这是本页面的旧版本。
       您可以查看 #{link_to "最近修改版本", namespace_project_wiki_path(@project.namespace, @project, @page)} or browse the #{link_to "历史记录", namespace_project_wiki_history_path(@project.namespace, @project, @page)}。
 
-
   .wiki-holder.prepend-top-default.append-bottom-default
     .wiki
       = preserve do
         = render_wiki_content(@page)
+
+= render 'sidebar'

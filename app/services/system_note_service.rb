@@ -131,14 +131,14 @@ module SystemNoteService
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
-  # Called when 'merge when build succeeds' is executed
+  # Called when 'merge when pipeline succeeds' is executed
   def merge_when_build_succeeds(noteable, project, author, last_commit)
     body = "当 #{last_commit.to_reference(project)} 的构建成功时启用自动合并"
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
-  # Called when 'merge when build succeeds' is canceled
+  # Called when 'merge when pipeline succeeds' is canceled
   def cancel_merge_when_build_succeeds(noteable, project, author)
     body = '取消自动合并'
 
@@ -161,6 +161,14 @@ module SystemNoteService
     body = "解决了所有讨论"
 
     create_note(noteable: merge_request, project: project, author: author, note: body)
+  end
+
+  def discussion_continued_in_issue(discussion, project, author, issue)
+    body = "添加 #{issue.to_reference} 继续此讨论"
+    note_attributes = discussion.reply_attributes.merge(project: project, author: author, note: body)
+    note_attributes[:type] = note_attributes.delete(:note_type)
+
+    create_note(note_attributes)
   end
 
   # Called when the title of a Noteable is changed

@@ -34,7 +34,7 @@ describe MergeRequests::MergeService, services: true do
 
       it 'creates system note about merge_request merge' do
         note = merge_request.notes.last
-        expect(note.note).to include '已合并'
+        expect(note.note).to include 'merged'
       end
     end
 

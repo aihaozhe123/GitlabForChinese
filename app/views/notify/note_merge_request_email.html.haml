@@ -1,7 +1,2 @@
-- if @note.diff_note? && @note.diff_file
-  %p.details
-    差异评论
-    = link_to @note.diff_file.file_path, @target_url
-    \:
-
-= render 'note_message'
+%p.details
+  = render 'note_mr_or_commit_email'

@@ -139,6 +139,22 @@ describe Repository, models: true do
     it { is_expected.to eq('c1acaa58bbcbc3eafe538cb8274ba387047b69f8') }
   end
 
+  describe '#last_commit_id_for_path' do
+    subject { repository.last_commit_id_for_path(sample_commit.id, '.gitignore') }
+
+    it "returns last commit id for a given path" do
+      is_expected.to eq('c1acaa58bbcbc3eafe538cb8274ba387047b69f8')
+    end
+
+    it "caches last commit id for a given path" do
+      cache = repository.send(:cache)
+      key = "last_commit_id_for_path:#{sample_commit.id}:#{Digest::SHA1.hexdigest('.gitignore')}"
+
+      expect(cache).to receive(:fetch).with(key).and_return('c1acaa5')
+      is_expected.to eq('c1acaa5')
+    end
+  end
+
   describe '#find_commits_by_message' do
     it 'returns commits with messages containing a given string' do
       commit_ids = repository.find_commits_by_message('submodule').map(&:id)
@@ -1176,7 +1192,7 @@ describe Repository, models: true do
   end
 
   describe '#after_create_branch' do
-    it 'flushes the visible content cache' do
+    it 'expires the branch caches' do
       expect(repository).to receive(:expire_branches_cache)
 
       repository.after_create_branch
@@ -1184,7 +1200,7 @@ describe Repository, models: true do
   end
 
   describe '#after_remove_branch' do
-    it 'flushes the visible content cache' do
+    it 'expires the branch caches' do
       expect(repository).to receive(:expire_branches_cache)
 
       repository.after_remove_branch

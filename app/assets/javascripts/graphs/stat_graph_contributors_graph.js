@@ -1,4 +1,6 @@
-/* eslint-disable func-names, space-before-function-paren, one-var, no-var, space-before-blocks, prefer-rest-params, max-len, no-restricted-syntax, vars-on-top, no-use-before-define, no-param-reassign, new-cap, no-underscore-dangle, wrap-iife, comma-dangle, no-return-assign, prefer-arrow-callback, quotes, prefer-template, padded-blocks, no-undef, newline-per-chained-call, no-else-return, max-len */
+/* eslint-disable func-names, space-before-function-paren, one-var, no-var, space-before-blocks, prefer-rest-params, max-len, no-restricted-syntax, vars-on-top, no-use-before-define, no-param-reassign, new-cap, no-underscore-dangle, wrap-iife, comma-dangle, no-return-assign, prefer-arrow-callback, quotes, prefer-template, padded-blocks, newline-per-chained-call, no-else-return */
+/* global d3 */
+/* global ContributorsGraph */
 
 /*= require d3 */
 
@@ -258,7 +260,7 @@
       this.set_domain();
       this.create_area(this.x, this.y);
       this.create_svg();
-      this.draw_path(this.dates);3
+      this.draw_path(this.dates);
       this.draw_x_axis();
       return this.draw_y_axis();
     };

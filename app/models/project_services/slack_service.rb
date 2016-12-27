@@ -1,25 +1,10 @@
-class SlackService < Service
-  prop_accessor :webhook, :username, :channel
-  boolean_accessor :notify_only_broken_builds, :notify_only_broken_pipelines
-  validates :webhook, presence: true, url: true, if: :activated?
-
-  def initialize_properties
-    # Custom serialized properties initialization
-    self.supported_events.each { |event| self.class.prop_accessor(event_channel_name(event)) }
-
-    if properties.nil?
-      self.properties = {}
-      self.notify_only_broken_builds = true
-      self.notify_only_broken_pipelines = true
-    end
-  end
-
+class SlackService < ChatNotificationService
   def title
-    'Slack'
+    'Slack通知'
   end
 
   def description
-    '21世纪的团队沟通工具'
+    '在Slack上接收事件通知'
   end
 
   def to_param
@@ -27,148 +12,29 @@ class SlackService < Service
   end
 
   def help
-    '此服务会向您的Slack频道发送通知。<br/>要设置此服务，您需要在Slack集成面板中创建一个新的<b>“接收Webhook”</b>，然后在下面输入Web钩子 URL。'
+    '此服务会向您的Slack频道发送通知。<br />
+    设置此服务：
+    <ol>
+      <li>在Slack团队中添加一个<a href="https://slack.com/apps/A0F7XDUAZ-incoming-webhooks">传入的Webhook</a> 。可以为每个事件覆盖默认通道。</li>
+      <li>将 <strong>Webhook URL</strong> 粘贴到以下字段中。</li>
+      <li>选择以下事件以启用通知。频道和用户名是可选的。</li>
+    </ol>'
   end
 
   def fields
-    default_fields =
-      [
-        { type: 'text', name: 'webhook',   placeholder: 'https://hooks.slack.com/services/...' },
-        { type: 'text', name: 'username', placeholder: '用户名' },
-        { type: 'text', name: 'channel', placeholder: "#general" },
-        { type: 'checkbox', name: 'notify_only_broken_builds' },
-        { type: 'checkbox', name: 'notify_only_broken_pipelines' },
-      ]
-
     default_fields + build_event_channels
   end
 
-  def supported_events
-    %w[push issue confidential_issue merge_request note tag_push
-       build pipeline wiki_page]
+  def default_fields
+    [
+      { type: 'text', name: 'webhook', placeholder: 'https://hooks.slack.com/services/...' },
+      { type: 'text', name: 'username', placeholder: '用户名' },
+      { type: 'checkbox', name: 'notify_only_broken_builds' },
+      { type: 'checkbox', name: 'notify_only_broken_pipelines' },
+    ]
   end
 
-  def execute(data)
-    return unless supported_events.include?(data[:object_kind])
-    return unless webhook.present?
-
-    object_kind = data[:object_kind]
-
-    data = data.merge(
-      project_url: project_url,
-      project_name: project_name
-    )
-
-    # WebHook events often have an 'update' event that follows a 'open' or
-    # 'close' action. Ignore update events for now to prevent duplicate
-    # messages from arriving.
-
-    message = get_message(object_kind, data)
-
-    if message
-      opt = {}
-
-      event_channel = get_channel_field(object_kind) || channel
-
-      opt[:channel] = event_channel if event_channel
-      opt[:username] = username if username
-
-      notifier = Slack::Notifier.new(webhook, opt)
-      notifier.ping(message.pretext, attachments: message.attachments, fallback: message.fallback)
-
-      true
-    else
-      false
-    end
-  end
-
-  def event_channel_names
-    supported_events.map { |event| event_channel_name(event) }
-  end
-
-  def event_field(event)
-    fields.find { |field| field[:name] == event_channel_name(event) }
-  end
-
-  def global_fields
-    fields.reject { |field| field[:name].end_with?('channel') }
-  end
-
-  private
-
-  def get_message(object_kind, data)
-    case object_kind
-    when "push", "tag_push"
-      PushMessage.new(data)
-    when "issue"
-      IssueMessage.new(data) unless is_update?(data)
-    when "merge_request"
-      MergeMessage.new(data) unless is_update?(data)
-    when "note"
-      NoteMessage.new(data)
-    when "build"
-      BuildMessage.new(data) if should_build_be_notified?(data)
-    when "pipeline"
-      PipelineMessage.new(data) if should_pipeline_be_notified?(data)
-    when "wiki_page"
-      WikiPageMessage.new(data)
-    end
-  end
-
-  def get_channel_field(event)
-    field_name = event_channel_name(event)
-    self.public_send(field_name)
-  end
-
-  def build_event_channels
-    supported_events.reduce([]) do |channels, event|
-      channels << { type: 'text', name: event_channel_name(event), placeholder: "#general" }
-    end
-  end
-
-  def event_channel_name(event)
-    "#{event}_channel"
-  end
-
-  def project_name
-    project.name_with_namespace.gsub(/\s/, '')
-  end
-
-  def project_url
-    project.web_url
-  end
-
-  def is_update?(data)
-    data[:object_attributes][:action] == 'update'
-  end
-
-  def should_build_be_notified?(data)
-    case data[:commit][:status]
-    when 'success'
-      !notify_only_broken_builds?
-    when 'failed'
-      true
-    else
-      false
-    end
-  end
-
-  def should_pipeline_be_notified?(data)
-    case data[:object_attributes][:status]
-    when 'success'
-      !notify_only_broken_pipelines?
-    when 'failed'
-      true
-    else
-      false
-    end
+  def default_channel_placeholder
+    "#general"
   end
 end
-
-require "slack_service/issue_message"
-require "slack_service/push_message"
-require "slack_service/merge_message"
-require "slack_service/note_message"
-require "slack_service/build_message"
-require "slack_service/pipeline_message"
-require "slack_service/wiki_page_message"

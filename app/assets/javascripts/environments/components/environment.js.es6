@@ -18,7 +18,7 @@
    * The environments array is a recursive tree structure and we need to filter
    * both root level environments and children environments.
    *
-   * In order to acomplish that, both `filterState` and `filterEnvironmnetsByState`
+   * In order to acomplish that, both `filterState` and `filterEnvironmentsByState`
    * functions work together.
    * The first one works as the filter that verifies if the given environment matches
    * the given state.
@@ -34,9 +34,9 @@
    * @param {Array} array
    * @return {Array}
    */
-  const filterEnvironmnetsByState = (fn, arr) => arr.map((item) => {
+  const filterEnvironmentsByState = (fn, arr) => arr.map((item) => {
     if (item.children) {
-      const filteredChildren = filterEnvironmnetsByState(fn, item.children).filter(Boolean);
+      const filteredChildren = filterEnvironmentsByState(fn, item.children).filter(Boolean);
       if (filteredChildren.length) {
         item.children = filteredChildren;
         return item;
@@ -74,12 +74,15 @@
         projectStoppedEnvironmentsPath: environmentsData.projectStoppedEnvironmentsPath,
         newEnvironmentPath: environmentsData.newEnvironmentPath,
         helpPagePath: environmentsData.helpPagePath,
+        commitIconSvg: environmentsData.commitIconSvg,
+        playIconSvg: environmentsData.playIconSvg,
+        terminalIconSvg: environmentsData.terminalIconSvg,
       };
     },
 
     computed: {
       filteredEnvironments() {
-        return filterEnvironmnetsByState(filterState(this.visibility), this.state.environments);
+        return filterEnvironmentsByState(filterState(this.visibility), this.state.environments);
       },
 
       scope() {
@@ -100,7 +103,7 @@
     },
 
     /**
-     * Fetches all the environmnets and stores them.
+     * Fetches all the environments and stores them.
      * Toggles loading property.
      */
     created() {
@@ -162,8 +165,7 @@
                   {{state.availableCounter}}
                 </span>
               </a>
-            </li>
-            <li v-bind:class="{ 'active' : scope === 'stopped' }">
+            </li><li v-bind:class="{ 'active' : scope === 'stopped' }">
               <a :href="projectStoppedEnvironmentsPath">
                 停止的
                 <span class="badge js-stopped-environments-count">
@@ -181,7 +183,7 @@
 
         <div class="environments-container">
           <div class="environments-list-loading text-center" v-if="isLoading">
-            <i class="fa fa-spinner spin"></i>
+            <i class="fa fa-spinner fa-spin"></i>
           </div>
 
           <div class="blank-state blank-state-no-icon"
@@ -227,7 +229,10 @@
                     :model="model"
                     :toggleRow="toggleRow.bind(model)"
                     :can-create-deployment="canCreateDeploymentParsed"
-                    :can-read-environment="canReadEnvironmentParsed"></tr>
+                    :can-read-environment="canReadEnvironmentParsed"
+                    :play-icon-svg="playIconSvg"
+                    :terminal-icon-svg="terminalIconSvg"
+                    :commit-icon-svg="commitIconSvg"></tr>
 
                   <tr v-if="model.isOpen && model.children && model.children.length > 0"
                     is="environment-item"
@@ -235,7 +240,10 @@
                     :model="children"
                     :toggleRow="toggleRow.bind(children)"
                     :can-create-deployment="canCreateDeploymentParsed"
-                    :can-read-environment="canReadEnvironmentParsed">
+                    :can-read-environment="canReadEnvironmentParsed"
+                    :play-icon-svg="playIconSvg"
+                    :terminal-icon-svg="terminalIconSvg"
+                    :commit-icon-svg="commitIconSvg">
                     </tr>
 
                 </template>

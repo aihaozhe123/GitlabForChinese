@@ -17,5 +17,5 @@
         也在电脑软件中作为格式化文档的一部分普遍存在。
       %p
         建议
-        = link_to "增加 README", new_readme_path, class: 'underlined-link'
+        = link_to "增加 README", add_special_file_path(@project, file_name: 'README.md'), class: 'underlined-link'
         文件到版本仓库，GitLab 将会载入其内容显示在这里，以替换掉此信息。

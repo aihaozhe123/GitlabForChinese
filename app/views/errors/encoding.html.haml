@@ -1,5 +1,9 @@
-- page_title "编码错误"
-%h1 500
-%h3 编码错误
-%hr
-%p 编码发生错误无法载入页面。
+- content_for(:title, '编码错误')
+%img{:alt => "GitLab Logo",
+     :src => image_path('logo.svg')}
+  %h1
+    500
+.container
+  %h3 编码错误
+  %hr
+  %p 编码发生错误无法载入页面。

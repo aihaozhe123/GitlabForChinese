@@ -11,7 +11,7 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :action, null: false
       t.string :state, null: false, index: true
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

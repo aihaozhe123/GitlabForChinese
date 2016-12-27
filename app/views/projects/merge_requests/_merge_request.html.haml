@@ -1,4 +1,4 @@
-%li{ class: mr_css_classes(merge_request) }
+%li{ id: dom_id(merge_request), class: mr_css_classes(merge_request), data: { labels: merge_request.label_ids, id: merge_request.id } }
   - if @bulk_edit
     .issue-check
       = check_box_tag dom_id(merge_request, "selected"), nil, false, 'data-id' => merge_request.id, class: "selected_issue"
@@ -15,9 +15,9 @@
           = icon('ban')
           已关闭
 
-      - if merge_request.pipeline
+      - if merge_request.head_pipeline
         %li
-          = render_pipeline_status(merge_request.pipeline)
+          = render_pipeline_status(merge_request.head_pipeline)
 
       - if merge_request.open? && merge_request.broken?
         %li
@@ -65,6 +65,7 @@
       &nbsp;
       - merge_request.labels.each do |label|
         = link_to_label(label, subject: merge_request.project, type: :merge_request)
+        
     - if merge_request.tasks?
       &nbsp;
       %span.task-status

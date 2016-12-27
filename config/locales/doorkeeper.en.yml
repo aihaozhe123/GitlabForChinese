@@ -59,6 +59,7 @@ cn:
           unknown: "Access Token 无效。"
     scopes:
       api: Access your API
+      read_user: Read user information
 
     flash:
       applications:

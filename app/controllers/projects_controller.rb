@@ -6,7 +6,7 @@ class ProjectsController < Projects::ApplicationController
   before_action :project, except: [:index, :new, :create]
   before_action :repository, except: [:index, :new, :create]
   before_action :assign_ref_vars, only: [:show], if: :repo_exists?
-  before_action :assign_tree_vars, only: [:show], if: [:repo_exists?, :project_view_files?]
+  before_action :tree, only: [:show], if: [:repo_exists?, :project_view_files?]
 
   # Authorize
   before_action :authorize_admin_project!, only: [:edit, :update, :housekeeping, :download_export, :export, :remove_export, :generate_new_export]
@@ -125,39 +125,6 @@ class ProjectsController < Projects::ApplicationController
     redirect_to dashboard_projects_path
   rescue Projects::DestroyService::DestroyError => ex
     redirect_to edit_project_path(@project), alert: ex.message
-  end
-
-  def autocomplete_sources
-    noteable =
-      case params[:type]
-      when 'Issue'
-        IssuesFinder.new(current_user, project_id: @project.id).
-          execute.find_by(iid: params[:type_id])
-      when 'MergeRequest'
-        MergeRequestsFinder.new(current_user, project_id: @project.id).
-          execute.find_by(iid: params[:type_id])
-      when 'Commit'
-        @project.commit(params[:type_id])
-      else
-        nil
-      end
-
-    autocomplete = ::Projects::AutocompleteService.new(@project, current_user)
-    participants = ::Projects::ParticipantsService.new(@project, current_user).execute(noteable)
-
-    @suggestions = {
-      emojis: Gitlab::AwardEmoji.urls,
-      issues: autocomplete.issues,
-      milestones: autocomplete.milestones,
-      mergerequests: autocomplete.merge_requests,
-      labels: autocomplete.labels,
-      members: participants,
-      commands: autocomplete.commands(noteable, params[:type])
-    }
-
-    respond_to do |format|
-      format.json { render json: @suggestions }
-    end
   end
 
   def new_issue_address
@@ -388,12 +355,5 @@ class ProjectsController < Projects::ApplicationController
   # Override get_id from ExtractsPath in this case is just the root of the default branch.
   def get_id
     project.repository.root_ref
-  end
-
-  # ExtractsPath will set @id = project.path on the show route, but it has to be the
-  # branch name for the tree view to work correctly.
-  def assign_tree_vars
-    @id = get_id
-    tree
   end
 end

@@ -2,8 +2,9 @@
 
 .top-area
   = render 'shared/issuable/nav', type: :merge_requests
-  .nav-controls
-    = render 'shared/new_project_item_select', path: 'merge_requests/new', label: "新合并请求"
+  - if current_user
+    .nav-controls
+      = render 'shared/new_project_item_select', path: 'merge_requests/new', label: "新合并请求"
 
 = render 'shared/issuable/filter', type: :merge_requests
 

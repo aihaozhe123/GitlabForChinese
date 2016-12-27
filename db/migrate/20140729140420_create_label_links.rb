@@ -8,7 +8,7 @@ class CreateLabelLinks < ActiveRecord::Migration
       t.integer :target_id
       t.string :target_type
 
-      t.timestamps
+      t.timestamps null: true
     end
   end
 end

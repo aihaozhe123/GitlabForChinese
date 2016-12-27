@@ -1,4 +1,6 @@
-/* eslint-disable func-names, space-before-function-paren, wrap-iife, no-unused-vars, one-var, no-var, one-var-declaration-per-line, prefer-arrow-callback, no-new, no-undef, padded-blocks, max-len */
+/* eslint-disable func-names, space-before-function-paren, wrap-iife, no-unused-vars, one-var, no-var, one-var-declaration-per-line, prefer-arrow-callback, no-new, padded-blocks, max-len */
+/* global Flash */
+
 (function() {
   this.Star = (function() {
     function Star() {
@@ -13,7 +15,7 @@
             $starSpan.removeClass('starred').text('星标');
             $starIcon.removeClass('fa-star').addClass('fa-star-o');
           } else {
-            $starSpan.addClass('starred').text('取消星标');
+            $starSpan.addClass('starred').text('Unstar');
             $starIcon.removeClass('fa-star-o').addClass('fa-star');
           }
         };

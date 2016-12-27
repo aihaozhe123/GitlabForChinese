@@ -30,11 +30,6 @@ class JiraService < IssueTrackerService
     end
   end
 
-  # {PROJECT-KEY}-{NUMBER} Examples: JIRA-1, PROJECT-1
-  def reference_pattern
-    @reference_pattern ||= %r{(?<issue>\b([A-Z][A-Z0-9_]+-)\d+)}
-  end
-
   def reset_password
     # don't reset the password if a new one is provided
     if url_changed? && !password_touched?
@@ -223,7 +218,7 @@ class JiraService < IssueTrackerService
     entity_title = data[:entity][:title]
     project_name = data[:project][:name]
 
-    message      = "[#{user_name}|#{user_url}] mentioned this issue in [a #{entity_name} of #{project_name}|#{entity_url}]:\n'#{entity_title}'"
+    message      = "[#{user_name}|#{user_url}] mentioned this issue in [a #{entity_name} of #{project_name}|#{entity_url}]:\n'#{entity_title.chomp}'"
     link_title   = "GitLab: Mentioned on #{entity_name} - #{entity_title}"
     link_props   = build_remote_link_props(url: entity_url, title: link_title)
 

@@ -14,12 +14,7 @@
             = render 'projects/notes/hints'
           .clearfix
           .error-alert
-    .col-md-6
-      .form-group
-        = f.label :due_date, "到期日", class: "control-label"
-        .col-sm-10
-          = f.text_field :due_date, class: "datepicker form-control", placeholder: "选择到期日"
-          %a.inline.prepend-top-5.js-clear-due-date{ href: "#" } 清除到期日
+    = render "shared/milestones/form_dates", f: f
 
   .form-actions
     - if @milestone.new_record?

@@ -79,7 +79,7 @@ describe User, models: true do
     it { is_expected.to allow_value(0).for(:projects_limit) }
     it { is_expected.not_to allow_value(-1).for(:projects_limit) }
 
-    it { is_expected.to validate_length_of(:bio).is_within(0..255) }
+    it { is_expected.to validate_length_of(:bio).is_at_most(255) }
 
     it_behaves_like 'an object with email-formated attributes', :email do
       subject { build(:user) }
@@ -575,6 +575,23 @@ describe User, models: true do
         end
       end
     end
+
+    describe '#require_ssh_key?' do
+      protocol_and_expectation = {
+        'http' => false,
+        'ssh' => true,
+        '' => true,
+      }
+
+      protocol_and_expectation.each do |protocol, expected|
+        it "has correct require_ssh_key?" do
+          stub_application_setting(enabled_git_access_protocol: protocol)
+          user = build(:user)
+
+          expect(user.require_ssh_key?).to eq(expected)
+        end
+      end
+    end
   end
 
   describe '.find_by_any_email' do
@@ -738,6 +755,17 @@ describe User, models: true do
       expect(User.by_login(username)).to eq user
       expect(User.by_login(nil)).to be_nil
       expect(User.by_login('')).to be_nil
+    end
+  end
+
+  describe '.find_by_username' do
+    it 'returns nil if not found' do
+      expect(described_class.find_by_username('JohnDoe')).to be_nil
+    end
+
+    it 'is case-insensitive' do
+      user = create(:user, username: 'JohnDoe')
+      expect(described_class.find_by_username('JOHNDOE')).to eq user
     end
   end
 

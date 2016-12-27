@@ -1,14 +1,15 @@
 - title = local_assigns.fetch(:title, '指派标记')
 - show_create = local_assigns.fetch(:show_create, true)
 - show_footer = local_assigns.fetch(:show_footer, true)
-- filter_placeholder = local_assigns.fetch(:filter_placeholder, '搜索标记')
+- filter_placeholder = local_assigns.fetch(:filter_placeholder, '搜索')
 - show_boards_content = local_assigns.fetch(:show_boards_content, false)
 .dropdown-page-one
   = dropdown_title(title)
   - if show_boards_content
     .issue-board-dropdown-content
       %p
-        每个标记在您的问题跟踪器中可以有自己专用的列表。请在下面选择一个标签添加一个列表到您的面板，它会自动填充有该标签的问题。您可以在简单地创建一个标记。
+        从您在项目中使用的标签中创建列表。
+        该标签的问题将自动添加到列表中。
   = dropdown_filter(filter_placeholder)
   = dropdown_content
   - if @project && show_footer

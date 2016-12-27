@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe MergeRequests::UpdateService, services: true do
+  include EmailHelpers
+
   let(:project) { create(:project) }
   let(:user) { create(:user) }
   let(:user2) { create(:user) }
@@ -317,6 +319,11 @@ describe MergeRequests::UpdateService, services: true do
         issue_ids = MergeRequestsClosingIssues.where(merge_request: merge_request).pluck(:issue_id)
         expect(issue_ids).to be_empty
       end
+    end
+
+    include_examples 'issuable update service' do
+      let(:open_issuable) { merge_request }
+      let(:closed_issuable) { create(:closed_merge_request, source_project: project) }
     end
   end
 end

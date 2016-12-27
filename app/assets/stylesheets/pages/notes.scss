@@ -3,9 +3,9 @@
  */
 
 @-webkit-keyframes targe3-note {
-  from { background: #fffff0; }
-  50% { background: #ffffd3; }
-  to { background: #fffff0; }
+  from { background: $note-targe3-outside; }
+  50% { background: $note-targe3-inside; }
+  to { background: $note-targe3-outside; }
 }
 
 ul.notes {
@@ -43,7 +43,7 @@ ul.notes {
     }
 
     .system-note-message {
-      display: inline-block;
+      display: inline;
 
       &::first-letter {
         text-transform: lowercase;
@@ -55,7 +55,7 @@ ul.notes {
       }
 
       p {
-        display: inline-block;
+        display: inline;
         margin: 0;
 
         &::first-letter {
@@ -75,6 +75,8 @@ ul.notes {
         display: none;
         padding: 10px 0 0;
         cursor: pointer;
+        position: relative;
+        z-index: 2;
 
         &:hover {
           color: $gl-link-color;
@@ -88,14 +90,14 @@ ul.notes {
         }
 
         &.system-note-commit-list {
-          max-height: 63px;
+          max-height: 70px;
           overflow: hidden;
           display: block;
 
           ul {
-            margin: 3px 0 3px 15px !important;
+            margin: 3px 0 3px 16px !important;
 
-            li {
+            .gfm-commit {
               font-family: $monospace_font;
               font-size: 12px;
             }
@@ -118,11 +120,11 @@ ul.notes {
           &::after {
             content: '';
             width: 100%;
-            height: 20px;
+            height: 67px;
             position: absolute;
             left: 0;
-            bottom: 50px;
-            background: linear-gradient(rgba($gray-light, .3) 0, $white-light);
+            bottom: 0;
+            background: linear-gradient(rgba($white-light, 0.1) -100px, $white-light 100%);
           }
 
           &.hide-shade {
@@ -149,6 +151,10 @@ ul.notes {
         }
       }
     }
+
+    .note-headline-light {
+      display: inline;
+    }
   }
 
   .discussion-body {
@@ -164,7 +170,7 @@ ul.notes {
   .note {
     display: block;
     position: relative;
-    border-bottom: 1px solid $table-border-gray;
+    border-bottom: 1px solid $white-normal;
 
     &.note-discussion {
       &.timeline-entry {
@@ -251,7 +257,7 @@ ul.notes {
 }
 
 .page-sidebar-pinned.right-sidebar-expanded {
-  @media (max-width: $screen-lg-min) {
+  @media (max-width: $screen-md-max) {
     .note-header {
       .note-headline-light {
         display: block;
@@ -289,25 +295,25 @@ ul.notes {
   font-family: $regular_font;
 
   td {
-    border: 1px solid $table-border-gray;
+    border: 1px solid $white-normal;
     border-left: none;
 
     &.notes_line {
       vertical-align: middle;
       text-align: center;
       padding: 10px 0;
-      background: $background-color;
+      background: $gray-light;
       color: $text-color;
     }
 
     &.notes_line2 {
       text-align: center;
       padding: 10px 0;
-      border-left: 1px solid #ddd !important;
+      border-left: 1px solid $note-line2-border !important;
     }
 
     &.notes_content {
-      background-color: $background-color;
+      background-color: $gray-light;
       border-width: 1px 0;
       padding: 0;
       vertical-align: top;
@@ -370,7 +376,7 @@ ul.notes {
 .note-actions {
   float: right;
   margin-left: 10px;
-  color: $notes-action-color;
+  color: $gray-darkest;
 }
 
 .note-actions {
@@ -380,10 +386,6 @@ ul.notes {
 
   .note-action-button {
     margin-left: 10px;
-  }
-
-  @media (min-width: $screen-sm-min) {
-    position: relative;
   }
 }
 
@@ -409,9 +411,8 @@ ul.notes {
   }
 
   .fa {
-    color: $notes-action-color;
+    color: $gray-darkest;
     position: relative;
-    top: 1px;
     font-size: 17px;
   }
 
@@ -447,7 +448,7 @@ ul.notes {
   color: $notes-role-color;
   font-size: 12px;
   line-height: 20px;
-  border: 1px solid $notes-role-border-color;
+  border: 1px solid $border-color;
   border-radius: $border-radius-base;
 }
 
@@ -469,7 +470,7 @@ ul.notes {
   .add-diff-note {
     margin-top: -4px;
     border-radius: 40px;
-    background: #fff;
+    background: $white-light;
     padding: 4px;
     font-size: 16px;
     color: $gl-link-color;
@@ -482,7 +483,7 @@ ul.notes {
 
     &:hover {
       background: $gl-info;
-      color: #fff;
+      color: $white-light;
       @include show-add-diff-note;
     }
   }
@@ -528,7 +529,7 @@ ul.notes {
 .line-resolve-all {
   display: inline-block;
   padding: 5px 10px;
-  background-color: $background-color;
+  background-color: $gray-light;
   border: 1px solid $border-color;
   border-radius: $border-radius-default;
 
@@ -572,10 +573,10 @@ ul.notes {
 
   svg {
     position: relative;
-    color: $notes-action-color;
+    color: $gray-darkest;
 
     path {
-      fill: $notes-action-color;
+      fill: $gray-darkest;
     }
   }
 }

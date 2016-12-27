@@ -10,15 +10,17 @@
         已关闭
       - elsif @milestone.expired?
         到期日
+      - elsif @milestone.upcoming?
+        即将到来
       - else
         未关闭
     .header-text-content
       %span.identifier
         里程碑 ##{@milestone.iid}
-      - if @milestone.expires_at
+      - if @milestone.due_date || @milestone.start_date
         %span.creator
           &middot;
-          = @milestone.expires_at
+        = milestone_date_range(@milestone)
     .milestone-buttons
       - if can?(current_user, :admin_milestone, @project)
         - if @milestone.active?

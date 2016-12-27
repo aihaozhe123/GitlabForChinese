@@ -132,10 +132,6 @@ class Projects::LabelsController < Projects::ApplicationController
     @available_labels ||= LabelsFinder.new(current_user, project_id: @project.id).execute
   end
 
-  def find_labels
-    @available_labels ||= LabelsFinder.new(current_user, project_id: @project.id).execute
-  end
-
   def authorize_admin_labels!
     return render_404 unless can?(current_user, :admin_label, @project)
   end

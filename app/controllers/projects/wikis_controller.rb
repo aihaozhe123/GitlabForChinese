@@ -115,6 +115,8 @@ class Projects::WikisController < Projects::ApplicationController
 
     # Call #wiki to make sure the Wiki Repo is initialized
     @project_wiki.wiki
+
+    @sidebar_wiki_pages = @project_wiki.pages.first(15)
   rescue ProjectWiki::CouldNotCreateWikiError
     flash[:notice] = "现在不能创建维基版本仓库。请稍后重试。"
     redirect_to project_path(@project)

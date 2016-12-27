@@ -4,7 +4,7 @@
 .abuse-reports
   - if @abuse_reports.present?
     .table-holder
-      %table.table
+      %table.table.responsive-table
         %thead.hidden-sm.hidden-xs
           %tr
             %th 被举报用户
@@ -13,8 +13,6 @@
             %th 操作
         = render @abuse_reports
   - else
-    .no-reports
-      %span.pull-left
-        没有滥用举报
-      .pull-left
-        = emoji_icon 'tada'
+    .empty-state
+      .text-center
+        %h4 没有滥用举报！ #{emoji_icon 'tada'}

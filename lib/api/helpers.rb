@@ -2,8 +2,6 @@ module API
   module Helpers
     include Gitlab::Utils
 
-    PRIVATE_TOKEN_HEADER = "HTTP_PRIVATE_TOKEN"
-    PRIVATE_TOKEN_PARAM = :private_token
     SUDO_HEADER = "HTTP_SUDO"
     SUDO_PARAM = :sudo
 
@@ -27,7 +25,7 @@ module API
     end
 
     def user_project
-      @project ||= find_project(params[:id])
+      @project ||= find_project!(params[:id])
     end
 
     def available_labels
@@ -43,7 +41,15 @@ module API
     end
 
     def find_project(id)
-      project = Project.find_with_namespace(id) || Project.find_by(id: id)
+      if id =~ /^\d+$/
+        Project.find_by(id: id)
+      else
+        Project.find_with_namespace(id)
+      end
+    end
+
+    def find_project!(id)
+      project = find_project(id)
 
       if can?(current_user, :read_project, project)
         project
@@ -52,19 +58,16 @@ module API
       end
     end
 
-    def project_service(project = user_project)
-      @project_service ||= project.find_or_initialize_service(params[:service_slug].underscore)
-      @project_service || not_found!("Service")
-    end
-
-    def service_attributes
-      @service_attributes ||= project_service.fields.inject([]) do |arr, hash|
-        arr << hash[:name].to_sym
+    def find_group(id)
+      if id =~ /^\d+$/
+        Group.find_by(id: id)
+      else
+        Group.find_by_full_path(id)
       end
     end
 
-    def find_group(id)
-      group = Group.find_by(path: id) || Group.find_by(id: id)
+    def find_group!(id)
+      group = find_group(id)
 
       if can?(current_user, :read_group, group)
         group
@@ -92,6 +95,10 @@ module API
       unauthorized! unless current_user
     end
 
+    def authenticate_non_get!
+      authenticate! unless %w[GET HEAD].include?(route.route_method)
+    end
+
     def authenticate_by_gitlab_shell_token!
       input = params['secret_token'].try(:chomp)
       unless Devise.secure_compare(secret_token, input)
@@ -100,6 +107,7 @@ module API
     end
 
     def authenticated_as_admin!
+      authenticate!
       forbidden! unless current_user.is_admin?
     end
 
@@ -160,22 +168,6 @@ module API
           message = "\"" + key.to_s + "\" must be a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ"
           render_api_error!(message, 400)
         end
-      end
-    end
-
-    def issuable_order_by
-      if params["order_by"] == 'updated_at'
-        'updated_at'
-      else
-        'created_at'
-      end
-    end
-
-    def issuable_sort
-      if params["sort"] == 'asc'
-        :asc
-      else
-        :desc
       end
     end
 
@@ -259,11 +251,6 @@ module API
     # Projects helpers
 
     def filter_projects(projects)
-      # If the archived parameter is passed, limit results accordingly
-      if params[:archived].present?
-        projects = projects.where(archived: to_boolean(params[:archived]))
-      end
-
       if params[:search].present?
         projects = projects.search(params[:search])
       end
@@ -272,25 +259,8 @@ module API
         projects = projects.search_by_visibility(params[:visibility])
       end
 
-      projects.reorder(project_order_by => project_sort)
-    end
-
-    def project_order_by
-      order_fields = %w(id name path created_at updated_at last_activity_at)
-
-      if order_fields.include?(params['order_by'])
-        params['order_by']
-      else
-        'created_at'
-      end
-    end
-
-    def project_sort
-      if params["sort"] == 'asc'
-        :asc
-      else
-        :desc
-      end
+      projects = projects.where(archived: params[:archived])
+      projects.reorder(params[:order_by] => params[:sort])
     end
 
     # file helpers
@@ -336,7 +306,7 @@ module API
     private
 
     def private_token
-      params[PRIVATE_TOKEN_PARAM] || env[PRIVATE_TOKEN_HEADER]
+      params[APIGuard::PRIVATE_TOKEN_PARAM] || env[APIGuard::PRIVATE_TOKEN_HEADER]
     end
 
     def warden
@@ -351,18 +321,11 @@ module API
       warden.try(:authenticate) if %w[GET HEAD].include?(env['REQUEST_METHOD'])
     end
 
-    def find_user_by_private_token
-      token = private_token
-      return nil unless token.present?
-
-      User.find_by_authentication_token(token) || User.find_by_personal_access_token(token)
-    end
-
     def initial_current_user
       return @initial_current_user if defined?(@initial_current_user)
 
-      @initial_current_user ||= find_user_by_private_token
-      @initial_current_user ||= doorkeeper_guard
+      @initial_current_user ||= find_user_by_private_token(scopes: @scopes)
+      @initial_current_user ||= doorkeeper_guard(scopes: @scopes)
       @initial_current_user ||= find_user_from_warden
 
       unless @initial_current_user && Gitlab::UserAccess.new(@initial_current_user).allowed?

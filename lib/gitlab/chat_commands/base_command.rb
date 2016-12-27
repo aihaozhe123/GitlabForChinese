@@ -40,9 +40,11 @@ module Gitlab
       private
 
       def find_by_iid(iid)
-        resource = collection.find_by(iid: iid)
+        collection.find_by(iid: iid)
+      end
 
-        readable?(resource) ? resource : nil
+      def presenter
+        Gitlab::ChatCommands::Presenter.new
       end
     end
   end

@@ -5,23 +5,23 @@
 %div{ class: container_class }
   .top-area
     %ul.nav-links
-      %li{class: ('active' if @scope.nil?)}
+      %li{class: ('active' if @scope.nil?)}>
         = link_to project_pipelines_path(@project) do
           全部
           %span.badge.js-totalbuilds-count
             = number_with_delimiter(@pipelines_count)
 
-      %li{class: ('active' if @scope == 'running')}
+      %li{class: ('active' if @scope == 'running')}>
         = link_to project_pipelines_path(@project, scope: :running) do
           正在运行
           %span.badge.js-running-count
             = number_with_delimiter(@running_or_pending_count)
 
-      %li{class: ('active' if @scope == 'branches')}
+      %li{class: ('active' if @scope == 'branches')}>
         = link_to project_pipelines_path(@project, scope: :branches) do
           分支
 
-      %li{class: ('active' if @scope == 'tags')}
+      %li{class: ('active' if @scope == 'tags')}>
         = link_to project_pipelines_path(@project, scope: :tags) do
           标签
 
@@ -37,20 +37,19 @@
           %span CI 分析
 
   %div.content-list.pipelines
-    - stages = @pipelines.stages
     - if @pipelines.blank?
       %div
         .nothing-here-block 没有管道
     - else
       .table-holder
-        %table.table.ci-table
+        %table.table.ci-table.js-pipeline-table
           %thead
-            %th 状态
-            %th 管道
-            %th 提交
-            %th 阶段
-            %th
-            %th.hidden-xs
-          = render @pipelines, commit_sha: true, stage: true, allow_retry: true, stages: stages
+            %th.pipeline-status 状态
+            %th.pipeline-info 管道
+            %th.pipeline-commit 提交
+            %th.pipeline-stages 阶段
+            %th.pipeline-date
+            %th.pipeline-actions.hidden-xs
+          = render @pipelines, commit_sha: true, stage: true, allow_retry: true
 
       = paginate @pipelines, theme: 'gitlab'

@@ -204,12 +204,12 @@
       .col-sm-10
         = f.number_field :max_artifacts_size, class: 'form-control'
         .help-block
-          Set the maximum file size each build's artifacts can have
+          设置每个构建的工件可以有的最大文件大小
           = link_to "(?)", help_page_path("user/admin_area/settings/continuous_integration", anchor: "maximum-artifacts-size")
 
   - if Gitlab.config.registry.enabled
     %fieldset
-      %legend Container Registry
+      %legend 容器注册表
       .form-group
         = f.label :container_registry_token_expire_delay, 'Authorization token duration (minutes)', class: 'control-label col-sm-2'
         .col-sm-10
@@ -273,33 +273,33 @@
       .col-sm-10
         = f.number_field :metrics_packet_size, class: 'form-control'
         .help-block
-          The amount of points to store in a single UDP packet. More points
-          results in fewer but larger UDP packets being sent.
+          要存储在单个UDP数据包中的点数。
+          更多的点导致发送更少但更大的UDP分组。
 
   %fieldset
-    %legend Background Jobs
+    %legend 后台任务
     %p
-      These settings require a restart to take effect.
+      这些设置需要重新启动才能生效。
     .form-group
       .col-sm-offset-2.col-sm-10
         .checkbox
           = f.label :sidekiq_throttling_enabled do
             = f.check_box :sidekiq_throttling_enabled
-            Enable Sidekiq Job Throttling
+            启用 Sidekiq 作业调节
           .help-block
-            Limit the amount of resources slow running jobs are assigned.
+            限制分配缓慢运行的作业的资源量。
     .form-group
-      = f.label :sidekiq_throttling_queues, 'Sidekiq queues to throttle', class: 'control-label col-sm-2'
+      = f.label :sidekiq_throttling_queues, 'Sidekiq排队等待节流', class: 'control-label col-sm-2'
       .col-sm-10
         = f.select :sidekiq_throttling_queues, sidekiq_queue_options_for_select, { include_hidden: false }, multiple: true, class: 'select2 select-wide', data: { field: 'sidekiq_throttling_queues' }
         .help-block
-          Choose which queues you wish to throttle.
+          选择您想要扼制的队列。
     .form-group
-      = f.label :sidekiq_throttling_factor, 'Throttling Factor', class: 'control-label col-sm-2'
+      = f.label :sidekiq_throttling_factor, '调节因子', class: 'control-label col-sm-2'
       .col-sm-10
         = f.number_field :sidekiq_throttling_factor, class: 'form-control', min: '0.01', max: '0.99', step: '0.01'
         .help-block
-          The factor by which the queues should be throttled. A value between 0.0 and 1.0, exclusive.
+          限制​​队列的因素。排除介于0.0和1.0之间的值。
 
   %fieldset
     %legend Spam 与防机器人保护
@@ -438,46 +438,56 @@
             在通知电子邮件正文中包含作者姓名
           .help-block
             某些电子邮件服务器不支持覆盖电子邮件发件人名称。
-            启用此选项可将问题作者的姓名，合并请求或评论包含在电子邮件正文中。
-
+            启用此选项可将问题作者的姓名，
+            合并请求或评论包含在电子邮件正文中。
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = f.label :html_emails_enabled do
+            = f.check_box :html_emails_enabled
+            启用 HTML 邮件
+          .help-block
+            默认情况下，GitLab以HTML和纯文本格式发送电子邮件，
+            所以邮件客户端可以选择使用什么格式。
+            如果您只想以纯文本格式发送电子邮件，请禁用此选项。
   %fieldset
-    %legend Automatic Git repository housekeeping
+    %legend Git存储库自动维护
     .form-group
       .col-sm-offset-2.col-sm-10
         .checkbox
           = f.label :housekeeping_enabled do
             = f.check_box :housekeeping_enabled
-            Enable automatic repository housekeeping (git repack, git gc)
+            启用自动存储库维护(git repack, git gc)
           .help-block
-            If you keep automatic housekeeping disabled for a long time Git
-            repository access on your GitLab server will become slower and your
-            repositories will use more disk space. We recommend to always leave
-            this enabled.
+            如果您长时间禁用自动维护Git仓库，
+            会使您访问GitLab服务器变得更慢，
+            您的存储库将使用更多的磁盘空间。
+            我们建议始终保持启用状态。
         .checkbox
           = f.label :housekeeping_bitmaps_enabled do
             = f.check_box :housekeeping_bitmaps_enabled
-            Enable Git pack file bitmap creation
+            启用Git包文件位图创建
           .help-block
-            Creating pack file bitmaps makes housekeeping take a little longer but
-            bitmaps should accelerate 'git clone' performance.
+            创建包文件位图使管理需要更长时间，
+            但位图应该加速'git clone'性能。
     .form-group
-      = f.label :housekeeping_incremental_repack_period, 'Incremental repack period', class: 'control-label col-sm-2'
+      = f.label :housekeeping_incremental_repack_period, '增量重新打包周期', class: 'control-label col-sm-2'
       .col-sm-10
         = f.number_field :housekeeping_incremental_repack_period, class: 'form-control'
         .help-block
-          Number of Git pushes after which an incremental 'git repack' is run.
+          在一定的Git推送数量之后运行增量 'git repack' 。
     .form-group
-      = f.label :housekeeping_full_repack_period, 'Full repack period', class: 'control-label col-sm-2'
+      = f.label :housekeeping_full_repack_period, '完全重新打包周期', class: 'control-label col-sm-2'
       .col-sm-10
         = f.number_field :housekeeping_full_repack_period, class: 'form-control'
         .help-block
-          Number of Git pushes after which a full 'git repack' is run.
+          在一定的Git推送数量之后运行完全 'git repack' 。
     .form-group
-      = f.label :housekeeping_gc_period, 'Git GC period', class: 'control-label col-sm-2'
+      = f.label :housekeeping_gc_period, 'Git GC 周期', class: 'control-label col-sm-2'
       .col-sm-10
         = f.number_field :housekeeping_gc_period, class: 'form-control'
         .help-block
-          Number of Git pushes after which 'git gc' is run.
+          在一定的Git推送数量之后运行 'git gc' 。
 
   .form-actions
     = f.submit '保存', class: 'btn btn-save'

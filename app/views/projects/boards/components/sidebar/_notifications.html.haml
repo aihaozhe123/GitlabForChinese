@@ -1,11 +1,7 @@
 - if current_user
   .block.light.subscription{ ":data-url" => "'#{namespace_project_issues_path(@project.namespace, @project)}/' + issue.id + '/toggle_subscription'" }
-    .title
+    %span.issuable-header-text.hide-collapsed.pull-left
       通知
-    %button.btn.btn-block.btn-default.js-subscribe-button.issuable-subscribe-button.hide-collapsed{ type: "button" }
-      {{ issue.subscribed ? '取消订阅' : '订阅' }}
-    .subscription-status{ ":data-status" => "issue.subscribed ? 'subscribed' : 'unsubscribed'" }
-      .unsubscribed{ "v-show" => "!issue.subscribed" }
-        您没有收到此主题的通知。
-      .subscribed{ "v-show" => "issue.subscribed" }
-        您收到通知是因为您订阅了此主题。
+    %button.btn.btn-default.pull-right.js-subscribe-button.issuable-subscribe-button.hide-collapsed{ type: "button" }
+      %span
+        {{issue.subscribed ? '取消订阅' : '订阅'}}

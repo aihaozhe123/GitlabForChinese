@@ -451,7 +451,7 @@ describe GitPushService, services: true do
 
       context "closing an issue" do
         let(:message)         { "this is some work.\n\ncloses JIRA-1" }
-        let(:comment_body)    { { body: "Issue solved with [#{closing_commit.id}|http://localhost/#{project.path_with_namespace}/commit/#{closing_commit.id}]." }.to_json }
+        let(:comment_body)    { { body: "Issue solved with [#{closing_commit.id}|http://#{Gitlab.config.gitlab.host}/#{project.path_with_namespace}/commit/#{closing_commit.id}]." }.to_json }
 
         before do
           open_issue   = JIRA::Resource::Issue.new(jira_tracker.client, attrs: { "id" => "JIRA-1" })
@@ -601,6 +601,25 @@ describe GitPushService, services: true do
 
         service.update_caches
       end
+    end
+  end
+
+  describe '#process_commit_messages' do
+    let(:service) do
+      described_class.new(project,
+                          user,
+                          oldrev: sample_commit.parent_id,
+                          newrev: sample_commit.id,
+                          ref: 'refs/heads/master')
+    end
+
+    it 'only schedules a limited number of commits' do
+      allow(service).to receive(:push_commits).
+        and_return(Array.new(1000, double(:commit, to_hash: {})))
+
+      expect(ProcessCommitWorker).to receive(:perform_async).exactly(100).times
+
+      service.process_commit_messages
     end
   end
 

@@ -16,7 +16,7 @@
     %p
       或者可以从增加
       = succeed ',' do
-        = link_to "README", new_readme_path, class: 'underlined-link'
+        = link_to "README", add_special_file_path(@project, file_name: 'README.md'), class: 'underlined-link'
       或一个
       = succeed ',' do
         = link_to "LICENSE", add_special_file_path(@project, file_name: 'LICENSE'), class: 'underlined-link'
