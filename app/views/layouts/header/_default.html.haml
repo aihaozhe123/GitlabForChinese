@@ -3,7 +3,7 @@
   %div{ class: "container-fluid" }
     .header-content
       %button.side-nav-toggle{ type: 'button', "aria-label" => "Toggle global navigation" }
-        %span.sr-only Toggle navigation
+        %span.sr-only 切换导航条
         = icon('bars')
       %button.navbar-toggle{type: 'button'}
         %span.sr-only 切换导航条
@@ -59,7 +59,7 @@
       %h1.title= title
 
       .header-logo
-        = link_to root_path, class: 'home', title: 'Dashboard', id: 'logo' do
+        = link_to root_path, class: 'home', title: '面板', id: 'logo' do
           = brand_header_logo
 
       = yield :header_content

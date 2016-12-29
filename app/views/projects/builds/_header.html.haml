@@ -10,9 +10,9 @@
       %code
         = @build.ref
     分支的
-    = link_to namespace_project_commit_path(@project.namespace, @project, @build.pipeline.sha) do
+    = link_to ci_status_path(@build.pipeline) do
       %strong= @build.pipeline.short_sha
-    提交
+    提交，作者：
     - if @build.user
       = render "user"
     ，触发于

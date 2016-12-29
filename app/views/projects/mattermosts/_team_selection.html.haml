@@ -9,7 +9,9 @@
     = @teams.one? ? '在团队中' : '选择团队中'
     中使用斜杠命令
   - selected_id = @teams.keys.first if @teams.one?
-  = f.select(:team_id, mattermost_teams_options(@teams), {}, { class: 'form-control', selected: "#{selected_id}", disabled: @teams.one? })
+  - options = mattermost_teams_options(@teams)
+  - options = options_for_select(options, selected_id)
+  = f.select(:team_id, options, {}, { class: 'form-control', selected: "#{selected_id}" })
   .help-block
     - if @teams.one?
       这是唯一一个您是管理员的团队。
