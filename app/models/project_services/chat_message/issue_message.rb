@@ -36,9 +36,9 @@ module ChatMessage
     def message
       case state
       when "opened"
-        "[#{project_link}] Issue #{state} by #{user_name}"
+        "[#{project_link}] 问题由#{user_name}打开"
       else
-        "[#{project_link}] Issue #{issue_link} #{state} by #{user_name}"
+        "[#{project_link}] 问题#{issue_link}由#{user_name}#{state}"
       end
     end
 

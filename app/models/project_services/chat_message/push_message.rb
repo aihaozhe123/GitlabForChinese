@@ -100,7 +100,7 @@ module ChatMessage
     end
 
     def compare_link
-      "[Compare changes](#{compare_url})"
+      "[比较更改](#{compare_url})"
     end
 
     def attachment_color

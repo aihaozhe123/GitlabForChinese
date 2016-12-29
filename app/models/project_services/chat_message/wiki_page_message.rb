@@ -22,9 +22,9 @@ module ChatMessage
       @action =
         case obj_attr[:action]
         when "create"
-          "created"
+          "已创建"
         when "update"
-          "edited"
+          "已更改"
         end
     end
 
@@ -47,7 +47,7 @@ module ChatMessage
     end
 
     def wiki_page_link
-      "[wiki page](#{wiki_page_url})"
+      "[维基页面](#{wiki_page_url})"
     end
   end
 end

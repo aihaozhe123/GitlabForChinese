@@ -50,7 +50,7 @@ module ChatMessage
     end
 
     def merge_request_link
-      "[merge request !#{merge_request_id}](#{merge_request_url})"
+      "[合并请求 !#{merge_request_id}](#{merge_request_url})"
     end
 
     def merge_request_url

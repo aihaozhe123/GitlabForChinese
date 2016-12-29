@@ -31,7 +31,7 @@ module ChatMessage
     private
 
     def message
-      "#{project_link}: Pipeline #{pipeline_link} of #{branch_link} #{ref_type} by #{user_name} #{humanized_status} in #{duration} #{'second'.pluralize(duration)}"
+      "#{project_link}: 管道 #{pipeline_link} of #{branch_link} #{ref_type} by #{user_name} #{humanized_status} in #{duration} #{'second'.pluralize(duration)}"
     end
 
     def format(string)
@@ -41,7 +41,7 @@ module ChatMessage
     def humanized_status
       case status
       when 'success'
-        'passed'
+        '通过'
       else
         status
       end

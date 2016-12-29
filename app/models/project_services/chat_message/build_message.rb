@@ -45,7 +45,7 @@ module ChatMessage
     def humanized_status
       case status
       when 'success'
-        'passed'
+        '通过'
       else
         status
       end

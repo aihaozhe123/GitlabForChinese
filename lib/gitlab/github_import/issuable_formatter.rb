@@ -16,7 +16,7 @@ module Gitlab
       private
 
       def state
-        raw_data.state == 'closed' ? 'closed' : 'opened'
+        raw_data.state == 'closed' ? '已关闭' : '未关闭'
       end
 
       def assigned?
