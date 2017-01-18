@@ -629,7 +629,7 @@ class MergeRequest < ActiveRecord::Base
     end
 
     message = [
-      "合并分支 '#{source_branch}' 到 '#{target_branch}'",
+      "合并分支 #{source_branch} 到 #{target_branch}",
       title
     ]
 
