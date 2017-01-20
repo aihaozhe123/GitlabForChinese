@@ -226,7 +226,7 @@ module SystemNoteService
   #
   # Returns the created Note object
   def change_branch(noteable, project, author, branch_type, old_branch, new_branch)
-    body = "#{branch_type} 分支从 `#{old_branch}` 变为 `#{new_branch}`".capitalize
+    body = "#{branch_type} 分支从 #{old_branch} 变更为 #{new_branch}".capitalize
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
@@ -252,7 +252,7 @@ module SystemNoteService
         '删除'
       end
 
-    body = "#{verb} #{branch_type} 分支 `#{branch}`"
+    body = "#{verb} #{branch_type} 分支 #{branch}"
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
@@ -263,7 +263,7 @@ module SystemNoteService
   def new_issue_branch(issue, project, author, branch)
     link = url_helpers.namespace_project_compare_url(project.namespace, project, from: project.default_branch, to: branch)
 
-    body = "已创建分支 [`#{branch}`](#{link})"
+    body = "已创建分支 [#{branch}](#{link})"
     create_note(noteable: issue, project: project, author: author, note: body)
   end
 
@@ -399,7 +399,7 @@ module SystemNoteService
   # Returns the created Note object
   def noteable_moved(noteable, project, noteable_ref, author, direction:)
     unless [:to, :from].include?(direction)
-      raise ArgumentError, "方向无效 `#{direction}`"
+      raise ArgumentError, "方向无效 #{direction}"
     end
 
     cross_reference = noteable_ref.to_reference(project)
@@ -468,7 +468,7 @@ module SystemNoteService
     branch = noteable.target_branch
     branch = "#{noteable.target_project_namespace}:#{branch}" if noteable.for_fork?
 
-    "* #{commit_ids} - #{commits_text} 从分支 `#{branch}`\n"
+    "* #{commit_ids} - #{commits_text} 从分支 #{branch}\n"
   end
 
   def escape_html(text)
