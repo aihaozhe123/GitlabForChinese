@@ -6,8 +6,7 @@ feature 'Contributions Calendar', js: true, feature: true do
   let(:contributed_project) { create(:project, :public) }
 
   # Ex/ Sunday Jan 1, 2016
-  date_format = '%Y-%m-%d '
-  dayOfWeek = [ "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" ]
+  date_format = '%A %b %-d, %Y'
 
   issue_title = 'Bug in old browser'
   issue_params = { title: issue_title }
@@ -120,7 +119,7 @@ feature 'Contributions Calendar', js: true, feature: true do
     end
 
     it 'displays calendar activity square on the correct date', js: true do
-      today = Date.today.strftime(date_format)<< dayOfWeek[t.strftime("%w").to_i]
+      today = Date.today.strftime(date_format)
       expect(page).to have_selector(get_cell_date_selector(1, today), count: 1)
     end
   end
@@ -140,7 +139,7 @@ feature 'Contributions Calendar', js: true, feature: true do
     end
 
     it 'displays calendar activity square on the correct date', js: true do
-      today = Date.today.strftime(date_format)<< dayOfWeek[t.strftime("%w").to_i]
+      today = Date.today.strftime(date_format)
       expect(page).to have_selector(get_cell_date_selector(10, today), count: 1)
     end
   end
@@ -162,12 +161,12 @@ feature 'Contributions Calendar', js: true, feature: true do
     end
 
     it 'displays calendar activity square for yesterday', js: true do
-      yesterday = Date.yesterday.strftime(date_format)<< dayOfWeek[t.strftime("%w").to_i]
+      yesterday = Date.yesterday.strftime(date_format)
       expect(page).to have_selector(get_cell_date_selector(1, yesterday), count: 1)
     end
 
     it 'displays calendar activity square for today', js: true do
-      today = Date.today.strftime(date_format)<< dayOfWeek[t.strftime("%w").to_i]
+      today = Date.today.strftime(date_format)
       expect(page).to have_selector(get_cell_date_selector(1, today), count: 1)
     end
   end

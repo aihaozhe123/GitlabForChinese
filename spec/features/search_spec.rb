@@ -166,7 +166,7 @@ describe "Search", feature: true  do
         end
 
         it 'takes user to her issues page when issues assigned is clicked' do
-          find('.dropdown-menu').click_link '指派给我的问题'
+          find('.dropdown-menu').click_link 'Issues assigned to me'
           sleep 2
 
           expect(page).to have_selector('.filtered-search')
@@ -174,7 +174,7 @@ describe "Search", feature: true  do
         end
 
         it 'takes user to her issues page when issues authored is clicked' do
-          find('.dropdown-menu').click_link "我创建的问题"
+          find('.dropdown-menu').click_link "Issues I've created"
           sleep 2
 
           expect(page).to have_selector('.filtered-search')
@@ -182,7 +182,7 @@ describe "Search", feature: true  do
         end
 
         it 'takes user to her MR page when MR assigned is clicked' do
-          find('.dropdown-menu').click_link '指派给我的合并请求'
+          find('.dropdown-menu').click_link 'Merge requests assigned to me'
           sleep 2
 
           expect(page).to have_selector('.merge-requests-holder')
@@ -190,7 +190,7 @@ describe "Search", feature: true  do
         end
 
         it 'takes user to her MR page when MR authored is clicked' do
-          find('.dropdown-menu').click_link "我创建合并请求"
+          find('.dropdown-menu').click_link "Merge requests I've created"
           sleep 2
 
           expect(page).to have_selector('.merge-requests-holder')

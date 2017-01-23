@@ -67,7 +67,7 @@
       });
 
       it('autosizes after comment submission', function() {
-        $(textarea).text('这是一个示例注释');
+        $(textarea).text('This is an example comment note');
         expect(this.autoSizeSpy).not.toHaveBeenTriggered();
 
         $('.js-comment-button').click();

@@ -373,7 +373,7 @@ describe GitPushService, services: true do
       end
 
       it "adds a note indicating that the issue is now closed" do
-        expect(SystemNoteService).to receive(:change_status).with(issue, project, commit_author, "关闭", closing_commit)
+        expect(SystemNoteService).to receive(:change_status).with(issue, project, commit_author, "closed", closing_commit)
         execute_service(project, commit_author, @oldrev, @newrev, @ref )
       end
 

@@ -28,7 +28,7 @@ feature 'Builds', :feature do
       end
 
       it "shows Pending tab builds" do
-        expect(page).to have_link '取消运行'
+        expect(page).to have_link 'Cancel running'
         expect(page).to have_selector('.nav-links li.active', text: 'Pending')
         expect(page).to have_content build.short_sha
         expect(page).to have_content build.ref
@@ -44,7 +44,7 @@ feature 'Builds', :feature do
 
       it "shows Running tab builds" do
         expect(page).to have_selector('.nav-links li.active', text: 'Running')
-        expect(page).to have_link '取消运行'
+        expect(page).to have_link 'Cancel running'
         expect(page).to have_content build.short_sha
         expect(page).to have_content build.ref
         expect(page).to have_content build.name
@@ -58,9 +58,9 @@ feature 'Builds', :feature do
       end
 
       it "shows Finished tab builds" do
-        expect(page).to have_selector('.nav-links li.active', text: '完成')
-        expect(page).to have_content '没有构建显示'
-        expect(page).to have_link '取消运行'
+        expect(page).to have_selector('.nav-links li.active', text: 'Finished')
+        expect(page).to have_content 'No builds to show'
+        expect(page).to have_link 'Cancel running'
       end
     end
 
@@ -75,7 +75,7 @@ feature 'Builds', :feature do
         expect(page).to have_content build.short_sha
         expect(page).to have_content build.ref
         expect(page).to have_content build.name
-        expect(page).not_to have_link '取消运行'
+        expect(page).not_to have_link 'Cancel running'
       end
     end
   end
@@ -84,16 +84,16 @@ feature 'Builds', :feature do
     before do
       build.run!
       visit namespace_project_builds_path(project.namespace, project)
-      click_link "取消运行"
+      click_link "Cancel running"
     end
 
     it 'shows all necessary content' do
       expect(page).to have_selector('.nav-links li.active', text: 'All')
-      expect(page).to have_content '取消'
+      expect(page).to have_content 'canceled'
       expect(page).to have_content build.short_sha
       expect(page).to have_content build.ref
       expect(page).to have_content build.name
-      expect(page).not_to have_link '取消运行'
+      expect(page).not_to have_link 'Cancel running'
     end
   end
 
@@ -126,7 +126,7 @@ feature 'Builds', :feature do
       end
 
       it 'has button to download artifacts' do
-        expect(page).to have_content '下载'
+        expect(page).to have_content 'Download'
       end
     end
 
@@ -142,7 +142,7 @@ feature 'Builds', :feature do
         let(:expire_at) { nil }
 
         it 'does not have the Keep button' do
-          expect(page).not_to have_content '保持'
+          expect(page).not_to have_content 'Keep'
         end
       end
 
@@ -151,12 +151,12 @@ feature 'Builds', :feature do
 
         context 'when user has ability to update build' do
           it 'keeps artifacts when keep button is clicked' do
-            expect(page).to have_content '附件将被删除'
+            expect(page).to have_content 'The artifacts will be removed'
 
-            click_link '保持'
+            click_link 'Keep'
 
-            expect(page).to have_no_link '保持'
-            expect(page).to have_no_content '附件将被删除'
+            expect(page).to have_no_link 'Keep'
+            expect(page).to have_no_content 'The artifacts will be removed'
           end
         end
 
@@ -164,7 +164,7 @@ feature 'Builds', :feature do
           let(:user_access_level) { :guest }
 
           it 'does not have keep button' do
-            expect(page).to have_no_link '保持'
+            expect(page).to have_no_link 'Keep'
           end
         end
       end
@@ -173,8 +173,8 @@ feature 'Builds', :feature do
         let(:expire_at) { Time.now - 7.days }
 
         it 'does not have the Keep button' do
-          expect(page).to have_content '附件将被删除'
-          expect(page).not_to have_link '保持'
+          expect(page).to have_content 'The artifacts were removed'
+          expect(page).not_to have_link 'Keep'
         end
       end
     end
@@ -186,7 +186,7 @@ feature 'Builds', :feature do
       end
 
       it do
-        expect(page).to have_link '原始'
+        expect(page).to have_link 'Raw'
       end
     end
 
@@ -234,7 +234,7 @@ feature 'Builds', :feature do
         expect(page).not_to have_css('.js-build-variable')
         expect(page).not_to have_css('.js-build-value')
 
-        click_button '显示变量'
+        click_button 'Reveal Variables'
 
         expect(page).not_to have_css('.reveal-variables')
         expect(page).to have_selector('.js-build-variable', text: 'TRIGGER_KEY_1')
@@ -285,7 +285,7 @@ feature 'Builds', :feature do
       before do
         build.run!
         visit namespace_project_build_path(project.namespace, project, build)
-        click_link "取消"
+        click_link "Cancel"
       end
 
       it 'loads the page and shows all needed controls' do
@@ -311,17 +311,17 @@ feature 'Builds', :feature do
       before do
         build.run!
         visit namespace_project_build_path(project.namespace, project, build)
-        click_link '取消'
+        click_link 'Cancel'
         page.within('.build-header') do
-          click_link '重试构建'
+          click_link 'Retry build'
         end
       end
 
       it 'shows the right status and buttons' do
         expect(page).to have_http_status(200)
-        expect(page).to have_content '待定'
+        expect(page).to have_content 'pending'
         page.within('aside.right-sidebar') do
-          expect(page).to have_content '取消'
+          expect(page).to have_content 'Cancel'
         end
       end
     end
@@ -330,7 +330,7 @@ feature 'Builds', :feature do
       before do
         build.run!
         visit namespace_project_build_path(project.namespace, project, build)
-        click_link '取消'
+        click_link 'Cancel'
         page.driver.post(retry_namespace_project_build_path(project.namespace, project, build2))
       end
 
@@ -350,7 +350,7 @@ feature 'Builds', :feature do
 
       it 'does not show the Retry button' do
         page.within('aside.right-sidebar') do
-          expect(page).not_to have_content '重试'
+          expect(page).not_to have_content 'Retry'
         end
       end
     end
@@ -360,7 +360,7 @@ feature 'Builds', :feature do
     before do
       build.update_attributes(artifacts_file: artifacts_file)
       visit namespace_project_build_path(project.namespace, project, build)
-      click_link '下载'
+      click_link 'Download'
     end
 
     context "Build from other project" do
@@ -380,7 +380,7 @@ feature 'Builds', :feature do
           Capybara.current_session.driver.header('X-Sendfile-Type', 'X-Sendfile')
           build.run!
           visit namespace_project_build_path(project.namespace, project, build)
-          page.within('.js-build-sidebar') { click_link '原始' }
+          page.within('.js-build-sidebar') { click_link 'Raw' }
         end
 
         it 'sends the right headers' do
@@ -422,7 +422,7 @@ feature 'Builds', :feature do
           allow_any_instance_of(Ci::Build).to receive(:path_to_trace).and_return(existing_file)
           allow_any_instance_of(Ci::Build).to receive(:old_path_to_trace).and_return(non_existing_file)
 
-          page.within('.js-build-sidebar') { click_link '原始' }
+          page.within('.js-build-sidebar') { click_link 'Raw' }
         end
 
         it 'sends the right headers' do
@@ -442,7 +442,7 @@ feature 'Builds', :feature do
           allow_any_instance_of(Ci::Build).to receive(:path_to_trace).and_return(non_existing_file)
           allow_any_instance_of(Ci::Build).to receive(:old_path_to_trace).and_return(existing_file)
 
-          page.within('.js-build-sidebar') { click_link '原始' }
+          page.within('.js-build-sidebar') { click_link 'Raw' }
         end
 
         it 'sends the right headers' do
@@ -462,7 +462,7 @@ feature 'Builds', :feature do
           allow_any_instance_of(Ci::Build).to receive(:path_to_trace).and_return(non_existing_file)
           allow_any_instance_of(Ci::Build).to receive(:old_path_to_trace).and_return(non_existing_file)
 
-          page.within('.js-build-sidebar') { click_link '原始' }
+          page.within('.js-build-sidebar') { click_link 'Raw' }
         end
 
         it 'sends the right headers' do

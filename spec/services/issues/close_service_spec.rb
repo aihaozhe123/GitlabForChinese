@@ -62,7 +62,7 @@ describe Issues::CloseService, services: true do
 
       it 'creates system note about issue reassign' do
         note = issue.notes.last
-        expect(note.note).to include "已关闭"
+        expect(note.note).to include "closed"
       end
 
       it 'marks todos as done' do
