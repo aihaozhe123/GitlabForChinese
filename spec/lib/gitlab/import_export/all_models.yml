@@ -15,6 +15,7 @@ issues:
 - events
 - merge_requests_closing_issues
 - metrics
+- timelogs
 events:
 - author
 - project
@@ -77,6 +78,7 @@ merge_requests:
 - events
 - merge_requests_closing_issues
 - metrics
+- timelogs
 merge_request_diff:
 - merge_request
 pipelines:
@@ -192,8 +194,12 @@ project:
 - authorized_users
 - project_authorizations
 - route
+- statistics
 award_emoji:
 - awardable
 - user
 priorities:
 - label
+timelogs:
+- trackable
+- user

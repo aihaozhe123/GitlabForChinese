@@ -4,6 +4,8 @@ class Key < ActiveRecord::Base
   include AfterCommitQueue
   include Sortable
 
+  LAST_USED_AT_REFRESH_TIME = 1.day.to_i
+
   belongs_to :user
 
   before_validation :generate_fingerprint
@@ -49,16 +51,19 @@ class Key < ActiveRecord::Base
     "key-#{id}"
   end
 
+  def update_last_used_at
+    lease = Gitlab::ExclusiveLease.new("key_update_last_used_at:#{id}", timeout: LAST_USED_AT_REFRESH_TIME)
+    return unless lease.try_obtain
+
+    UseKeyWorker.perform_async(id)
+  end
+
   def add_to_shell
     GitlabShellWorker.perform_async(
       :add_key,
       shell_id,
       key
     )
-  end
-
-  def notify_user
-    run_after_commit { NotificationService.new.new_key(self) }
   end
 
   def post_create_hook
@@ -85,5 +90,9 @@ class Key < ActiveRecord::Base
     return unless self.key.present?
 
     self.fingerprint = Gitlab::KeyFingerprint.new(self.key).fingerprint
+  end
+
+  def notify_user
+    run_after_commit { NotificationService.new.new_key(self) }
   end
 end

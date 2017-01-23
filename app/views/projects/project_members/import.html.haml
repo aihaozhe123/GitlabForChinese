@@ -12,5 +12,4 @@
 
   .form-actions
     = button_tag '导入项目成员', class: "btn btn-create"
-    = link_to "取消", namespace_project_project_members_path(@project.namespace, @project), class: "btn btn-cancel"
-
+    = link_to "取消", namespace_project_settings_members_path(@project.namespace, @project), class: "btn btn-cancel"

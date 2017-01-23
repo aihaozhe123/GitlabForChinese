@@ -9,24 +9,24 @@
 .new_project,
 .edit-project {
 
-  fieldset {
+  .sharing-and-permissions {
+    .header {
+      padding-top: $gl-vert-padding;
+    }
 
-    &.features {
+    .label-light {
+      margin-bottom: 0;
+    }
 
-      .label-light {
-        margin-bottom: 0;
-      }
-
-      .help-block {
-        margin-top: 0;
-      }
+    .help-block {
+      margin-top: 0;
     }
 
     .form-group {
       margin-bottom: 5px;
     }
 
-    &> .form-group {
+    & > .form-group {
       padding-left: 0;
     }
   }
@@ -73,7 +73,7 @@
       border: 1px solid $border-color;
     }
 
-    &+ .select2 a {
+    & + .select2 a {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
@@ -204,7 +204,7 @@
     margin: 15px 5px 0 0;
 
     input {
-      height: 28px;
+      height: 27px;
     }
   }
 
@@ -298,7 +298,7 @@
     .option-title {
       font-weight: normal;
       display: inline-block;
-      color: $gl-gray-dark;
+      color: $gl-text-color;
     }
 
     .option-descr {
@@ -337,7 +337,7 @@
 a.deploy-project-label {
   padding: 5px;
   margin-right: 5px;
-  color: $gl-gray;
+  color: $gl-text-color;
   background-color: $row-hover;
 
   &:hover {
@@ -378,7 +378,7 @@ a.deploy-project-label {
   }
 
   a {
-    color: $gl-dark-link-color;
+    color: $gl-text-color;
   }
 
   .dropdown-menu {
@@ -432,7 +432,7 @@ a.deploy-project-label {
         width: 100%;
         height: 100%;
         padding-top: $gl-padding;
-        color: $gl-gray;
+        color: $gl-text-color;
 
         .caption {
           min-height: 30px;
@@ -558,7 +558,7 @@ pre.light-well {
   margin: 0 7px 7px;
 
   h5 {
-    color: $gl-text-color-dark;
+    color: $gl-text-color;
   }
 
   .light-well {
@@ -593,10 +593,20 @@ pre.light-well {
 
     .project-full-name {
       @include str-truncated;
+
+      @media (max-width: $screen-xs-max) {
+        max-width: 50%;
+      }
     }
 
     .controls {
       line-height: $list-text-height;
+
+      .badge {
+        @media (max-width: $screen-xs-max) {
+          display: none;
+        }
+      }
 
       a:hover {
         text-decoration: none;
@@ -609,6 +619,12 @@ pre.light-well {
       svg {
         position: relative;
         top: 2px;
+      }
+    }
+
+    .description p {
+      @media (max-width: $screen-xs-max) {
+        max-width: 50%;
       }
     }
   }
@@ -624,12 +640,17 @@ pre.light-well {
   margin: 0;
 }
 
-
 .activity-filter-block {
   .controls {
     padding-bottom: 7px;
     margin-top: 8px;
     border-bottom: 1px solid $border-color;
+  }
+}
+
+.commits-search-form {
+  .input-short {
+    min-width: 200px;
   }
 }
 
@@ -663,7 +684,7 @@ pre.light-well {
   }
 
   .commit-row-message {
-    color: $gl-gray;
+    color: $gl-text-color;
   }
 
   .commit_short_id {
@@ -751,7 +772,7 @@ pre.light-well {
 
 .protected-branches-list {
   a {
-    color: $gl-gray;
+    color: $gl-text-color;
 
     &:hover {
       color: $gl-link-color;
@@ -811,7 +832,31 @@ pre.light-well {
 
 .compare-form-group {
   .dropdown-menu {
-    width: 300px;
+    width: 100%;
+
+    @media (min-width: $screen-sm-min) {
+      width: 300px;
+    }
+  }
+
+  + .compare-ellipsis {
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: -20px;
+
+    @media (min-width: $screen-sm-min) {
+      margin-top: 0;
+      width: auto;
+    }
+  }
+
+  .inline-input-group {
+    width: 100%;
+
+    @media (min-width: $screen-sm-min) {
+      width: 250px;
+    }
   }
 }
 
@@ -866,9 +911,17 @@ pre.light-well {
   }
 }
 
-.project-feature-nested {
+.project-feature {
+  padding-top: 10px;
+
   @media (min-width: $screen-sm-min) {
     padding-left: 45px;
+  }
+
+  &.nested {
+    @media (min-width: $screen-sm-min) {
+      padding-left: 90px;
+    }
   }
 }
 

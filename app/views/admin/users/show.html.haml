@@ -40,7 +40,7 @@
 
         %li.two-factor-status
           %span.light 双因素身份验证：
-          %strong{class: @user.two_factor_enabled? ? 'cgreen' : 'cred'}
+          %strong{ class: @user.two_factor_enabled? ? 'cgreen' : 'cred' }
             - if @user.two_factor_enabled?
               已启用
               = link_to '禁用', disable_two_factor_admin_user_path(@user), data: {confirm: '确定要继续么？'}, method: :patch, class: 'btn btn-xs btn-remove pull-right', title: '禁用双因素身份验证'

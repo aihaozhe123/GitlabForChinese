@@ -77,7 +77,17 @@ class GitPushService < BaseService
       types = []
     end
 
-    ProjectCacheWorker.perform_async(@project.id, types)
+    ProjectCacheWorker.perform_async(@project.id, types, [:commit_count, :repository_size])
+  end
+
+  # Schedules processing of commit messages.
+  def process_commit_messages
+    default = is_default_branch?
+
+    push_commits.last(PROCESS_COMMIT_LIMIT).each do |commit|
+      ProcessCommitWorker.
+        perform_async(project.id, current_user.id, commit.to_hash, default)
+    end
   end
 
   # Schedules processing of commit messages.

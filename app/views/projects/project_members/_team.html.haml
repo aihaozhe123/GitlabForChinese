@@ -3,5 +3,11 @@
     有权访问的用户
     %strong #{@project.name}
     %span.badge= @project_members.total_count
+    = form_tag namespace_project_settings_members_path(@project.namespace, @project), method: :get, class: 'form-inline member-search-form'  do
+      .form-group
+        = search_field_tag :search, params[:search], { placeholder: '按名称查找现有成员', class: 'form-control', spellcheck: false }
+        %button.member-search-btn{ type: "submit", "aria-label" => "Submit search" }
+          = icon("search")
+        = render 'shared/members/sort_dropdown'
   %ul.content-list
     = render partial: 'shared/members/member', collection: members, as: :member

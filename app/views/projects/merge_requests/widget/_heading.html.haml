@@ -17,7 +17,7 @@
   - # TODO, remove in later versions when services like Jenkins will set CI status via Commit status API
   .mr-widget-heading
     - %w[success skipped canceled failed running pending].each do |status|
-      .ci_widget{class: "ci-#{status}", style: "display:none"}
+      .ci_widget{ class: "ci-#{status} ci-status-icon-#{status}", style: "display:none" }
         = ci_icon_for_status(status)
         %span
           CI 构建
@@ -32,11 +32,11 @@
       = icon("spinner spin")
       正在检查 #{@merge_request.diff_head_commit.short_id} 的构建状态&hellip;
 
-    .ci_widget.ci-not_found{style: "display:none"}
+    .ci_widget.ci-not_found{ style: "display:none" }
       = icon("times-circle")
       在 CI 服务器上无法找到 #{@merge_request.diff_head_commit.short_id}的提交。
 
-    .ci_widget.ci-error{style: "display:none"}
+    .ci_widget.ci-error{ style: "display:none" }
       = icon("times-circle")
       无法连接到 CI 服务器。请检查相关设置并重试。
 

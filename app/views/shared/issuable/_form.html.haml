@@ -58,7 +58,7 @@
         中的所有讨论标记为已解决。请确认您有足够权限解决这些问题。
 
 - is_footer = !(issuable.is_a?(MergeRequest) && issuable.new_record?)
-.row-content-block{class: (is_footer ? "footer-block" : "middle-block")}
+.row-content-block{ class: (is_footer ? "footer-block" : "middle-block") }
   - if issuable.new_record?
     = form.submit "提交", class: 'btn btn-create'
   - else

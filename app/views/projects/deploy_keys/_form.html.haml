@@ -10,5 +10,13 @@
     %p.light.append-bottom-0
       在这里粘贴机器 SSH 公钥。如何生成请点击
       = link_to "这里", help_page_path("ssh/README")
-      了解更多
+  .form-group
+    .checkbox
+      = f.label :can_push do
+        = f.check_box :can_push
+        %strong 允许写访问
+  .form-group
+    %p.light.append-bottom-0
+      允许此秘钥推送到存储库？ （默认仅允许拉取访问。）
+
   = f.submit "增加密钥", class: "btn-create btn"

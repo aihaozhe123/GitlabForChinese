@@ -65,9 +65,16 @@
               = @project.repository.path_to_repo
 
           %li
-            %span.light 大小
-            %strong
-              = repository_size(@project)
+            %span.light 存储：
+            %strong= storage_counter(@project.statistics.storage_size)
+            (
+            = storage_counter(@project.statistics.repository_size)
+            存储库,
+            = storage_counter(@project.statistics.build_artifacts_size)
+            构建附件,
+            = storage_counter(@project.statistics.lfs_objects_size)
+            LFS
+            )
 
           %li
             %span.light 最后提交：

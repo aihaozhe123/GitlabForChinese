@@ -42,6 +42,8 @@ class GroupsController < Groups::ApplicationController
       @notification_setting = current_user.notification_settings_for(group)
     end
 
+    @nested_groups = group.children
+
     setup_projects
 
     respond_to do |format|
@@ -75,7 +77,7 @@ class GroupsController < Groups::ApplicationController
   end
 
   def projects
-    @projects = @group.projects.page(params[:page])
+    @projects = @group.projects.with_statistics.page(params[:page])
   end
 
   def update
@@ -123,7 +125,11 @@ class GroupsController < Groups::ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(
+    params.require(:group).permit(group_params_ce)
+  end
+
+  def group_params_ce
+    [
       :avatar,
       :description,
       :lfs_enabled,
@@ -133,7 +139,7 @@ class GroupsController < Groups::ApplicationController
       :request_access_enabled,
       :share_with_group_lock,
       :visibility_level
-    )
+    ]
   end
 
   def load_events

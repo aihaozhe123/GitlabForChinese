@@ -1,4 +1,5 @@
-- run_actions_text = "Perform common operations on this project: #{@project.name_with_namespace}"
+- pretty_name = defined?(@project) ? @project.name_with_namespace : "namespace / path"
+- run_actions_text = "对此项目执行常见操作：#{@project.name_with_namespace}"
 
 .well
   此服务允许GitLab用户通过在Slack中输入斜杠命令对此项目执行常见操作。
@@ -8,6 +9,7 @@
   来查看Slack中的可用命令列表
   %br
   %br
+  - unless @service.template?
   设置此服务：
   %ul.list-unstyled
     %li

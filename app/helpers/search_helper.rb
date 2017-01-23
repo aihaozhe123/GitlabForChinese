@@ -39,7 +39,7 @@ module SearchHelper
   # Autocomplete results for various settings pages
   def default_autocomplete
     [
-      { category: "设置", label: "个人资料设置", url: profile_path },
+      { category: "设置", label: "个人资料设置",    url: profile_path },
       { category: "设置", label: "SSH 密钥",         url: profile_keys_path },
       { category: "设置", label: "仪表盘",        url: root_path },
       { category: "设置", label: "管理后台",    url: admin_root_path },
@@ -75,7 +75,7 @@ module SearchHelper
         { category: "当前项目", label: "合并请求", url: namespace_project_merge_requests_path(@project.namespace, @project) },
         { category: "当前项目", label: "里程碑",     url: namespace_project_milestones_path(@project.namespace, @project) },
         { category: "当前项目", label: "代码段",       url: namespace_project_snippets_path(@project.namespace, @project) },
-        { category: "当前项目", label: "成员",        url: namespace_project_project_members_path(@project.namespace, @project) },
+        { category: "当前项目", label: "成员",        url: namespace_project_settings_members_path(@project.namespace, @project) },
         { category: "当前项目", label: "维基",           url: namespace_project_wikis_path(@project.namespace, @project) },
       ]
     else

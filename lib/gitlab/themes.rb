@@ -15,7 +15,7 @@ module Gitlab
       Theme.new(1, '石墨色', 'ui_graphite'),
       Theme.new(2, '炭黑色', 'ui_charcoal'),
       Theme.new(3, '绿色',    'ui_green'),
-      Theme.new(4, '灰色',     'ui_gray'),
+      Theme.new(4, '黑色',    'ui_black'),
       Theme.new(5, '紫色',   'ui_violet'),
       Theme.new(6, '蓝色',     'ui_blue')
     ].freeze

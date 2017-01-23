@@ -181,6 +181,8 @@
       .nav-controls
         = text_field_tag 'sample', nil, class: 'form-control'
         .dropdown
+          %button.dropdown-menu-toggle{ type: 'button', 'data-toggle' => 'dropdown' }
+            %span 按名称排序
           %button.dropdown-menu-toggle{type: 'button', 'data-toggle' => 'dropdown'}
             %span 按名称排序
             = icon('chevron-down')
@@ -277,7 +279,7 @@
                   下拉选项
               %li
                 %a{href: "#"}
-                  下拉选项
+                  Dropdown Option
               %li
                 %a{href: "#"}
                   下拉选项
@@ -343,7 +345,7 @@
           .dropdown-content
             %ul
               %li
-                %a.dropdown-menu-user-link.is-active{href: "#"}
+                %a.dropdown-menu-user-link.is-active{ href: "#" }
                   = link_to_member_avatar(@user, size: 30)
                   %strong.dropdown-menu-user-full-name
                     = @user.name
@@ -370,7 +372,7 @@
             .dropdown-content
               %ul
                 %li
-                  %a.dropdown-menu-user-link.is-active{href: "#"}
+                  %a.dropdown-menu-user-link.is-active{ href: "#" }
                     = link_to_member_avatar(@user, size: 30)
                     %strong.dropdown-menu-user-full-name
                       = @user.name

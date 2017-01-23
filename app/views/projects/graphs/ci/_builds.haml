@@ -13,18 +13,18 @@
   %p.light
     最近一周的构建
     (#{date_from_to(Date.today - 7.days, Date.today)})
-  %canvas#weekChart{height: 200}
+  %canvas#weekChart{ height: 200 }
 
 .prepend-top-default
   %p.light
     最近一个月的构建
     (#{date_from_to(Date.today - 30.days, Date.today)})
-  %canvas#monthChart{height: 200}
+  %canvas#monthChart{ height: 200 }
 
 .prepend-top-default
   %p.light
     最近一年的构建
-  %canvas#yearChart.padded{height: 250}
+  %canvas#yearChart.padded{ height: 250 }
 
 - [:week, :month, :year].each do |scope|
   :javascript

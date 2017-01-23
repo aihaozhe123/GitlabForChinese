@@ -8,10 +8,11 @@
   %p
     = @teams.one? ? '在团队中' : '选择团队中'
     中使用斜杠命令
-  - selected_id = @teams.keys.first if @teams.one?
+  - selected_id = @teams.one? ? @teams.keys.first : 0
   - options = mattermost_teams_options(@teams)
   - options = options_for_select(options, selected_id)
   = f.select(:team_id, options, {}, { class: 'form-control', selected: "#{selected_id}" })
+  = f.hidden_field(:team_id, value: selected_id) if @teams.one?
   .help-block
     - if @teams.one?
       这是唯一一个您是管理员的团队。
@@ -22,6 +23,7 @@
     = link_to "#{Gitlab.config.mattermost.host}/create_team" do
       使用Mattermost的界面
       = icon('external-link')
+    或询问您的Mattermost系统管理员。
   %hr
   %h4 命令触发文字
   %p 选择将触发命令的词
@@ -36,9 +38,15 @@
       %code= @project.path # Path contains no spaces, but dashes
       %code= @project.path_with_namespace
     %p
+<<<<<<< HEAD
       保留：
       = link_to 'https://docs.mattermost.com/help/messaging/executing-commands.html#built-in-commands', target: '__blank' do
         请参阅内置斜杠命令列表
+=======
+      Reserved:
+      = link_to 'https://docs.mattermost.com/help/messaging/executing-commands.html#built-in-commands', target: '__blank' do
+        see list of built-in slash commands
+>>>>>>> 8-16-stable
         = icon('external-link')
   %hr
   .clearfix

@@ -1,8 +1,8 @@
-#modal-shortcuts.modal{tabindex: -1}
+#modal-shortcuts.modal{ tabindex: -1 }
   .modal-dialog
     .modal-content
       .modal-header
-        %a.close{href: "#", "data-dismiss" => "modal"} ×
+        %a.close{ href: "#", "data-dismiss" => "modal" } ×
         %h4
           键盘快捷键
           %small
@@ -82,7 +82,7 @@
 
           .col-lg-4
             %table.shortcut-mappings
-              %tbody{ class: 'hidden-shortcut project', style: 'display:none' }
+              %tbody.hidden-shortcut.project{ style: 'display:none' }
                 %tr
                   %th
                   %th 全局仪表盘
@@ -190,7 +190,7 @@
                   %td 新问题
           .col-lg-4
             %table.shortcut-mappings
-              %tbody{ class: 'hidden-shortcut network', style: 'display:none' }
+              %tbody.hidden-shortcut.network{ style: 'display:none' }
                 %tr
                   %th
                   %th 网络图表
@@ -240,7 +240,7 @@
                     .key
                       shift j
                   %td 滚动到底部
-              %tbody{ class: 'hidden-shortcut issues', style: 'display:none' }
+              %tbody.hidden-shortcut.issues{ style: 'display:none' }
                 %tr
                   %th
                   %th 问题
@@ -264,7 +264,7 @@
                   %td.shortcut
                     .key l
                   %td 修改标记
-              %tbody{ class: 'hidden-shortcut merge_requests', style: 'display:none' }
+              %tbody.hidden-shortcut.merge_requests{ style: 'display:none' }
                 %tr
                   %th
                   %th 合并请求

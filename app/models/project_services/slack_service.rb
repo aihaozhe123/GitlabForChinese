@@ -12,12 +12,12 @@ class SlackService < ChatNotificationService
   end
 
   def help
-    '此服务会向您的Slack频道发送通知。<br />
-    设置此服务：
+    'This service sends notifications about projects events to Slack channels.<br />
+    To setup this service:
     <ol>
-      <li>在Slack团队中添加一个<a href="https://slack.com/apps/A0F7XDUAZ-incoming-webhooks">传入的Webhook</a> 。可以为每个事件覆盖默认通道。</li>
-      <li>将 <strong>Webhook URL</strong> 粘贴到以下字段中。</li>
-      <li>选择以下事件以启用通知。频道和用户名是可选的。</li>
+      <li><a href="https://slack.com/apps/A0F7XDUAZ-incoming-webhooks">Add an incoming webhook</a> in your Slack team. The default channel can be overridden for each event. </li>
+      <li>Paste the <strong>Webhook URL</strong> into the field below. </li>
+      <li>Select events below to enable notifications. The channel and username are optional. </li>
     </ol>'
   end
 
@@ -27,10 +27,10 @@ class SlackService < ChatNotificationService
 
   def default_fields
     [
-      { type: 'text', name: 'webhook', placeholder: 'https://hooks.slack.com/services/...' },
-      { type: 'text', name: 'username', placeholder: '用户名' },
-      { type: 'checkbox', name: 'notify_only_broken_builds' },
-      { type: 'checkbox', name: 'notify_only_broken_pipelines' },
+        { type: 'text', name: 'webhook', placeholder: 'https://hooks.slack.com/services/...' },
+        { type: 'text', name: 'username', placeholder: 'username' },
+        { type: 'checkbox', name: 'notify_only_broken_builds' },
+        { type: 'checkbox', name: 'notify_only_broken_pipelines' },
     ]
   end
 

@@ -28,10 +28,10 @@
 
   .md-write-holder
     = yield
-  .md.md-preview-holder.js-md-preview.hide{class: (preview_class if defined?(preview_class))}
+  .md.md-preview-holder.js-md-preview.hide{ class: (preview_class if defined?(preview_class)) }
 
   - if defined?(referenced_users) && referenced_users
-    %div.referenced-users.hide
+    .referenced-users.hide
       %span
         = icon("exclamation-triangle")
         您添加了

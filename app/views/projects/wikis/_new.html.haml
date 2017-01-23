@@ -1,12 +1,12 @@
 - @no_container = true
 
 %div{ class: container_class }
-  %div#modal-new-wiki.modal
+  #modal-new-wiki.modal
     .modal-dialog
       .modal-content
         .modal-header
-          %a.close{href: "#", "data-dismiss" => "modal"} ×
-          %h3.page-title 新维基页面
+          %a.close{ href: "#", "data-dismiss" => "modal" } ×
+          %h3.page-title 新Wiki页面
         .modal-body
           %form.new-wiki-page
             .form-group

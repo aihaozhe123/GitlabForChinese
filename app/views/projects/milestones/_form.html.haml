@@ -20,6 +20,6 @@
     - if @milestone.new_record?
       = f.submit '创建里程碑', class: "btn-create btn"
       = link_to "取消", namespace_project_milestones_path(@project.namespace, @project), class: "btn btn-cancel"
-    -else
+    - else
       = f.submit '保存修改', class: "btn-save btn"
       = link_to "取消", namespace_project_milestone_path(@project.namespace, @project, @milestone), class: "btn btn-cancel"

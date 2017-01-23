@@ -31,11 +31,11 @@
 
         - if issuable_filter_present?
           .filter-item.inline.reset-filters
-            %a{href: page_filter_path(without: issuable_filter_params)} 重置
+            %a{ href: page_filter_path(without: issuable_filter_params) } 重置
 
         .pull-right
           - if boards_page
-            #js-boards-seach.issue-boards-search
+            #js-boards-search.issue-boards-search
               %input.pull-left.form-control{ type: "search", placeholder: "按名称过滤...", "v-model" => "filters.search", "debounce" => "250" }
               - if can?(current_user, :admin_list, @project)
                 .dropdown.pull-right
@@ -56,9 +56,9 @@
             = dropdown_tag("状态", options: { toggle_class: "js-issue-status", title: "更改状态", dropdown_class: "dropdown-menu-status dropdown-menu-selectable", data: { field_name: "update[state_event]" } } ) do
               %ul
                 %li
-                  %a{href: "#", data: {id: "reopen"}} 未关闭
+                  %a{ href: "#", data: { id: "reopen" } } 未关闭
                 %li
-                  %a{href: "#", data: {id: "close"}} 已关闭
+                  %a{ href: "#", data: {id: "close" } } 已关闭
           .filter-item.inline
             = dropdown_tag("指派", options: { toggle_class: "js-user-search js-update-assignee js-filter-submit js-filter-bulk-update", title: "指派给", filter: true, dropdown_class: "dropdown-menu-user dropdown-menu-selectable",
               placeholder: "搜索作者", data: { first_user: (current_user.username if current_user), null_user: true, current_user: true, project_id: @project.id, field_name: "update[assignee_id]" } })
@@ -70,9 +70,9 @@
             = dropdown_tag("订阅", options: { toggle_class: "js-subscription-event", title: "修改订阅", dropdown_class: "dropdown-menu-selectable", data: { field_name: "update[subscription_event]" } } ) do
               %ul
                 %li
-                  %a{href: "#", data: {id: "subscribe"}} 订阅
+                  %a{ href: "#", data: { id: "subscribe" } } 订阅
                 %li
-                  %a{href: "#", data: {id: "unsubscribe"}} 取消订阅
+                  %a{ href: "#", data: { id: "unsubscribe" } } 取消订阅
 
           = hidden_field_tag 'update[issuable_ids]', []
           = hidden_field_tag :state_event, params[:state_event]

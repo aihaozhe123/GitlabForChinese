@@ -1,7 +1,7 @@
 - commit = @repository.commit(tag.dereferenced_target)
 - release = @releases.find { |release| release.tag == tag.name }
-%li
-  %div
+%li.flex-row
+  .row-main-content.str-truncated
     = link_to namespace_project_tag_path(@project.namespace, @project, tag.name) do
       %span.item-title
         = icon('tag')
@@ -10,24 +10,25 @@
       &nbsp;
       = strip_gpg_signature(tag.message)
 
-    .controls
-      = render 'projects/buttons/download', project: @project, ref: tag.name
+    - if commit
+      .block-truncated
+        = render 'projects/branches/commit', commit: commit, project: @project
+    - else
+      %p
+        无法找到该标签的 HEAD 提交
+    - if release && release.description.present?
+      .description.prepend-top-default
+        .wiki
+          = preserve do
+            = markdown_field(release, :description)
 
-      - if can?(current_user, :push_code, @project)
-        = link_to edit_namespace_project_tag_release_path(@project.namespace, @project, tag.name), class: 'btn has-tooltip', title: "编辑发布备注", data: { container: "body" } do
-          = icon("pencil")
+  .row-fixed-content.controls
+    = render 'projects/buttons/download', project: @project, ref: tag.name
 
-      - if can?(current_user, :admin_project, @project)
-        = link_to namespace_project_tag_path(@project.namespace, @project, tag.name), class: 'btn btn-remove remove-row has-tooltip', title: "删除标签", method: :delete, data: { confirm: "标签 '#{tag.name}' 将无法恢复，确定要继续么？", container: 'body' }, remote: true do
-          = icon("trash-o")
+    - if can?(current_user, :push_code, @project)
+      = link_to edit_namespace_project_tag_release_path(@project.namespace, @project, tag.name), class: 'btn has-tooltip', title: "编辑发布备注", data: { container: "body" } do
+        = icon("pencil")
 
-  - if commit
-    = render 'projects/branches/commit', commit: commit, project: @project
-  - else
-    %p
-      无法找到该标签的 HEAD 提交
-  - if release && release.description.present?
-    .description.prepend-top-default
-      .wiki
-        = preserve do
-          = markdown_field(release, :description)
+    - if can?(current_user, :admin_project, @project)
+      = link_to namespace_project_tag_path(@project.namespace, @project, tag.name), class: 'btn btn-remove remove-row has-tooltip', title: "删除标签", method: :delete, data: { confirm: "标签 '#{tag.name}' 将无法恢复，确定要继续么？", container: 'body' }, remote: true do
+        = icon("trash-o")

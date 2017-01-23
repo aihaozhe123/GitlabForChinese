@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227192806) do
+ActiveRecord::Schema.define(version: 20170121130655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 20161227192806) do
     t.integer "housekeeping_full_repack_period", default: 50, null: false
     t.integer "housekeeping_gc_period", default: 200, null: false
     t.boolean "html_emails_enabled", default: true
+    t.string "plantuml_url"
+    t.boolean "plantuml_enabled"
   end
 
   create_table "audit_events", force: :cascade do |t|
@@ -222,6 +224,7 @@ ActiveRecord::Schema.define(version: 20161227192806) do
   add_index "ci_builds", ["gl_project_id"], name: "index_ci_builds_on_gl_project_id", using: :btree
   add_index "ci_builds", ["project_id"], name: "index_ci_builds_on_project_id", using: :btree
   add_index "ci_builds", ["runner_id"], name: "index_ci_builds_on_runner_id", using: :btree
+  add_index "ci_builds", ["status", "type", "runner_id"], name: "index_ci_builds_on_status_and_type_and_runner_id", using: :btree
   add_index "ci_builds", ["status"], name: "index_ci_builds_on_status", using: :btree
   add_index "ci_builds", ["token"], name: "index_ci_builds_on_token", unique: true, using: :btree
 
@@ -325,6 +328,7 @@ ActiveRecord::Schema.define(version: 20161227192806) do
     t.boolean "locked", default: false, null: false
   end
 
+  add_index "ci_runners", ["is_shared"], name: "index_ci_runners_on_is_shared", using: :btree
   add_index "ci_runners", ["locked"], name: "index_ci_runners_on_locked", using: :btree
   add_index "ci_runners", ["token"], name: "index_ci_runners_on_token", using: :btree
 
@@ -504,6 +508,7 @@ ActiveRecord::Schema.define(version: 20161227192806) do
     t.integer "lock_version"
     t.text "title_html"
     t.text "description_html"
+    t.integer "time_estimate"
   end
 
   add_index "issues", ["assignee_id"], name: "index_issues_on_assignee_id", using: :btree
@@ -527,6 +532,8 @@ ActiveRecord::Schema.define(version: 20161227192806) do
     t.string "type"
     t.string "fingerprint"
     t.boolean "public", default: false, null: false
+    t.boolean "can_push", default: false, null: false
+    t.datetime "last_used_at"
   end
 
   add_index "keys", ["fingerprint"], name: "index_keys_on_fingerprint", unique: true, using: :btree
@@ -681,6 +688,7 @@ ActiveRecord::Schema.define(version: 20161227192806) do
     t.integer "lock_version"
     t.text "title_html"
     t.text "description_html"
+    t.integer "time_estimate"
   end
 
   add_index "merge_requests", ["assignee_id"], name: "index_merge_requests_on_assignee_id", using: :btree
@@ -860,7 +868,7 @@ ActiveRecord::Schema.define(version: 20161227192806) do
   add_index "personal_access_tokens", ["token"], name: "index_personal_access_tokens_on_token", unique: true, using: :btree
   add_index "personal_access_tokens", ["user_id"], name: "index_personal_access_tokens_on_user_id", using: :btree
 
-  create_table "project_authorizations", force: :cascade do |t|
+  create_table "project_authorizations", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
     t.integer "access_level"
@@ -901,6 +909,19 @@ ActiveRecord::Schema.define(version: 20161227192806) do
 
   add_index "project_import_data", ["project_id"], name: "index_project_import_data_on_project_id", using: :btree
 
+  create_table "project_statistics", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "namespace_id", null: false
+    t.integer "commit_count", limit: 8, default: 0, null: false
+    t.integer "storage_size", limit: 8, default: 0, null: false
+    t.integer "repository_size", limit: 8, default: 0, null: false
+    t.integer "lfs_objects_size", limit: 8, default: 0, null: false
+    t.integer "build_artifacts_size", limit: 8, default: 0, null: false
+  end
+
+  add_index "project_statistics", ["namespace_id"], name: "index_project_statistics_on_namespace_id", using: :btree
+  add_index "project_statistics", ["project_id"], name: "index_project_statistics_on_project_id", unique: true, using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.string "path"
@@ -915,11 +936,9 @@ ActiveRecord::Schema.define(version: 20161227192806) do
     t.boolean "archived", default: false, null: false
     t.string "avatar"
     t.string "import_status"
-    t.float "repository_size", default: 0.0
     t.integer "star_count", default: 0, null: false
     t.string "import_type"
     t.string "import_source"
-    t.integer "commit_count", default: 0
     t.text "import_error"
     t.integer "ci_id"
     t.boolean "shared_runners_enabled", default: true, null: false
@@ -1113,6 +1132,18 @@ ActiveRecord::Schema.define(version: 20161227192806) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "timelogs", force: :cascade do |t|
+    t.integer "time_spent", null: false
+    t.integer "trackable_id"
+    t.string "trackable_type"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "timelogs", ["trackable_type", "trackable_id"], name: "index_timelogs_on_trackable_type_and_trackable_id", using: :btree
+  add_index "timelogs", ["user_id"], name: "index_timelogs_on_user_id", using: :btree
+
   create_table "todos", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "project_id", null: false
@@ -1288,6 +1319,7 @@ ActiveRecord::Schema.define(version: 20161227192806) do
   add_foreign_key "personal_access_tokens", "users"
   add_foreign_key "project_authorizations", "projects", on_delete: :cascade
   add_foreign_key "project_authorizations", "users", on_delete: :cascade
+  add_foreign_key "project_statistics", "projects", on_delete: :cascade
   add_foreign_key "protected_branch_merge_access_levels", "protected_branches"
   add_foreign_key "protected_branch_push_access_levels", "protected_branches"
   add_foreign_key "subscriptions", "projects", on_delete: :cascade

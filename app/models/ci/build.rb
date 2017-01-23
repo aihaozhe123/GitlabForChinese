@@ -43,6 +43,8 @@ module Ci
     before_destroy { project }
 
     after_create :execute_hooks
+    after_save :update_project_statistics, if: :artifacts_size_changed?
+    after_destroy :update_project_statistics
 
     class << self
       def first_pending
@@ -89,6 +91,12 @@ module Ci
     end
 
     state_machine :status do
+      after_transition any => [:pending] do |build|
+        build.run_after_commit do
+          BuildQueueWorker.perform_async(id)
+        end
+      end
+
       after_transition pending: :running do |build|
         build.run_after_commit do
           BuildHooksWorker.perform_async(id)
@@ -505,6 +513,10 @@ module Ci
         end
     end
 
+    def has_expiring_artifacts?
+      artifacts_expire_at.present?
+    end
+
     def keep_artifacts!
       self.update(artifacts_expire_at: nil)
     end
@@ -583,6 +595,10 @@ module Ci
       Ci::MaskSecret.mask!(trace, project.runners_token) if project
       Ci::MaskSecret.mask!(trace, token)
       trace
+    end
+
+    def update_project_statistics
+      ProjectCacheWorker.perform_async(project_id, [], [:build_artifacts_size])
     end
   end
 end

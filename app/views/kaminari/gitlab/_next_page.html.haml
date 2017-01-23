@@ -6,8 +6,8 @@
 -#    per_page:      number of items to fetch per page
 -#    remote:        data-remote
 - if current_page.last?
-  %li{ class: "next disabled" }
+  %li.next.disabled
     %span= '下一页'
 - else
-  %li{ class: "next" }
+  %li.next
     = link_to '下一页', url, rel: 'next', remote: remote

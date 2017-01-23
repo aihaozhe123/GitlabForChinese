@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   has_many :created_projects,         foreign_key: :creator_id, class_name: 'Project'
   has_many :users_star_projects, dependent: :destroy
   has_many :starred_projects, through: :users_star_projects, source: :project
-  has_many :project_authorizations, dependent: :destroy
+  has_many :project_authorizations
   has_many :authorized_projects, through: :project_authorizations, source: :project
 
   has_many :snippets,                 dependent: :destroy, foreign_key: :author_id
@@ -99,6 +99,7 @@ class User < ActiveRecord::Base
   #
   # Note: devise :validatable above adds validations for :email and :password
   validates :name, presence: true
+  validates_confirmation_of :email
   validates :notification_email, presence: true
   validates :notification_email, email: true, if: ->(user) { user.notification_email != user.email }
   validates :public_email, presence: true, uniqueness: true, email: true, allow_blank: true
@@ -311,10 +312,6 @@ class User < ActiveRecord::Base
       find_by(id: Key.unscoped.select(:user_id).where(id: key_id))
     end
 
-    def build_user(attrs = {})
-      User.new(attrs)
-    end
-
     def reference_prefix
       '@'
     end
@@ -392,7 +389,7 @@ class User < ActiveRecord::Base
   def namespace_uniq
     # Return early if username already failed the first uniqueness validation
     return if errors.key?(:username) &&
-      errors[:username].include?('has already been taken')
+        errors[:username].include?('has already been taken')
 
     existing_namespace = Namespace.by_path(username)
     if existing_namespace && existing_namespace != namespace
@@ -447,7 +444,7 @@ class User < ActiveRecord::Base
   end
 
   def remove_project_authorizations(project_ids)
-    project_authorizations.where(id: project_ids).delete_all
+    project_authorizations.where(project_id: project_ids).delete_all
   end
 
   def set_authorized_projects_column

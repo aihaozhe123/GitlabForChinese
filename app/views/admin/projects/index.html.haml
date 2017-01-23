@@ -68,9 +68,9 @@
           %li.project-row
             .controls
               - if project.archived
-                %span.label.label-warning 已归档
-              %span.label.label-gray
-                = repository_size(project)
+                %span.label.label-warning archived
+              %span.badge
+                = storage_counter(project.statistics.storage_size)
               = link_to '编辑', edit_namespace_project_path(project.namespace, project), id: "edit_#{dom_id(project)}", class: "btn"
               = link_to '销毁', [project.namespace.becomes(Namespace), project], data: { confirm: remove_project_message(project) }, method: :delete, class: "btn btn-remove"
             .title

@@ -175,7 +175,7 @@ module CommitsHelper
   def commit_action_link(action, commit, continue_to_path, btn_class: nil, has_tooltip: true)
     return unless current_user
 
-    tooltip = "#{action.capitalize}此#{commit.change_type_title(current_user)}到新的合并请求中" if has_tooltip
+    tooltip = "#{action.capitalize} 此 #{commit.change_type_title(current_user)}到新的合并请求中" if has_tooltip
     btn_class = "btn btn-#{btn_class}" unless btn_class.nil?
 
     if can_collaborate_with_project?

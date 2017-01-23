@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
   include AfterCommitQueue
   include CaseSensitivity
   include TokenAuthenticatable
+  include ValidAttribute
   include ProjectFeaturesCompatibility
   include SelectForProjectAuthorization
   include Routable
@@ -44,6 +45,7 @@ class Project < ActiveRecord::Base
   after_create :ensure_dir_exist
   after_create :create_project_feature, unless: :project_feature
   after_save :ensure_dir_exist, if: :namespace_id_changed?
+  after_save :update_project_statistics, if: :namespace_id_changed?
 
   # set last_activity_at to the same as created_at
   after_create :set_last_activity_at
@@ -63,6 +65,8 @@ class Project < ActiveRecord::Base
       end
     end
   end
+
+  after_validation :check_pending_delete
 
   ActsAsTaggableOn.strict_case_match = true
   acts_as_taggable_on :tags
@@ -118,7 +122,7 @@ class Project < ActiveRecord::Base
   # Merge Requests for target project should be removed with it
   has_many :merge_requests,     dependent: :destroy, foreign_key: 'target_project_id'
   # Merge requests from source project should be kept when source project was removed
-  has_many :fork_merge_requests, foreign_key: 'source_project_id', class_name: MergeRequest
+  has_many :fork_merge_requests, foreign_key: 'source_project_id', class_name: 'MergeRequest'
   has_many :issues,             dependent: :destroy
   has_many :labels,             dependent: :destroy, class_name: 'ProjectLabel'
   has_many :services,           dependent: :destroy
@@ -129,7 +133,7 @@ class Project < ActiveRecord::Base
   has_many :hooks,              dependent: :destroy, class_name: 'ProjectHook'
   has_many :protected_branches, dependent: :destroy
 
-  has_many :project_authorizations, dependent: :destroy
+  has_many :project_authorizations
   has_many :authorized_users, through: :project_authorizations, source: :user, class_name: 'User'
   has_many :project_members, -> { where(requested_at: nil) }, dependent: :destroy, as: :source
   alias_method :members, :project_members
@@ -151,6 +155,7 @@ class Project < ActiveRecord::Base
 
   has_one :import_data, dependent: :destroy, class_name: "ProjectImportData"
   has_one :project_feature, dependent: :destroy
+  has_one :statistics, class_name: 'ProjectStatistics', dependent: :delete
 
   has_many :commit_statuses, dependent: :destroy, foreign_key: :gl_project_id
   has_many :pipelines, dependent: :destroy, class_name: 'Ci::Pipeline', foreign_key: :gl_project_id
@@ -220,6 +225,7 @@ class Project < ActiveRecord::Base
   scope :with_push, -> { joins(:events).where('events.action = ?', Event::PUSHED) }
 
   scope :with_project_feature, -> { joins('LEFT JOIN project_features ON projects.id = project_features.project_id') }
+  scope :with_statistics, -> { includes(:statistics) }
 
   # "enabled" here means "not disabled". It includes private features!
   scope :with_feature_enabled, ->(feature) {
@@ -332,8 +338,10 @@ class Project < ActiveRecord::Base
     end
 
     def sort(method)
-      if method == 'repository_size_desc'
-        reorder(repository_size: :desc, id: :desc)
+      if method == 'storage_size_desc'
+        # storage_size is a joined column so we need to
+        # pass a string to avoid AR adding the table name
+        reorder('project_statistics.storage_size DESC, projects.id DESC')
       else
         order_by(method)
       end
@@ -602,10 +610,6 @@ class Project < ActiveRecord::Base
 
   def web_url
     Gitlab::Routing.url_helpers.namespace_project_url(self.namespace, self)
-  end
-
-  def web_url_without_protocol
-    web_url.split('://')[1]
   end
 
   def new_issue_address(author)
@@ -1028,20 +1032,12 @@ class Project < ActiveRecord::Base
                                         "refs/heads/#{branch}",
                                         force: true)
     repository.copy_gitattributes(branch)
-    repository.expire_avatar_cache
+    repository.after_change_head
     reload_default_branch
   end
 
   def forked_from?(project)
     forked? && project == forked_from_project
-  end
-
-  def update_repository_size
-    update_attribute(:repository_size, repository.size)
-  end
-
-  def update_commit_count
-    update_attribute(:commit_count, repository.commit_count)
   end
 
   def forks_count
@@ -1321,5 +1317,27 @@ class Project < ActiveRecord::Base
 
   def full_path_changed?
     path_changed? || namespace_id_changed?
+  end
+
+  def update_project_statistics
+    stats = statistics || build_statistics
+    stats.update(namespace_id: namespace_id)
+  end
+
+  def check_pending_delete
+    return if valid_attribute?(:name) && valid_attribute?(:path)
+    return unless pending_delete_twin
+
+    %i[route route.path name path].each do |error|
+      errors.delete(error)
+    end
+
+    errors.add(:base, "The project is still being deleted. Please try again later.")
+  end
+
+  def pending_delete_twin
+    return false unless path
+
+    Project.unscoped.where(pending_delete: true).find_with_namespace(path_with_namespace)
   end
 end
