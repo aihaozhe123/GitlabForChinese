@@ -1,4 +1,4 @@
-/* global Vue */
+/* global Vue gl*/
 /* global timeago */
 
 /*= require timeago */
@@ -99,6 +99,10 @@
         return this.model.children && this.model.children.length > 0;
       },
 
+      localTimeFinished() {
+          return gl.utils.formatDate(this.model.last_deployment.deployable.created_at);
+      },
+
       /**
        * If an item is inside a folder structure will return true.
        * Used for css purposes.
@@ -183,8 +187,8 @@
        * @returns {String}
        */
       createdDate() {
-        return gl.environmentsList.timeagoInstance.format(
-          this.model.last_deployment.deployable.created_at,
+        return gl.utils.getTimeago().format(
+          this.model.last_deployment.deployable.created_at,'gl_en'
         );
       },
 
@@ -486,7 +490,14 @@
           <span
             v-if="!isFolder && canShowDate"
             class="environment-created-date-timeago">
+            <time
+            data-toggle="tooltip"
+            data-placement="top"
+            data-container="body"
+            :data-original-title='localTimeFinished'
+          >
             {{createdDate}}
+          </time>
           </span>
         </td>
 
