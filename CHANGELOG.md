@@ -2,6 +2,40 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 8.16.4 (2017-02-02)
+
+- Support non-ASCII characters in GFM autocomplete. !8729
+- Fix search bar search param encoding. !8753
+- Fix project name label's for reference in project settings. !8795
+- Fix filtering with multiple words. !8830
+- Fixed services form cancel not redirecting back the integrations settings view. !8843
+- Fix filtering usernames with multiple words. !8851
+- Improve performance of slash commands. !8876
+- Remove old project members when retrying an export.
+- Fix permalink discussion note being collapsed.
+- Add project ID index to `project_authorizations` table to optimize queries.
+- Check public snippets for spam.
+- 19164 Add settings dropdown to mobile screens.
+
+## 8.16.3 (2017-01-27)
+
+- Add caching of droplab ajax requests. !8725
+- Fix access to the wiki code via HTTP when repository feature disabled. !8758
+- Revert 3f17f29a. !8785
+- Fix race conditions for AuthorizedProjectsWorker.
+- Fix autocomplete initial undefined state.
+- Fix Error 500 when repositories contain annotated tags pointing to blobs.
+- Fix /explore sorting.
+- Fixed label dropdown toggle text not correctly updating.
+
+## 8.16.2 (2017-01-25)
+
+- allow issue filter bar to be operated with mouse only. !8681
+- Fix CI requests concurrency for newer runners that prevents from picking pending builds (from 1.9.0-rc5). !8760
+- Add some basic fixes for IE11/Edge.
+- Remove blue border from comment box hover.
+- Fixed bug where links in merge dropdown wouldn't work.
+
 ## 8.16.1 (2017-01-23)
 
 - Ensure export files are removed after a namespace is deleted.
