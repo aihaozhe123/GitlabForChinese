@@ -27,7 +27,7 @@
         options.timeZoneName = 'short';
         const finished = this.pipeline.details.finished_at;
         if (!finished && changeTime) return false;
-        return ({ words: this.timeAgo.format(finished) });
+        return ({ words: this.timeAgo.format(finished,'gl_en') });
       },
       duration() {
         const { duration } = this.pipeline.details;

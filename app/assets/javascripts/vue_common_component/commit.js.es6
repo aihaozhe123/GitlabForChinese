@@ -154,7 +154,7 @@
             </a>
           </span>
           <span v-else>
-            Cant find HEAD commit for this branch
+            不能找到这个分支的HEAD提交
           </span>
         </p>
       </div>
