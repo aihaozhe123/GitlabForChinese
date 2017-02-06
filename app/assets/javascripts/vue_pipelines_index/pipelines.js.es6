@@ -73,10 +73,10 @@
           <table class="table ci-table">
             <thead>
               <tr>
-                <th class="pipeline-status">Status</th>
-                <th class="pipeline-info">Pipeline</th>
-                <th class="pipeline-commit">Commit</th>
-                <th class="pipeline-stages">Stages</th>
+                <th class="pipeline-status">状态</th>
+                <th class="pipeline-info">管道</th>
+                <th class="pipeline-commit">提交</th>
+                <th class="pipeline-stages">阶段</th>
                 <th class="pipeline-date"></th>
                 <th class="pipeline-actions hidden-xs"></th>
               </tr>
