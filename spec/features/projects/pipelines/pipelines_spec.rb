@@ -100,7 +100,7 @@ describe 'Pipelines', :feature, :js do
         before { visit_project_pipelines }
 
         it 'contains badge that indicates errors' do
-          expect(page).to have_content 'yaml invalid'
+          expect(page).to have_content 'yaml 无效'
         end
 
         it 'contains badge with tooltip which contains error' do

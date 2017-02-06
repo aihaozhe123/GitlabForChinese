@@ -38,10 +38,10 @@
         <span
           v-if='pipeline.flags.latest'
           class="label label-success has-tooltip"
-          title="Latest pipeline for this branch"
-          data-original-title="Latest pipeline for this branch"
+          title="这是该分支最新的管道"
+          data-original-title="这是该分支最新的管道"
         >
-          latest
+          最新
         </span>
         <span
           v-if='pipeline.flags.yaml_errors'
@@ -49,13 +49,13 @@
           :title='pipeline.yaml_errors'
           :data-original-title='pipeline.yaml_errors'
         >
-          yaml invalid
+          yaml 无效
         </span>
         <span
           v-if='pipeline.flags.stuck'
           class="label label-warning"
         >
-          stuck
+          等待
         </span>
       </td>
     `,
