@@ -78,11 +78,11 @@ module DiffHelper
   end
 
   def inline_diff_btn
-    diff_btn('Inline', 'inline', diff_view == :inline)
+    diff_btn('内嵌', 'inline', diff_view == :inline)
   end
 
   def parallel_diff_btn
-    diff_btn('Side-by-side', 'parallel', diff_view == :parallel)
+    diff_btn('并排对比', 'parallel', diff_view == :parallel)
   end
 
   def submodule_link(blob, ref, repository = @repository)
@@ -163,7 +163,13 @@ module DiffHelper
     options[:class] ||= ''
     options[:class] << ' btn btn-default'
 
-    link_to "#{hide_whitespace? ? 'Show' : 'Hide'} whitespace changes", url, class: options[:class]
+    link_to "#{hide_whitespace? ? '显示' : '隐藏'}空白字符变更", url, class: options[:class]
+  end
+
+  def render_overflow_warning?(diff_files)
+    diffs = @merge_request_diff.presence || diff_files
+
+    diffs.overflow?
   end
 
   def render_overflow_warning?(diff_files)

@@ -2,14 +2,14 @@
 
 .well
   %p
-    This service allows users to perform common operations on this
-    project by entering slash commands in Mattermost.
+    此服务允许GitLab用户对此执行常见操作
+    项目通过在Mattermost中输入斜杠命令。
     = link_to help_page_path('user/project/integrations/mattermost_slash_commands.md'), target: '_blank', ref: 'noreferrer nofollow noopener' do
-      View documentation
+      查看文档
       = icon('external-link')
   %p.inline
-    See list of available commands in Mattermost after setting up this service,
-    by entering
+    设置此服务后，请参阅Slack中的可用命令列表，
+    命令
   %kbd.inline /&lt;trigger&gt; help
   - unless enabled || @service.template?
     = render 'projects/services/mattermost_slash_commands/detailed_help', subject: @service

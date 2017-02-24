@@ -6,11 +6,11 @@ module Gitlab
           include Status::Extended
 
           def text
-            'manual'
+            '手动'
           end
 
           def label
-            'manual play action'
+            '手动运行'
           end
 
           def icon
@@ -30,7 +30,7 @@ module Gitlab
           end
 
           def action_title
-            'Play'
+            '运行'
           end
 
           def action_path

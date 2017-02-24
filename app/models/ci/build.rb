@@ -369,7 +369,7 @@ module Ci
     def dir_to_trace
       File.join(
         Settings.gitlab_ci.builds_path,
-        created_at.utc.strftime("%Y_%m"),
+        created_at.utc.strftime("%Y年%m月"),
         project.id.to_s
       )
     end
@@ -387,7 +387,7 @@ module Ci
     def old_dir_to_trace
       File.join(
         Settings.gitlab_ci.builds_path,
-        created_at.utc.strftime("%Y_%m"),
+        created_at.utc.strftime("%Y年%m月"),
         project.ci_id.to_s
       )
     end
@@ -420,7 +420,7 @@ module Ci
       # We need to retain the project in this case.
       the_project = project || unscoped_project
 
-      old = File.join(created_at.utc.strftime('%Y_%m'),
+      old = File.join(created_at.utc.strftime('%Y年%m月'),
                       the_project.ci_id.to_s,
                       id.to_s)
 
@@ -428,7 +428,7 @@ module Ci
       return old if the_project.ci_id && File.directory?(old_store)
 
       File.join(
-        created_at.utc.strftime('%Y_%m'),
+        created_at.utc.strftime('%Y年%m月'),
         the_project.id.to_s,
         id.to_s
       )

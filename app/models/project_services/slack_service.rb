@@ -1,10 +1,10 @@
 class SlackService < ChatNotificationService
   def title
-    'Slack notifications'
+    'Slack通知'
   end
 
   def description
-    'Receive event notifications in Slack'
+    '在Slack上接收事件通知'
   end
 
   def self.to_param
@@ -27,10 +27,10 @@ class SlackService < ChatNotificationService
 
   def default_fields
     [
-      { type: 'text', name: 'webhook', placeholder: 'https://hooks.slack.com/services/...' },
-      { type: 'text', name: 'username', placeholder: 'username' },
-      { type: 'checkbox', name: 'notify_only_broken_builds' },
-      { type: 'checkbox', name: 'notify_only_broken_pipelines' },
+        { type: 'text', name: 'webhook', placeholder: 'https://hooks.slack.com/services/...' },
+        { type: 'text', name: 'username', placeholder: 'username' },
+        { type: 'checkbox', name: 'notify_only_broken_builds' },
+        { type: 'checkbox', name: 'notify_only_broken_pipelines' },
     ]
   end
 

@@ -141,6 +141,7 @@ const ShortcutsBlob = require('./shortcuts_blob');
           new MergedButtons();
           break;
         case 'projects:merge_requests:commits':
+        case 'projects:merge_requests:builds':
           new MergedButtons();
           break;
         case "projects:merge_requests:diffs":
@@ -165,6 +166,9 @@ const ShortcutsBlob = require('./shortcuts_blob');
             container: '.js-pipeline-table',
           }).bindEvents();
           break;
+        case 'projects:commit:builds':
+          new gl.Pipelines();
+          break;
         case 'projects:commits:show':
         case 'projects:activity':
           shortcut_handler = new ShortcutsNavigation();
@@ -175,6 +179,11 @@ const ShortcutsBlob = require('./shortcuts_blob');
           if ($('#tree-slider').length) {
             new TreeView();
           }
+          break;
+        case 'projects:pipelines:index':
+          new gl.MiniPipelineGraph({
+            container: '.js-pipeline-table',
+          });
           break;
         case 'projects:pipelines:builds':
         case 'projects:pipelines:show':

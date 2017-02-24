@@ -60,9 +60,9 @@ class JiraService < IssueTrackerService
   end
 
   def help
-    "You need to configure JIRA before enabling this service. For more details
-    read the
-    [JIRA service documentation](#{help_page_url('project_services/jira')})."
+    "在启用此服务之前，您需要配置JIRA。有关更多详细信息，
+    请阅读
+    [JIRA服务文档](#{help_page_url('project_services/jira')})。"
   end
 
   def title
@@ -77,7 +77,7 @@ class JiraService < IssueTrackerService
     if self.properties && self.properties['description'].present?
       self.properties['description']
     else
-      'Jira issue tracker'
+      'Jira 问题追踪'
     end
   end
 
@@ -88,7 +88,7 @@ class JiraService < IssueTrackerService
   def fields
     [
       { type: 'text', name: 'url', title: 'URL', placeholder: 'https://jira.example.com' },
-      { type: 'text', name: 'project_key', placeholder: 'Project Key' },
+      { type: 'text', name: 'project_key', placeholder: '项目 Key' },
       { type: 'text', name: 'username', placeholder: '' },
       { type: 'password', name: 'password', placeholder: '' },
       { type: 'text', name: 'jira_issue_transition_id', placeholder: '2' }

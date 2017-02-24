@@ -134,6 +134,8 @@ class Namespace < ActiveRecord::Base
 
     remove_exports!
 
+    remove_exports!
+
     # If repositories moved successfully we need to
     # send update instructions to users.
     # However we cannot allow rollback since we moved namespace dir
@@ -158,7 +160,7 @@ class Namespace < ActiveRecord::Base
   end
 
   def kind
-    type == 'Group' ? 'group' : 'user'
+    type == 'Group' ? '群组' : '用户'
   end
 
   def find_fork_of(project)
@@ -211,6 +213,10 @@ class Namespace < ActiveRecord::Base
   # Scopes the model on direct and indirect children of the record
   def descendants
     self.class.joins(:route).where('routes.path LIKE ?', "#{route.path}/%").reorder('routes.path ASC')
+  end
+
+  def user_ids_for_project_authorizations
+    [owner_id]
   end
 
   def user_ids_for_project_authorizations

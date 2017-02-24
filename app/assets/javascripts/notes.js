@@ -253,6 +253,16 @@ require('vendor/task_list');
       }
     };
 
+    Notes.prototype.handleCreateChanges = function(note) {
+      if (typeof note === 'undefined') {
+        return;
+      }
+
+      if (note.commands_changes && note.commands_changes.indexOf('merge') !== -1) {
+        $.get(mrRefreshWidgetUrl);
+      }
+    };
+
     /*
     Render note in main comments area.
 

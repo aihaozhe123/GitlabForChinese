@@ -1,20 +1,20 @@
 #js-authenticate-u2f
-%a.btn.btn-block.btn-info#js-login-2fa-device{ href: '#' } Sign in via 2FA code
+%a.btn.btn-block.btn-info#js-login-2fa-device{ href: '#' } 通过2FA代码登录
 
 %script#js-authenticate-u2f-not-supported{ type: "text/template" }
-  %p Your browser doesn't support U2F. Please use Google Chrome desktop (version 41 or newer).
+  %p 您的浏览器不支持U2F。请使用Google Chrome桌面（版本41或更新版本）。
 
 %script#js-authenticate-u2f-in-progress{ type: "text/template" }
-  %p Trying to communicate with your device. Plug it in (if you haven't already) and press the button on the device now.
+  %p 正在尝试与您的设备通信。插入（如果您还没有），然后按设备上的按钮。
 
 %script#js-authenticate-u2f-error{ type: "text/template" }
   %div
     %p <%= error_message %> (error code: <%= error_code %>)
-    %a.btn.btn-block.btn-warning#js-u2f-try-again Try again?
+    %a.btn.btn-block.btn-warning#js-u2f-try-again 再试一次？
 
 %script#js-authenticate-u2f-authenticated{ type: "text/template" }
   %div
-    %p We heard back from your U2F device. You have been authenticated.
+    %p 我们从您的U2F设备收回。您已经过验证。
     = form_tag(new_user_session_path, method: :post, id: 'js-login-u2f-form') do |f|
       - resource_params = params[resource_name].presence || params
       = hidden_field_tag 'user[remember_me]', resource_params.fetch(:remember_me, 0)

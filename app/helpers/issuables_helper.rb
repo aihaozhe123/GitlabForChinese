@@ -63,7 +63,7 @@ module IssuablesHelper
 
   def user_dropdown_label(user_id, default_label)
     return default_label if user_id.nil?
-    return "Unassigned" if user_id == "0"
+    return "未指派" if user_id == "0"
 
     user = User.find_by(id: user_id)
 
@@ -76,7 +76,7 @@ module IssuablesHelper
 
   def project_dropdown_label(project_id, default_label)
     return default_label if project_id.nil?
-    return "Any project" if project_id == "0"
+    return "任何项目" if project_id == "0"
 
     project = Project.find_by(id: project_id)
 
@@ -87,7 +87,7 @@ module IssuablesHelper
     end
   end
 
-  def milestone_dropdown_label(milestone_title, default_label = "Milestone")
+  def milestone_dropdown_label(milestone_title, default_label = "里程碑")
     if milestone_title == Milestone::Upcoming.name
       milestone_title = Milestone::Upcoming.title
     end
@@ -97,7 +97,7 @@ module IssuablesHelper
 
   def issuable_meta(issuable, project, text)
     output = content_tag :strong, "#{text} #{issuable.to_reference}", class: "identifier"
-    output << " opened #{time_ago_with_tooltip(issuable.created_at)} by ".html_safe
+    output << " 创建于 #{time_ago_with_tooltip(issuable.created_at)} ，作者：".html_safe
     output << content_tag(:strong) do
       author_output = link_to_member(project, issuable.author, size: 24, mobile_classes: "hidden-xs", tooltip: true)
       author_output << link_to_member(project, issuable.author, size: 24, by_username: true, avatar: false, mobile_classes: "hidden-sm hidden-md hidden-lg")
@@ -122,14 +122,17 @@ module IssuablesHelper
     first, last = labels.partition.with_index{ |_, i| i < limit  }
 
     label_names = first.collect(&:name)
-    label_names << "and #{last.size} more" unless last.empty?
+    label_names << "和另外 #{last.size} 个" unless last.empty?
 
     label_names.join(', ')
   end
 
   def issuables_state_counter_text(issuable_type, state)
     titles = {
-      opened: "Open"
+      opened: "未关闭",
+      merged: "已合并",
+      closed: "已关闭",
+      all:"全部",
     }
 
     state_title = titles[state] || state.to_s.humanize
@@ -218,7 +221,7 @@ module IssuablesHelper
       when MergeRequest
         merge_request_template_names
       else
-        raise 'Unknown issuable type!'
+        raise '未知问题类型！'
       end
   end
 

@@ -14,12 +14,12 @@
 
     U2FError.prototype.message = function() {
       if (this.errorCode === u2f.ErrorCodes.BAD_REQUEST && this.httpsDisabled) {
-        return 'U2F only works with HTTPS-enabled websites. Contact your administrator for more details.';
+        return 'U2F仅适用于启用HTTPS的网站。有关详细信息，请与管理员联系。';
       } else if (this.errorCode === u2f.ErrorCodes.DEVICE_INELIGIBLE) {
-        if (this.u2fFlowType === 'authenticate') return 'This device has not been registered with us.';
-        if (this.u2fFlowType === 'register') return 'This device has already been registered with us.';
+        if (this.u2fFlowType === 'authenticate') return '此设备尚未向我们注册。';
+        if (this.u2fFlowType === 'register') return '此设备已在我们的注册。';
       }
-      return "There was a problem communicating with your device.";
+      return "与您的设备通信时出现问题。";
     };
 
     return U2FError;

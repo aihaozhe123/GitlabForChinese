@@ -47,15 +47,15 @@ module ChatMessage
     end
 
     def new_branch_message
-      "#{user_name} pushed new #{ref_type} #{branch_link} to #{project_link}"
+      "#{user_name} 为 #{project_link} 推送了新的 #{ref_type} #{branch_link}"
     end
 
     def removed_branch_message
-      "#{user_name} removed #{ref_type} #{ref} from #{project_link}"
+      "#{user_name} 删除了 #{ref_type} #{ref} 的 #{project_link}"
     end
 
     def push_message
-      "#{user_name} pushed to #{ref_type} #{branch_link} of #{project_link} (#{compare_link})"
+      "#{user_name} 推送了 #{ref_type} #{branch_link} (#{compare_link}) 的 #{project_link}"
     end
 
     def commit_messages
@@ -100,7 +100,7 @@ module ChatMessage
     end
 
     def compare_link
-      "[Compare changes](#{compare_url})"
+      "[比较更改](#{compare_url})"
     end
 
     def attachment_color

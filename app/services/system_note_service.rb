@@ -19,12 +19,12 @@ module SystemNoteService
   # Returns the created Note object
   def add_commits(noteable, project, author, new_commits, existing_commits = [], oldrev = nil)
     total_count  = new_commits.length + existing_commits.length
-    commits_text = "#{total_count} commit".pluralize(total_count)
+    commits_text = "#{total_count} 提交".pluralize(total_count)
 
-    body = "added #{commits_text}\n\n"
+    body = "已添加 #{commits_text}:\n\n"
     body << existing_commit_summary(noteable, existing_commits, oldrev)
     body << new_commit_summary(new_commits).join("\n")
-    body << "\n\n[Compare with previous version](#{diff_comparison_url(noteable, project, oldrev)})"
+    body << "\n\n[与以前的版本比较](#{diff_comparison_url(noteable, project, oldrev)})"
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
@@ -44,7 +44,7 @@ module SystemNoteService
   #
   # Returns the created Note object
   def change_assignee(noteable, project, author, assignee)
-    body = assignee.nil? ? 'removed assignee' : "assigned to #{assignee.to_reference}"
+    body = assignee.nil? ? '已移除指派' : "重新分配给 #{assignee.to_reference}"
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
@@ -76,15 +76,15 @@ module SystemNoteService
     body = ''
 
     if added_labels.present?
-      body << "added #{added_labels}"
-      body << ' and ' if removed_labels.present?
+      body << "已添加 #{added_labels}"
+      body << ' 和 ' if removed_labels.present?
     end
 
     if removed_labels.present?
-      body << "removed #{removed_labels}"
+      body << "已移除 #{removed_labels}"
     end
 
-    body << ' ' << 'label'.pluralize(labels_count)
+    body << ' ' << '标签'.pluralize(labels_count)
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
@@ -104,7 +104,58 @@ module SystemNoteService
   #
   # Returns the created Note object
   def change_milestone(noteable, project, author, milestone)
-    body = milestone.nil? ? 'removed milestone' : "changed milestone to #{milestone.to_reference(project)}"
+    body = milestone.nil? ? '里程碑已移除' : "里程碑已修改为 #{milestone.to_reference(project)}"
+
+    create_note(noteable: noteable, project: project, author: author, note: body)
+  end
+
+  # Called when the estimated time of a Noteable is changed
+  #
+  # noteable      - Noteable object
+  # project       - Project owning noteable
+  # author        - User performing the change
+  # time_estimate - Estimated time
+  #
+  # Example Note text:
+  #
+  #   "Changed estimate of this issue to 3d 5h"
+  #
+  # Returns the created Note object
+
+  def change_time_estimate(noteable, project, author)
+    parsed_time = Gitlab::TimeTrackingFormatter.output(noteable.time_estimate)
+    body = if noteable.time_estimate == 0
+             "Removed time estimate on this #{noteable.human_class_name}"
+           else
+             "Changed time estimate of this #{noteable.human_class_name} to #{parsed_time}"
+           end
+
+    create_note(noteable: noteable, project: project, author: author, note: body)
+  end
+
+  # Called when the spent time of a Noteable is changed
+  #
+  # noteable   - Noteable object
+  # project    - Project owning noteable
+  # author     - User performing the change
+  # time_spent - Spent time
+  #
+  # Example Note text:
+  #
+  #   "Added 2h 30m of time spent on this issue"
+  #
+  # Returns the created Note object
+
+  def change_time_spent(noteable, project, author)
+    time_spent = noteable.time_spent
+
+    if time_spent == :reset
+      body = "Removed time spent on this #{noteable.human_class_name}"
+    else
+      parsed_time = Gitlab::TimeTrackingFormatter.output(time_spent.abs)
+      action = time_spent > 0 ? 'Added' : 'Subtracted'
+      body = "#{action} #{parsed_time} of time spent on this #{noteable.human_class_name}"
+    end
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
@@ -181,33 +232,33 @@ module SystemNoteService
   # Returns the created Note object
   def change_status(noteable, project, author, status, source)
     body = status.dup
-    body << " via #{source.gfm_reference(project)}" if source
+    body << " ，更改于#{source.gfm_reference(project)}" if source
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
   # Called when 'merge when pipeline succeeds' is executed
   def merge_when_build_succeeds(noteable, project, author, last_commit)
-    body = "enabled an automatic merge when the pipeline for #{last_commit.to_reference(project)} succeeds"
+    body = "当 #{last_commit.to_reference(project)} 的构建成功时启用自动合并"
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
   # Called when 'merge when pipeline succeeds' is canceled
   def cancel_merge_when_build_succeeds(noteable, project, author)
-    body = 'canceled the automatic merge'
+    body = '取消自动合并'
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
   def remove_merge_request_wip(noteable, project, author)
-    body = 'unmarked as a **Work In Progress**'
+    body = '取消标记为**正在进行中**'
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
   def add_merge_request_wip(noteable, project, author)
-    body = 'marked as a **Work In Progress**'
+    body = '将此合并请求标记为“正在进行中”**'
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
@@ -219,13 +270,13 @@ module SystemNoteService
   end
 
   def self.resolve_all_discussions(merge_request, project, author)
-    body = "resolved all discussions"
+    body = "解决了所有讨论"
 
     create_note(noteable: merge_request, project: project, author: author, note: body)
   end
 
   def discussion_continued_in_issue(discussion, project, author, issue)
-    body = "created #{issue.to_reference} to continue this discussion"
+    body = "创建 #{issue.to_reference} 继续此讨论"
     note_attributes = discussion.reply_attributes.merge(project: project, author: author, note: body)
     note_attributes[:type] = note_attributes.delete(:note_type)
 
@@ -252,7 +303,7 @@ module SystemNoteService
     marked_old_title = Gitlab::Diff::InlineDiffMarker.new(old_title).mark(old_diffs, mode: :deletion, markdown: true)
     marked_new_title = Gitlab::Diff::InlineDiffMarker.new(new_title).mark(new_diffs, mode: :addition, markdown: true)
 
-    body = "changed title from **#{marked_old_title}** to **#{marked_new_title}**"
+    body = "更改标题： **#{marked_old_title}** → **#{marked_new_title}**"
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
@@ -268,7 +319,7 @@ module SystemNoteService
   #
   # Returns the created Note object
   def change_issue_confidentiality(issue, project, author)
-    body = issue.confidential ? 'made the issue confidential' : 'made the issue visible to everyone'
+    body = issue.confidential ? '让问题保密' : '让问题任何人可见'
     create_note(noteable: issue, project: project, author: author, note: body)
   end
 
@@ -287,7 +338,7 @@ module SystemNoteService
   #
   # Returns the created Note object
   def change_branch(noteable, project, author, branch_type, old_branch, new_branch)
-    body = "changed #{branch_type} branch from `#{old_branch}` to `#{new_branch}`"
+    body = "#{branch_type} 分支从 #{old_branch} 变更为 #{new_branch}".capitalize
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
@@ -308,12 +359,12 @@ module SystemNoteService
   def change_branch_presence(noteable, project, author, branch_type, branch, presence)
     verb =
       if presence == :add
-        'restored'
+        '恢复'
       else
-        'deleted'
+        '删除'
       end
 
-    body = "#{verb} #{branch_type} branch `#{branch}`"
+    body = "#{verb} #{branch_type} 分支 #{branch}"
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
@@ -324,7 +375,7 @@ module SystemNoteService
   def new_issue_branch(issue, project, author, branch)
     link = url_helpers.namespace_project_compare_url(project.namespace, project, from: project.default_branch, to: branch)
 
-    body = "created branch [`#{branch}`](#{link})"
+    body = "已创建分支 [#{branch}](#{link})"
     create_note(noteable: issue, project: project, author: author, note: body)
   end
 
@@ -443,7 +494,7 @@ module SystemNoteService
   # Returns the created Note object
   def change_task_status(noteable, project, author, new_task)
     status_label = new_task.complete? ? Taskable::COMPLETED : Taskable::INCOMPLETE
-    body = "marked the task **#{new_task.source}** as #{status_label}"
+    body = "将任务 **#{new_task.source}** 标记为 #{status_label}"
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
@@ -461,7 +512,7 @@ module SystemNoteService
   # Returns the created Note object
   def noteable_moved(noteable, project, noteable_ref, author, direction:)
     unless [:to, :from].include?(direction)
-      raise ArgumentError, "Invalid direction `#{direction}`"
+      raise ArgumentError, "方向无效 #{direction}"
     end
 
     cross_reference = noteable_ref.to_reference(project)
@@ -487,7 +538,7 @@ module SystemNoteService
   end
 
   def cross_reference_note_prefix
-    'mentioned in '
+    '提及 '
   end
 
   def cross_reference_note_content(gfm_reference)
@@ -525,12 +576,12 @@ module SystemNoteService
                    end
                  end
 
-    commits_text = "#{count} commit".pluralize(count)
+    commits_text = "#{count} 提交".pluralize(count)
 
     branch = noteable.target_branch
     branch = "#{noteable.target_project_namespace}:#{branch}" if noteable.for_fork?
 
-    "* #{commit_ids} - #{commits_text} from branch `#{branch}`\n"
+    "* #{commit_ids} - #{commits_text} 从分支 #{branch}\n"
   end
 
   def escape_html(text)

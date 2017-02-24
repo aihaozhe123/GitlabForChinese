@@ -48,7 +48,7 @@ require('../vue_shared/components/pipelines_table');
         <div class="blank-state blank-state-no-icon"
           v-if="!pageRequest && pipelines.length === 0">
           <h2 class="blank-state-title js-blank-state-title">
-            No pipelines to show
+            没有管道显示
           </h2>
         </div>
 

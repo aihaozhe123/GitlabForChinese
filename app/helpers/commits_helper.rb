@@ -102,7 +102,7 @@ module CommitsHelper
   def link_to_browse_code(project, commit)
     if @path.blank?
       return link_to(
-        "Browse Files",
+        "浏览文件",
         namespace_project_tree_path(project.namespace, project, commit),
         class: "btn btn-default"
       )
@@ -112,14 +112,14 @@ module CommitsHelper
 
     if @repo.blob_at(commit.id, @path)
       return link_to(
-        "Browse File",
+        "浏览文件",
         namespace_project_blob_path(project.namespace, project,
                                     tree_join(commit.id, @path)),
         class: "btn btn-default"
       )
     elsif @path.present?
       return link_to(
-        "Browse Directory",
+        "浏览目录",
         namespace_project_tree_path(project.namespace, project,
                                     tree_join(commit.id, @path)),
         class: "btn btn-default"
@@ -128,11 +128,11 @@ module CommitsHelper
   end
 
   def revert_commit_link(commit, continue_to_path, btn_class: nil, has_tooltip: true)
-    commit_action_link('revert', commit, continue_to_path, btn_class: btn_class, has_tooltip: has_tooltip)
+    commit_action_link('恢复', commit, continue_to_path, btn_class: btn_class, has_tooltip: has_tooltip)
   end
 
   def cherry_pick_commit_link(commit, continue_to_path, btn_class: nil, has_tooltip: true)
-    commit_action_link('cherry-pick', commit, continue_to_path, btn_class: btn_class, has_tooltip: has_tooltip)
+    commit_action_link('挑选', commit, continue_to_path, btn_class: btn_class, has_tooltip: has_tooltip)
   end
 
   protected
@@ -175,7 +175,7 @@ module CommitsHelper
   def commit_action_link(action, commit, continue_to_path, btn_class: nil, has_tooltip: true)
     return unless current_user
 
-    tooltip = "#{action.capitalize} this #{commit.change_type_title(current_user)} in a new merge request" if has_tooltip
+    tooltip = "#{action.capitalize} 此 #{commit.change_type_title(current_user)}到新的合并请求中" if has_tooltip
     btn_class = "btn btn-#{btn_class}" unless btn_class.nil?
 
     if can_collaborate_with_project?
@@ -200,7 +200,7 @@ module CommitsHelper
                                   tree_join(commit_sha, diff_new_path)),
       class: 'btn view-file js-view-file'
     ) do
-      raw('View file @') + content_tag(:span, commit_sha[0..6],
+      raw('查看文件 @') + content_tag(:span, commit_sha[0..6],
                                        class: 'commit-short-id')
     end
   end

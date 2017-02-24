@@ -14,7 +14,7 @@ window.d3 = require('d3');
 
     ContributorsGraph.prototype.MARGIN = {
       top: 20,
-      right: 20,
+      right: 30,
       bottom: 30,
       left: 50
     };
@@ -99,7 +99,7 @@ window.d3 = require('d3');
     function ContributorsMasterGraph(data1) {
       this.data = data1;
       this.update_content = bind(this.update_content, this);
-      this.width = $('.content').width() - 70;
+      this.width = 1248 - 70;
       this.height = 200;
       this.x = null;
       this.y = null;
@@ -135,7 +135,7 @@ window.d3 = require('d3');
     };
 
     ContributorsMasterGraph.prototype.create_axes = function() {
-      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom");
+      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom").tickFormat(d3.time.format("%Y-%m-%d"));
       return this.y_axis = d3.svg.axis().scale(this.y).orient("left").ticks(5);
     };
 
@@ -206,7 +206,7 @@ window.d3 = require('d3');
       if ($(window).width() < 768) {
         this.width = $('.content').width() - 80;
       } else {
-        this.width = ($('.content').width() / 2) - 100;
+        this.width = 609 - 70;
       }
       this.height = 200;
       this.x = null;
@@ -223,7 +223,7 @@ window.d3 = require('d3');
     };
 
     ContributorsAuthorGraph.prototype.create_axes = function() {
-      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom").ticks(8);
+      this.x_axis = d3.svg.axis().scale(this.x).orient("bottom").ticks(8).tickFormat(d3.time.format("%Y-%m-%d"));
       return this.y_axis = d3.svg.axis().scale(this.y).orient("left").ticks(5);
     };
 

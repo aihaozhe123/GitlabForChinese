@@ -126,6 +126,19 @@
         fill: $gl-text-color;
       }
     }
+
+    &.ci-manual {
+      color: $gl-text-color;
+      border-color: $gl-text-color;
+
+      &:not(span):hover {
+        background-color: rgba($gl-text-color, .07);
+      }
+
+      svg {
+        fill: $gl-text-color;
+      }
+    }
   }
 }
 

@@ -22,10 +22,18 @@ module NotificationsHelper
 
   def notification_title(level)
     case level.to_sym
+    when :disabled
+      '关闭'
     when :participating
-      'Participate'
+      '参与'
+    when :watch
+      '关注'
     when :mention
-      'On mention'
+      '被提及'
+    when :global
+      '全局'
+    when :custom
+      '自定义'
     else
       level.to_s.titlecase
     end
@@ -34,17 +42,17 @@ module NotificationsHelper
   def notification_description(level)
     case level.to_sym
     when :participating
-      'You will only receive notifications for threads you have participated in'
+      '您只会收到您参与的活动通知'
     when :mention
-      'You will receive notifications only for comments in which you were @mentioned'
+      '您将只收到@您的评论的通知'
     when :watch
-      'You will receive notifications for any activity'
+      '您将收到任何活动的通知'
     when :disabled
-      'You will not get any notifications via email'
+      '您将不会通过电子邮件收到任何通知'
     when :global
-      'Use your global notification setting'
+      '使用您的全局通知设置'
     when :custom
-      'You will only receive notifications for the events you choose'
+      '您只会收到您自定义的事件的通知'
     end
   end
 
@@ -77,8 +85,30 @@ module NotificationsHelper
 
   def notification_event_name(event)
     case event
+    when :new_note
+      '新注释'
+    when :new_issue
+      '新问题'
+    when :reopen_issue
+      '重新打开问题'
+    when :close_issue
+      '关闭问题'
+    when :reassign_issue
+      '重新指派问题'
+    when :new_merge_request
+      '新合并请求'
+    when :reopen_merge_request
+      '重新打开合并请求'
+    when :close_merge_request
+      '关闭合并请求'
+    when :reassign_merge_request
+      '重新指派合并请求'
+    when :merge_merge_request
+      '合并合并请求'
+    when :failed_pipeline
+      '管道失败'
     when :success_pipeline
-      'Successful pipeline'
+      '管道成功'
     else
       event.to_s.humanize
     end

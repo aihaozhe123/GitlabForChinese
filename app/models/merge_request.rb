@@ -634,16 +634,16 @@ class MergeRequest < ActiveRecord::Base
     end
 
     message = [
-      "Merge branch '#{source_branch}' into '#{target_branch}'",
+      "合并分支 #{source_branch} 到 #{target_branch}",
       title
     ]
 
     if !include_description && closes_issues_references.present?
-      message << "Closes #{closes_issues_references.to_sentence}"
+      message << "关闭 #{closes_issues_references.to_sentence}"
     end
 
     message << "#{description}" if include_description && description.present?
-    message << "See merge request #{to_reference}"
+    message << "请参阅合并请求 #{to_reference}"
 
     message.join("\n\n")
   end
@@ -735,11 +735,11 @@ class MergeRequest < ActiveRecord::Base
 
   def state_human_name
     if merged?
-      "Merged"
+      "已合并"
     elsif closed?
-      "Closed"
+      "已关闭"
     else
-      "Open"
+      "未合并"
     end
   end
 

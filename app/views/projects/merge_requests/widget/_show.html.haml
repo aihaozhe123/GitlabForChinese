@@ -16,13 +16,13 @@
     gitlab_icon: "#{asset_path 'gitlab_logo.png'}",
     ci_status: "#{@merge_request.head_pipeline ? @merge_request.head_pipeline.status : ''}",
     ci_message: {
-      normal: "Pipeline {{status}} for \"{{title}}\"",
-      preparing: "{{status}} pipeline for \"{{title}}\""
+      normal: "\"{{title}}\" 的管道{{status}}",
+      preparing: "\"{{title}}\" 的管道{{status}}"
     },
     ci_enable: #{@project.ci_service ? "true" : "false"},
     ci_title: {
-      preparing: "{{status}} pipeline",
-      normal: "Pipeline {{status}}"
+      preparing: "{{status}} 管道",
+      normal: "管道 {{status}}"
     },
     ci_sha: "#{@merge_request.head_pipeline ? @merge_request.head_pipeline.short_sha : ''}",
     ci_pipeline: #{@merge_request.head_pipeline.try(:id).to_json},
@@ -32,6 +32,7 @@
   };
 
   if (typeof merge_request_widget !== 'undefined') {
+    clearInterval(merge_request_widget.fetchBuildStatusInterval);
     merge_request_widget.cancelPolling();
     merge_request_widget.clearEventListeners();
   }

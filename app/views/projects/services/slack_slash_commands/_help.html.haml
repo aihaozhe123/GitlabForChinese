@@ -1,26 +1,24 @@
-- pretty_name = defined?(@project) ? @project.name_with_namespace : 'namespace / path'
-- run_actions_text = "Perform common operations on GitLab project: #{pretty_name}"
+- pretty_name = defined?(@project) ? @project.name_with_namespace : "namespace / path"
+- run_actions_text = "对此项目执行常见操作：#{@project.name_with_namespace}"
 
 .well
   %p
-    This service allows users to perform common operations on this
-    project by entering slash commands in Slack.
+    此服务允许用户通过在Slack中
+    输入斜杠命令对此项目执行常见操作。
     = link_to help_page_path('user/project/integrations/slack_slash_commands.md'), target: '_blank', ref: 'noreferrer nofollow noopener' do
-      View documentation
+      查看文档
       = icon('external-link')
   %p.inline
-    See list of available commands in Slack after setting up this service,
-    by entering
+    设置此服务后，请参阅Slack中的可用命令列表，
+    命令
   %kbd.inline /&lt;command&gt; help
   - unless @service.template?
-    %p To setup this service:
+    %p 设置此服务：
     %ul.list-unstyled.indent-list
       %li
-        1.
-        = link_to 'https://my.slack.com/services/new/slash-commands', target: '_blank', rel: 'noreferrer noopener nofollow' do
-          Add a slash command
-          = icon('external-link')
-        in your Slack team with these options:
+        1. 在Slack团队中使用以下选项
+      = link_to '添加一个斜杠命令', 'https://my.slack.com/services/new/slash-commands'
+      ：
 
     %hr
 
@@ -28,9 +26,9 @@
       .form-group
         = label_tag nil, 'Command', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.text-block
-          %p Fill in the word that works best for your team.
+          %p 填写最适合您团队的词。
           %p
-            Suggestions:
+            建议：
             %code= 'gitlab'
             %code= @project.path # Path contains no spaces, but dashes
             %code= @project.path_with_namespace
@@ -43,44 +41,44 @@
             = clipboard_button(clipboard_target: '#url')
 
       .form-group
-        = label_tag nil, 'Method', class: 'col-sm-2 col-xs-12 control-label'
+        = label_tag nil, '方法', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.text-block POST
 
       .form-group
-        = label_tag :customize_name, 'Customize name', class: 'col-sm-2 col-xs-12 control-label'
+        = label_tag :customize_name, '自定义名称', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.input-group
           = text_field_tag :customize_name, 'GitLab', class: 'form-control input-sm', readonly: 'readonly'
           .input-group-btn
             = clipboard_button(clipboard_target: '#customize_name')
 
       .form-group
-        = label_tag nil, 'Customize icon', class: 'col-sm-2 col-xs-12 control-label'
+        = label_tag nil, '自定义图标', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.text-block
           = image_tag(asset_url('slash-command-logo.png'), width: 36, height: 36)
-          = link_to('Download image', asset_url('gitlab_logo.png'), class: 'btn btn-sm', target: '_blank')
+          = link_to('下载图标', asset_url('gitlab_logo.png'), class: 'btn btn-sm', target: '_blank')
 
       .form-group
-        = label_tag nil, 'Autocomplete', class: 'col-sm-2 col-xs-12 control-label'
+        = label_tag nil, '自动完成', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.text-block Show this command in the autocomplete list
 
       .form-group
-        = label_tag :autocomplete_description, 'Autocomplete description', class: 'col-sm-2 col-xs-12 control-label'
+        = label_tag :autocomplete_description, '自动完成提示', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.input-group
           = text_field_tag :autocomplete_description, run_actions_text, class: 'form-control input-sm', readonly: 'readonly'
           .input-group-btn
             = clipboard_button(clipboard_target: '#autocomplete_description')
 
       .form-group
-        = label_tag :autocomplete_usage_hint, 'Autocomplete usage hint', class: 'col-sm-2 col-xs-12 control-label'
+        = label_tag :autocomplete_usage_hint, '自动完成使用提示', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.input-group
-          = text_field_tag :autocomplete_usage_hint, '[help]', class: 'form-control input-sm', readonly: 'readonly'
+          = text_field_tag :autocomplete_usage_hint, '[帮助]', class: 'form-control input-sm', readonly: 'readonly'
           .input-group-btn
             = clipboard_button(clipboard_target: '#autocomplete_usage_hint')
 
       .form-group
-        = label_tag :descriptive_label, 'Descriptive label', class: 'col-sm-2 col-xs-12 control-label'
+        = label_tag :descriptive_label, '描述性标签', class: 'col-sm-2 col-xs-12 control-label'
         .col-sm-10.col-xs-12.input-group
-          = text_field_tag :descriptive_label, 'Perform common operations on GitLab project', class: 'form-control input-sm', readonly: 'readonly'
+          = text_field_tag :descriptive_label, '在GitLab项目上执行常见操作', class: 'form-control input-sm', readonly: 'readonly'
           .input-group-btn
             = clipboard_button(clipboard_target: '#descriptive_label')
 
@@ -88,12 +86,12 @@
 
     %ul.list-unstyled.indent-list
       %li
-        2. Paste the
-        %strong Token
-        into the field below
+        2. 将
+        %strong 令牌
+        粘贴到下面的字段中
       %li
-        3. Select the
-        %strong Active
-        checkbox, press
-        %strong Save changes
-        and start using GitLab inside Slack!
+        3. 选择
+        %strong 激活
+        复选框，按
+        %strong 保存更改
+        并开始使用Slack中的GitLab！

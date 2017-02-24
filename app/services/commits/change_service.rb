@@ -60,7 +60,7 @@ module Commits
       allowed = ::Gitlab::UserAccess.new(current_user, project: project).can_push_to_branch?(@target_branch)
 
       unless allowed
-        raise ValidationError.new('You are not allowed to push into this branch')
+        raise ValidationError.new('不允许您推送到此分支')
       end
 
       true
@@ -74,7 +74,7 @@ module Commits
         .execute(new_branch)
 
       if result[:status] == :error
-        raise ChangeError, "There was an error creating the source branch: #{result[:message]}"
+        raise ChangeError, "创建源分支时出错： #{result[:message]}"
       end
     end
   end

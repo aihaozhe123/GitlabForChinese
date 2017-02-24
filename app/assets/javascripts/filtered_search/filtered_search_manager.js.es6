@@ -223,6 +223,27 @@
       this.setDropdownWrapper();
       currentDropdownRef.dispatchInputEvent();
     }
+
+    getUsernameParams() {
+      const usernamesById = {};
+      try {
+        const attribute = this.filteredSearchInput.getAttribute('data-username-params');
+        JSON.parse(attribute).forEach((user) => {
+          usernamesById[user.id] = user.username;
+        });
+      } catch (e) {
+        // do nothing
+      }
+      return usernamesById;
+    }
+
+    tokenChange() {
+      const dropdown = this.dropdownManager.mapping[this.dropdownManager.currentDropdown];
+      const currentDropdownRef = dropdown.reference;
+
+      this.setDropdownWrapper();
+      currentDropdownRef.dispatchInputEvent();
+    }
   }
 
   window.gl = window.gl || {};

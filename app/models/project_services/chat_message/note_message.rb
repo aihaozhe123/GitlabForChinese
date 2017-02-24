@@ -46,25 +46,25 @@ module ChatMessage
       commit_sha = commit[:id]
       commit_sha = Commit.truncate_sha(commit_sha)
       commented_on_message(
-        "commit #{commit_sha}",
+        "提交 #{commit_sha}",
         format_title(commit[:message]))
     end
 
     def create_issue_note(issue)
       commented_on_message(
-        "issue ##{issue[:iid]}",
+        "问题 ##{issue[:iid]}",
         format_title(issue[:title]))
     end
 
     def create_merge_note(merge_request)
       commented_on_message(
-        "merge request !#{merge_request[:iid]}",
+        "合并请求 !#{merge_request[:iid]}",
         format_title(merge_request[:title]))
     end
 
     def create_snippet_note(snippet)
       commented_on_message(
-        "snippet ##{snippet[:id]}",
+        "代码段 ##{snippet[:id]}",
         format_title(snippet[:title]))
     end
 
@@ -77,7 +77,7 @@ module ChatMessage
     end
 
     def commented_on_message(target, title)
-      @message = "#{@user_name} [commented on #{target}](#{@note_url}) in #{project_link}: *#{title}*"
+      @message = "#{@user_name} [评论了 #{target}](#{@note_url}) 的 #{project_link}: *#{title}*"
     end
   end
 end

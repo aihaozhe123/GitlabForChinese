@@ -1,10 +1,10 @@
 %h4
   = icon('exclamation-triangle')
-  This merge request has unresolved discussions
+  此合并请求未解决的讨论
 
 %p
-  Please resolve these discussions
+  请解决这些讨论
   - if @project.issues_enabled? && can?(current_user, :create_issue, @project)
-    or
-    = link_to "open an issue to resolve them later", new_namespace_project_issue_path(@project.namespace, @project, merge_request_for_resolving_discussions: @merge_request.iid)
-  to allow this merge request to be merged.
+    或
+    = link_to "打开一个问题并在稍后解决它们", new_namespace_project_issue_path(@project.namespace, @project, merge_request_for_resolving_discussions: @merge_request.iid)
+  以允许合并此合并请求。

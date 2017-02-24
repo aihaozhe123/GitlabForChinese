@@ -47,7 +47,7 @@ window.d3 = require('d3');
       commits = $('<span/>', {
         "class": 'graph-author-commits-count'
       });
-      commits.text(author.commits + " commits");
+      commits.text(author.commits + " 次提交");
       return $('<span/>').append(commits);
     };
 
@@ -99,7 +99,7 @@ window.d3 = require('d3');
     ContributorsStatGraph.prototype.change_date_header = function() {
       var print, print_date_format, x_domain;
       x_domain = ContributorsGraph.prototype.x_domain;
-      print_date_format = d3.time.format("%B %e %Y");
+      print_date_format = d3.time.format("%Y-%m-%d");
       print = print_date_format(x_domain[0]) + " - " + print_date_format(x_domain[1]);
       return $("#date_header").text(print);
     };

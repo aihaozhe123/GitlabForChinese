@@ -22,10 +22,10 @@ window.Vue = require('vue');
     template: `
       <a class="btn" :href="retryUrl" data-method="post" rel="nofollow">
         <span v-if="isLastDeployment">
-          Re-deploy
+          重新部署
         </span>
         <span v-else>
-          Rollback
+          回滚
         </span>
       </a>
     `,

@@ -40,7 +40,7 @@
         $loading = $block.find('.block-loading').fadeOut();
         if (issueUpdateURL) {
           milestoneLinkTemplate = _.template('<a href="/<%- namespace %>/<%- path %>/milestones/<%- iid %>" class="bold has-tooltip" data-container="body" title="<%- remaining %>"><%- title %></a>');
-          milestoneLinkNoneTemplate = '<span class="no-value">None</span>';
+          milestoneLinkNoneTemplate = '<span class="no-value">无里程碑</span>';
           collapsedSidebarLabelTemplate = _.template('<span class="has-tooltip" data-container="body" title="<%- remaining %>" data-placement="left"> <%- title %> </span>');
         }
         return $dropdown.glDropdown({
@@ -54,21 +54,21 @@
                 extraOptions.push({
                   id: 0,
                   name: '',
-                  title: 'Any Milestone'
+                  title: '任何里程碑'
                 });
               }
               if (showNo) {
                 extraOptions.push({
                   id: -1,
-                  name: 'No Milestone',
-                  title: 'No Milestone'
+                  name: '没有里程碑',
+                  title: '没有里程碑'
                 });
               }
               if (showUpcoming) {
                 extraOptions.push({
                   id: -2,
-                  name: '#upcoming',
-                  title: 'Upcoming'
+                  name: '#即将到来',
+                  title: '即将到来'
                 });
               }
               if (extraOptions.length) {

@@ -1,4 +1,4 @@
-/* global Vue */
+/* global Vue gl*/
 /* global timeago */
 
 window.Vue = require('vue');
@@ -100,6 +100,10 @@ require('./environment_terminal_button');
         return this.model.children && this.model.children.length > 0;
       },
 
+      localTimeFinished() {
+          return gl.utils.formatDate(this.model.last_deployment.deployable.created_at);
+      },
+
       /**
        * If an item is inside a folder structure will return true.
        * Used for css purposes.
@@ -184,8 +188,8 @@ require('./environment_terminal_button');
        * @returns {String}
        */
       createdDate() {
-        return gl.environmentsList.timeagoInstance.format(
-          this.model.last_deployment.deployable.created_at,
+        return gl.utils.getTimeago().format(
+          this.model.last_deployment.deployable.created_at,'gl_en'
         );
       },
 
@@ -216,7 +220,7 @@ require('./environment_terminal_button');
         if (this.model.last_deployment &&
           this.model.last_deployment.user &&
           this.model.last_deployment.user.username) {
-          return `${this.model.last_deployment.user.username}'s avatar'`;
+          return `${this.model.last_deployment.user.username}'的头像'`;
         }
         return '';
       },
@@ -448,7 +452,7 @@ require('./environment_terminal_button');
           </span>
 
           <span v-if="!isFolder && deploymentHasUser">
-            by
+            作者
             <a :href="deploymentUser.web_url" class="js-deploy-user-container">
               <img class="avatar has-tooltip s20"
                 :src="deploymentUser.avatar_url"
@@ -479,7 +483,7 @@ require('./environment_terminal_button');
             </commit-component>
           </div>
           <p v-if="!isFolder && !hasLastDeploymentKey" class="commit-title">
-            No deployments yet
+            尚未部署
           </p>
         </td>
 
@@ -487,7 +491,14 @@ require('./environment_terminal_button');
           <span
             v-if="!isFolder && canShowDate"
             class="environment-created-date-timeago">
+            <time
+            data-toggle="tooltip"
+            data-placement="top"
+            data-container="body"
+            :data-original-title='localTimeFinished'
+          >
             {{createdDate}}
+          </time>
           </span>
         </td>
 
