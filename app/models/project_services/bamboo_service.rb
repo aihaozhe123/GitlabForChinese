@@ -37,7 +37,7 @@ class BambooService < CiService
   end
 
   def help
-    '您必须在Bamboo中设置自动修订标签和存储库触发器。'
+    '您必须在Bamboo中设置自动修订标记和存储库触发器。'
   end
 
   def self.to_param

@@ -52,7 +52,7 @@
         }
         if (issueUpdateURL) {
           labelHTMLTemplate = _.template('<% _.each(labels, function(label){ %> <a href="<%- ["",issueURLSplit[1], issueURLSplit[2],""].join("/") %>issues?label_name[]=<%- encodeURIComponent(label.title) %>"> <span class="label has-tooltip color-label" title="<%- label.description %>" style="background-color: <%- label.color %>; color: <%- label.text_color %>;"> <%- label.title %> </span> </a> <% }); %>');
-          labelNoneHTMLTemplate = '<span class="no-value">无标记</span>';
+          labelNoneHTMLTemplate = '<span class="no-value">无标签</span>';
         }
 
         $sidebarLabelTooltip.tooltip();
@@ -158,13 +158,13 @@
                 if (showNo) {
                   extraData.unshift({
                     id: 0,
-                    title: '没有标记'
+                    title: '没有标签'
                   });
                 }
                 if (showAny) {
                   extraData.unshift({
                     isAny: true,
-                    title: '任何标记'
+                    title: '任何标签'
                   });
                 }
                 if (extraData.length) {
@@ -262,7 +262,7 @@
 
             if (selected.id === 0) {
               this.selected = [];
-              return '没有标记';
+              return '没有标签';
             }
             else if (isSelected) {
               this.selected.push(title);
@@ -439,7 +439,7 @@
       if ($('.selected_issue:checked').length) {
         return;
       }
-      return $('.issues_bulk_update .labels-filter .dropdown-toggle-text').text('标记');
+      return $('.issues_bulk_update .labels-filter .dropdown-toggle-text').text('标签');
     };
 
     LabelsSelect.prototype.enableBulkLabelDropdown = function() {

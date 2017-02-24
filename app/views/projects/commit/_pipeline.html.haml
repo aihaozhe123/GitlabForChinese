@@ -19,7 +19,7 @@
           提交
           = link_to pipeline.short_sha, namespace_project_commit_path(pipeline.project.namespace, pipeline.project, pipeline.sha), class: "monospace"
         - if pipeline.duration
-          进行了 #{pipeline.statuses.count(:id)} 次工作，共耗时
+          进行了 #{pipeline.statuses.count(:id)} 次作业，共耗时
           = time_interval_in_words pipeline.duration
 
   .row-content-block.build-content.middle-block.js-pipeline-graph.hidden
@@ -42,7 +42,7 @@
     %thead
       %tr
         %th 状态
-        %th 工作 ID
+        %th 作业 ID
         %th 名称
         %th
         - if pipeline.project.build_coverage_enabled?

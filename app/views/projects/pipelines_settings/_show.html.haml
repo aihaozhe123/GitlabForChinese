@@ -42,7 +42,7 @@
           = f.label :build_timeout_in_minutes, '超时', class: 'label-light'
           = f.number_field :build_timeout_in_minutes, class: 'form-control', min: '0'
           %p.help-block
-            每次构建超时分钟。如果作业通过此阈值，它将被标记为失败。
+            每次构建超时分钟。如果作业通过此阈值，它将被标签为失败。
             = link_to icon('question-circle'), help_page_path('user/project/pipelines/settings', anchor: 'timeout')
 
         %hr

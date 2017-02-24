@@ -7,11 +7,11 @@
         = f.check_box :active
         %span.light 暂停的 Runner 不会运行新的构建
   .form-group
-    = label :run_untagged, '运行没有标签的作业', class: 'control-label'
+    = label :run_untagged, '运行没有标记的作业', class: 'control-label'
     .col-sm-10
       .checkbox
         = f.check_box :run_untagged
-        %span.light 此 Runner 可以运行没有任何标签的作业
+        %span.light 此 Runner 可以运行没有任何标记的作业
   .form-group
     = label :locked, '锁定到当前项目', class: 'control-label'
     .col-sm-10
@@ -30,9 +30,9 @@
       = f.text_field :description, class: 'form-control'
   .form-group
     = label_tag :tag_list, class: 'control-label' do
-      标签
+      标记
     .col-sm-10
       = f.text_field :tag_list, value: runner.tag_list.to_s, class: 'form-control'
-      .help-block 您可以设置只有指定的标签构建才能使用此 Runner
+      .help-block 您可以设置只有指定的标记构建才能使用此 Runner
   .form-actions
     = f.submit '保存修改', class: 'btn btn-save'

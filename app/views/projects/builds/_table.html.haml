@@ -2,14 +2,14 @@
 
 - if builds.blank?
   %div
-    .nothing-here-block 没有工作显示
+    .nothing-here-block 没有作业显示
 - else
   .table-holder
     %table.table.ci-table.builds-page
       %thead
         %tr
           %th 状态
-          %th 工作
+          %th 作业
           %th 管道
           - if admin
             %th 项目

@@ -180,7 +180,7 @@ require('./environment_item');
                 <tr>
                   <th class="environments-name">环境</th>
                   <th class="environments-deploy">最后部署</th>
-                  <th class="environments-build">工作</th>
+                  <th class="environments-build">作业</th>
                   <th class="environments-commit">提交</th>
                   <th class="environments-date">更新时间</th>
                   <th class="hidden-xs environments-actions"></th>

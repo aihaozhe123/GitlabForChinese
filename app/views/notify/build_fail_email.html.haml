@@ -1,6 +1,6 @@
 - content_for :header do
   %h1{ style: "background: #c40834; color: #FFF; font: normal 20px Helvetica, Arial, sans-serif; margin: 0; padding: 5px 10px; line-height: 32px; font-size: 16px;" }
-    GitLab (工作失败)
+    GitLab (作业失败)
 
 %h3
   项目：
@@ -21,4 +21,4 @@
   消息： #{@build.pipeline.git_commit_message}
 
 %p
-  工作详情： #{link_to "工作 #{@build.id}", namespace_project_build_url(@build.project.namespace, @build.project, @build)}
+  作业详情： #{link_to "作业 #{@build.id}", namespace_project_build_url(@build.project.namespace, @build.project, @build)}

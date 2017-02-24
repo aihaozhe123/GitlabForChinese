@@ -1,8 +1,8 @@
 .dropdown-page-two.dropdown-new-label
-  = dropdown_title("创建新标记", back: true)
+  = dropdown_title("创建新标签", back: true)
   = dropdown_content do
     .dropdown-labels-error.js-label-error
-    %input#new_label_name.default-dropdown-input{ type: "text", placeholder: "新标记名称" }
+    %input#new_label_name.default-dropdown-input{ type: "text", placeholder: "新标签名称" }
     .suggest-colors.suggest-colors-dropdown
       - suggested_colors.each do |color|
         = link_to '#', style: "background-color: #{color}", data: { color: color } do

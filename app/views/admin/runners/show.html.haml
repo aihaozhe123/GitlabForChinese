@@ -11,13 +11,13 @@
 
 - if @runner.shared?
   .bs-callout.bs-callout-success
-    %h4 将会处理全部<b>未指派</b>项目的工作
+    %h4 将会处理全部<b>未指派</b>项目的作业
     %p
       如果您想让此 Runner 只会处理指派项目的构建，请在下面的表格中启用相关项目的指派。
       需要注意的是，此操作只能一次。一旦指定，此 Runner 将不能再转为共享的。
 - else
   .bs-callout.bs-callout-info
-    %h4 此 Runner 将只会处理<b>指派</b>项目的工作
+    %h4 此 Runner 将只会处理<b>指派</b>项目的作业
     %p 您不能再将此 runner 转为共享的。
 %hr
 
@@ -70,11 +70,11 @@
     = paginate @projects, theme: "gitlab"
 
   .col-md-6
-    %h4 此 Runner 最近完成的工作
+    %h4 此 Runner 最近完成的作业
     %table.table.ci-table.runner-builds
       %thead
         %tr
-          %th 工作
+          %th 作业
           %th 状态
           %th 项目
           %th 提交

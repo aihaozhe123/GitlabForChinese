@@ -100,7 +100,7 @@ class HipchatService < Service
   end
 
   def create_push_message(push)
-    ref_type = Gitlab::Git.tag_ref?(push[:ref]) ? '标签' : '分支'
+    ref_type = Gitlab::Git.tag_ref?(push[:ref]) ? '标记' : '分支'
     ref = Gitlab::Git.ref_name(push[:ref])
 
     before = push[:before]
@@ -241,7 +241,7 @@ class HipchatService < Service
   end
 
   def create_build_message(data)
-    ref_type = data[:tag] ? '标签' : '分支'
+    ref_type = data[:tag] ? '标记' : '分支'
     ref = data[:ref]
     sha = data[:sha]
     user_name = data[:commit][:author_name]

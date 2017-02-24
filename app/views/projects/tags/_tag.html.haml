@@ -15,7 +15,7 @@
         = render 'projects/branches/commit', commit: commit, project: @project
     - else
       %p
-        无法找到该标签的 HEAD 提交
+        无法找到该标记的 HEAD 提交
     - if release && release.description.present?
       .description.prepend-top-default
         .wiki
@@ -30,5 +30,5 @@
         = icon("pencil")
 
     - if can?(current_user, :admin_project, @project)
-      = link_to namespace_project_tag_path(@project.namespace, @project, tag.name), class: 'btn btn-remove remove-row has-tooltip', title: "删除标签", method: :delete, data: { confirm: "标签 '#{tag.name}' 将无法恢复，确定要继续么？", container: 'body' }, remote: true do
+      = link_to namespace_project_tag_path(@project.namespace, @project, tag.name), class: 'btn btn-remove remove-row has-tooltip', title: "删除标记", method: :delete, data: { confirm: "标记 '#{tag.name}' 将无法恢复，确定要继续么？", container: 'body' }, remote: true do
         = icon("trash-o")

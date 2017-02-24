@@ -261,7 +261,7 @@ class Event < ActiveRecord::Base
   end
 
   def ref_type
-    tag? ? "标签" : "分支"
+    tag? ? "标记" : "分支"
   end
 
   def push_with_commits?

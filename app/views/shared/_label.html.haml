@@ -34,7 +34,7 @@
           %li
             = link_to '编辑', edit_label_path(label)
           %li
-            = link_to '删除', destroy_label_path(label), title: '删除', method: :delete, data: {confirm: '要移除此标签吗？您确定？'}
+            = link_to '删除', destroy_label_path(label), title: '删除', method: :delete, data: {confirm: '要移除此标记吗？您确定？'}
 
   .pull-right.hidden-xs.hidden-sm.hidden-md
     = link_to_label(label, subject: subject, type: :merge_request, css_class: 'btn btn-transparent btn-action') do

@@ -6,8 +6,8 @@ class Label < ActiveRecord::Base
   # Represents a "No Label" state used for filtering Issues and Merge
   # Requests that have no label assigned.
   LabelStruct = Struct.new(:title, :name)
-  None = LabelStruct.new('无标记', 'No Label')
-  Any = LabelStruct.new('任何标记', '')
+  None = LabelStruct.new('无标签', 'No Label')
+  Any = LabelStruct.new('任何标签', '')
 
   cache_markdown_field :description, pipeline: :single_line
 

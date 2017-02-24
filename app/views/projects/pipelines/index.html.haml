@@ -23,7 +23,7 @@
 
       %li{ class: ('active' if @scope == 'tags') }>
         = link_to project_pipelines_path(@project, scope: :tags) do
-          标签
+          标记
 
     .nav-controls
       - if can? current_user, :create_pipeline, @project

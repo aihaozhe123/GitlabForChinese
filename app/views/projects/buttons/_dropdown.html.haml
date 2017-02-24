@@ -41,7 +41,7 @@
         %li
           = link_to new_namespace_project_tag_path(@project.namespace, @project) do
             = icon('tags fw')
-            新标签
+            新标记
       - elsif current_user && current_user.already_forked?(@project)
         %li
           = link_to namespace_project_new_blob_path(@project.namespace, @project, @project.default_branch || 'master') do

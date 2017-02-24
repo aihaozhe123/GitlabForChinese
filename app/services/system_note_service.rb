@@ -84,7 +84,7 @@ module SystemNoteService
       body << "已移除 #{removed_labels}"
     end
 
-    body << ' ' << '标签'.pluralize(labels_count)
+    body << ' ' << '标记'.pluralize(labels_count)
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
@@ -252,13 +252,13 @@ module SystemNoteService
   end
 
   def remove_merge_request_wip(noteable, project, author)
-    body = '取消标记为**正在进行中**'
+    body = '取消标签为**正在进行中**'
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 
   def add_merge_request_wip(noteable, project, author)
-    body = '将此合并请求标记为“正在进行中”**'
+    body = '将此合并请求标签为“正在进行中”**'
 
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
@@ -494,7 +494,7 @@ module SystemNoteService
   # Returns the created Note object
   def change_task_status(noteable, project, author, new_task)
     status_label = new_task.complete? ? Taskable::COMPLETED : Taskable::INCOMPLETE
-    body = "将任务 **#{new_task.source}** 标记为 #{status_label}"
+    body = "将任务 **#{new_task.source}** 标签为 #{status_label}"
     create_note(noteable: noteable, project: project, author: author, note: body)
   end
 

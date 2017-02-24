@@ -22,7 +22,7 @@
     .nav-controls
       - if @todos.any?(&:pending?)
         = link_to destroy_all_dashboard_todos_path(todos_filter_params), class: 'btn btn-loading js-todos-mark-all', method: :delete do
-          标记全部完成
+          标签全部完成
           = icon('spinner spin')
 
   .todos-filters

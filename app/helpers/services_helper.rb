@@ -4,7 +4,7 @@ module ServicesHelper
     when "push", "push_events"
       "事件将通过推送到存储库来触发"
     when "tag_push", "tag_push_events"
-      "将新标记推送到存储库时将触发事件"
+      "将新标签推送到存储库时将触发事件"
     when "note", "note_events"
       "当有人添加评论时将触发事件"
     when "issue", "issue_events"

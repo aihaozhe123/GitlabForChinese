@@ -1,5 +1,5 @@
 - @no_container = true
-- page_title @tag.name, "标签"
+- page_title @tag.name, "标记"
 = render "projects/commits/head"
 
 %div{ class: container_class }
@@ -24,7 +24,7 @@
         = render 'projects/buttons/download', project: @project, ref: @tag.name
       - if can?(current_user, :admin_project, @project)
         .btn-container.controls-item-full
-          = link_to namespace_project_tag_path(@project.namespace, @project, @tag.name), class: 'btn btn-remove remove-row has-tooltip', title: "删除标签", method: :delete, data: { confirm: "删除标签 '#{@tag.name}' 无法恢复，确定要继续么？" } do
+          = link_to namespace_project_tag_path(@project.namespace, @project, @tag.name), class: 'btn btn-remove remove-row has-tooltip', title: "删除标记", method: :delete, data: { confirm: "删除标记 '#{@tag.name}' 无法恢复，确定要继续么？" } do
             %i.fa.fa-trash-o
 
     - if @tag.message.present?
@@ -38,4 +38,4 @@
           = preserve do
             = markdown_field(@release, :description)
     - else
-      此标签无发布备注。
+      此标记无发布备注。

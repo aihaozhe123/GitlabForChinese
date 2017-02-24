@@ -29,7 +29,7 @@
               = f.label :default_branch, "默认分支", class: 'label-light'
               = f.select(:default_branch, @project.repository.branch_names, {}, {class: 'select2 select-wide'})
         .form-group
-          = f.label :tag_list, "标签", class: 'label-light'
+          = f.label :tag_list, "标记", class: 'label-light'
           = f.text_field :tag_list, value: @project.tag_list.to_s, maxlength: 2000, class: "form-control"
           %p.help-block 使用英文逗号分割。
         %hr
@@ -175,11 +175,11 @@
             %li 项目和维基知识库
             %li 项目更新
             %li 项目配置(包括网络，钩子和服务)
-            %li 问题与评论，合并请求的差异和评论，标签，里程碑，片段，和其他项目实体
+            %li 问题与评论，合并请求的差异和评论，标记，里程碑，片段，和其他项目实体
           %p
             下列项目将不会被导出：
           %ul
-            %li 工作跟踪和附件
+            %li 作业跟踪和附件
             %li LFS 对象
             %li 容器注册表镜像
             %li CI 变量

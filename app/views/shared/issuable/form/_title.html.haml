@@ -16,7 +16,7 @@
           %code WIP:
           前缀
         以允许在
-        %strong 工作进行中
+        %strong 作业进行中
         合并请求在准备就绪时合并。
       .js-no-wip-explanation
         - if has_wip_commits
@@ -26,7 +26,7 @@
           使用标题前缀
           %code WIP:
         以防止在
-        %strong 工作进行中
+        %strong 作业进行中
         合并正在进行中的合并请求。
 
   - if no_issuable_templates && can?(current_user, :push_code, issuable.project)

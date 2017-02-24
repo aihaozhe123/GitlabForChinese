@@ -2,7 +2,7 @@
 
 %aside.right-sidebar.right-sidebar-expanded.build-sidebar.js-build-sidebar
   .block.build-sidebar-header.visible-xs-block.visible-sm-block.append-bottom-default
-    工作
+    作业
     %strong ##{@build.id}
     %a.gutter-toggle.pull-right.js-sidebar-build-toggle{ href: "#" }
       = icon('angle-double-right')
@@ -17,7 +17,7 @@
     - if can?(current_user, :read_build, @project) && (@build.artifacts? || @build.artifacts_expired?)
       .block{ class: ("block-first" if !@build.coverage) }
         .title
-          工作附件
+          作业附件
         - if @build.artifacts_expired?
           %p.build-detail-row
             已删除产品
@@ -42,9 +42,9 @@
 
     .block{ class: ("block-first" if !@build.coverage && !(can?(current_user, :read_build, @project) && (@build.artifacts? || @build.artifacts_expired?))) }
       .title
-        工作详情
+        作业详情
         - if can?(current_user, :update_build, @build) && @build.retryable?
-          = link_to "重试工作", retry_namespace_project_build_path(@project.namespace, @project, @build), class: 'pull-right retry-link', method: :post
+          = link_to "重试作业", retry_namespace_project_build_path(@project.namespace, @project, @build), class: 'pull-right retry-link', method: :post
       - if @build.merge_request
         %p.build-detail-row
           %span.build-light-text 合并请求：
@@ -106,7 +106,7 @@
     - if @build.tags.any?
       .block
         .title
-          标记
+          标签
         - @build.tag_list.each do |tag|
           %span.label.label-primary
             = tag
@@ -136,4 +136,4 @@
               - else
                 = build.id
             - if build.retried?
-              %i.fa.fa-refresh.has-tooltip{ data: { container: 'body', placement: 'bottom' }, title: '重试工作' }
+              %i.fa.fa-refresh.has-tooltip{ data: { container: 'body', placement: 'bottom' }, title: '重试作业' }

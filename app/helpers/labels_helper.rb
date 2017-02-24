@@ -154,8 +154,8 @@ module LabelsHelper
 
   def label_deletion_confirm_text(label)
     case label
-    when GroupLabel then '要移除此标记吗？这将影响组内的所有项目。您确定？'
-    when ProjectLabel then '要移除此标记吗？您确定？'
+    when GroupLabel then '要移除此标签吗？这将影响组内的所有项目。您确定？'
+    when ProjectLabel then '要移除此标签吗？您确定？'
     end
   end
 

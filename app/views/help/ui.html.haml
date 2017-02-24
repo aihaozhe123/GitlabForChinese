@@ -382,11 +382,11 @@
             .dropdown-title
               %button.dropdown-title-button.dropdown-menu-back{aria: {label: "返回"}}
                 = icon('arrow-left')
-              %span 创建标记
+              %span 创建标签
               %button.dropdown-title-button.dropdown-menu-close{aria: {label: "关闭"}}
                 = icon('times')
             .dropdown-input
-              %input.dropdown-input-field{type: "search", placeholder: "新标记名称"}
+              %input.dropdown-input-field{type: "search", placeholder: "新标签名称"}
             .dropdown-content
               %button.btn.btn-primary
                 创建
@@ -481,7 +481,7 @@
   %h2#forms 表单
 
   .lead
-    输入框前带标签的横向表单
+    输入框前带标记的横向表单
     %code form.horizontal-form
 
   .example
@@ -505,7 +505,7 @@
           %button.btn.btn-default{:type => "submit"} 登录
 
   .lead
-    输入框上方带标签的表单
+    输入框上方带标记的表单
     %code form
 
   .example

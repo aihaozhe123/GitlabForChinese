@@ -15,7 +15,7 @@
         %button.btn.btn-default.issuable-header-btn.pull-right.js-issuable-todo{ type: "button", aria: { label: (todo.nil? ? "Add todo" : "Mark done") }, data: { todo_text: "Add todo", mark_text: "Mark done", issuable_id: issuable.id, issuable_type: issuable.class.name.underscore, url: namespace_project_todos_path(@project.namespace, @project), delete_path: (dashboard_todo_path(todo) if todo) } }
           %span.js-issuable-todo-text
             - if todo
-              标记完成
+              标签完成
             - else
               添加备忘录
           = icon('spin spinner', class: 'hidden js-issuable-todo-loading')
@@ -124,7 +124,7 @@
             %span
               = selected_labels.size
           .title.hide-collapsed
-            标记
+            标签
             = icon('spinner spin', class: 'block-loading')
             - if can_edit_issuable
               = link_to '编辑', '#', class: 'edit-link pull-right'

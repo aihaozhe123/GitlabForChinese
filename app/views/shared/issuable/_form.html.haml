@@ -52,13 +52,13 @@
         = icon('exclamation-triangle')
         创建此问题将会将
         = link_to @merge_request_for_resolving_discussions.to_reference, merge_request_path(@merge_request_for_resolving_discussions)
-        中的所有讨论标记为已解决。
+        中的所有讨论标签为已解决。
         = hidden_field_tag 'merge_request_for_resolving_discussions', @merge_request_for_resolving_discussions.iid
       - else
         = icon('exclamation-triangle')
         您不能将
         = link_to @merge_request_for_resolving_discussions.to_reference, merge_request_path(@merge_request_for_resolving_discussions)
-        中的所有讨论标记为已解决。请确认您有足够权限解决这些问题。
+        中的所有讨论标签为已解决。请确认您有足够权限解决这些问题。
 
 - is_footer = !(issuable.is_a?(MergeRequest) && issuable.new_record?)
 .row-content-block{ class: (is_footer ? "footer-block" : "middle-block") }
