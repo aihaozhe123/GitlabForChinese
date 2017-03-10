@@ -3,7 +3,7 @@
     = render 'ci/status/badge', status: @build.detailed_status(current_user), link: false
     = link_to pipeline_path(@build.pipeline) do
       %strong ##{@build.pipeline.id}
-    管道中的
+    流水线中的
     %strong ##{@build.id}
     作业源于
     = link_to namespace_project_commits_path(@project.namespace, @project, @build.ref) do

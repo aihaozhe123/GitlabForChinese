@@ -6,5 +6,5 @@
   - if can?(current_user, :read_pipeline, @project)
     = nav_link(path: 'commit#pipelines') do
       = link_to pipelines_namespace_project_commit_path(@project.namespace, @project, @commit.id) do
-        管道
+        流水线
         %span.badge= @commit.pipelines.size

@@ -12,7 +12,7 @@
         - if @pipeline && @pipeline.active?
           %span.btn-group
             = button_tag class: "btn btn-create js-merge-button merge_when_build_succeeds" do
-              管道成功时合并
+              流水线成功时合并
             - unless @project.only_allow_merge_if_build_succeeds?
               = button_tag class: "btn btn-success dropdown-toggle", 'data-toggle' => 'dropdown' do
                 = icon('caret-down')
@@ -22,7 +22,7 @@
                 %li
                   = link_to "#", class: "merge_when_build_succeeds" do
                     = icon('check fw')
-                    管道成功时合并
+                    流水线成功时合并
                 %li
                   = link_to "#", class: "accept_merge_request" do
                     = icon('warning fw')

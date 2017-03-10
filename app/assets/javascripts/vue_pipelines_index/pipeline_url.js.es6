@@ -38,8 +38,8 @@
         <span
           v-if='pipeline.flags.latest'
           class="label label-success has-tooltip"
-          title="这是该分支最新的管道"
-          data-original-title="这是该分支最新的管道"
+          title="这是该分支最新的流水线"
+          data-original-title="这是该分支最新的流水线"
         >
           最新
         </span>

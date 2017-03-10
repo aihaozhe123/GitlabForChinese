@@ -1,14 +1,14 @@
 .row.prepend-top-default
   .col-lg-3.profile-settings-sidebar
     %h4.prepend-top-0
-      CI/CD 管道
+      CI/CD 流水线
   .col-lg-9
     = form_for @project, url: namespace_project_pipelines_settings_path(@project.namespace.becomes(Namespace), @project) do |f|
       %fieldset.builds-feature
         - unless @repository.gitlab_ci_yml
           .form-group
-            %p 管道需要在您开始使用连续集成之前进行配置。
-            = link_to '开始使用CI / CD管道', help_page_path('ci/quick_start/README'), class: 'btn btn-info'
+            %p 流水线需要在您开始使用连续集成之前进行配置。
+            = link_to '开始使用CI / CD流水线', help_page_path('ci/quick_start/README'), class: 'btn btn-info'
             %hr
         .form-group.append-bottom-default
           = f.label :runners_token, "Runner令牌", class: 'label-light'
@@ -18,7 +18,7 @@
         %hr
         .form-group
           %h5.prepend-top-0
-            管道的Git策略
+            流水线的Git策略
           %p
             在 <code>clone</code> 或 <code>fetch</code> 之间选择以获取最近的应用程序代码
             = link_to icon('question-circle'), help_page_path('user/project/pipelines/settings', anchor: 'git-strategy')
@@ -50,9 +50,9 @@
           .checkbox
             = f.label :public_builds do
               = f.check_box :public_builds
-              %strong 公共管道
+              %strong 公共流水线
             .help-block
-              允许每个人访问公共和内部项目的管道
+              允许每个人访问公共和内部项目的流水线
               = link_to icon('question-circle'), help_page_path('user/project/pipelines/settings', anchor: 'visibility-of-pipelines')
 
         %hr

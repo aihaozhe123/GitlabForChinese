@@ -16,13 +16,13 @@
     gitlab_icon: "#{asset_path 'gitlab_logo.png'}",
     ci_status: "#{@merge_request.head_pipeline ? @merge_request.head_pipeline.status : ''}",
     ci_message: {
-      normal: "\"{{title}}\" 的管道{{status}}",
-      preparing: "\"{{title}}\" 的管道{{status}}"
+      normal: "\"{{title}}\" 的流水线{{status}}",
+      preparing: "\"{{title}}\" 的流水线{{status}}"
     },
     ci_enable: #{@project.ci_service ? "true" : "false"},
     ci_title: {
-      preparing: "{{status}} 管道",
-      normal: "管道 {{status}}"
+      preparing: "{{status}} 流水线",
+      normal: "流水线 {{status}}"
     },
     ci_sha: "#{@merge_request.head_pipeline ? @merge_request.head_pipeline.short_sha : ''}",
     ci_pipeline: #{@merge_request.head_pipeline.try(:id).to_json},
