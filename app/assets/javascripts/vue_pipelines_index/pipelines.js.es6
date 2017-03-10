@@ -74,7 +74,7 @@
             <thead>
               <tr>
                 <th class="pipeline-status">状态</th>
-                <th class="pipeline-info">管道</th>
+                <th class="pipeline-info">流水线</th>
                 <th class="pipeline-commit">提交</th>
                 <th class="pipeline-stages">阶段</th>
                 <th class="pipeline-date"></th>

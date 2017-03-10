@@ -1,13 +1,13 @@
 %div
   - if pipelines.blank?
     %div
-      .nothing-here-block 没有管道显示
+      .nothing-here-block 没有流水线显示
   - else
     .table-holder.pipelines
       %table.table.ci-table.js-pipeline-table
         %thead
           %th.pipeline-status 状态
-          %th.pipeline-info 管道
+          %th.pipeline-info 流水线
           %th.pipeline-commit 提交
           %th.pipeline-stages 阶段
           %th.pipeline-date

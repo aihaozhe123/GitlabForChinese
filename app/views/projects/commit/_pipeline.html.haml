@@ -10,7 +10,7 @@
 
     .oneline.clearfix
       - if defined?(pipeline_details) && pipeline_details
-        管道
+        流水线
         = link_to "##{pipeline.id}", namespace_project_pipeline_path(pipeline.project.namespace, pipeline.project, pipeline.id), class: "monospace"
         中为
         - if pipeline.ref

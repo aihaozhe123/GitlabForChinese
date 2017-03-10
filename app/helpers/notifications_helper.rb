@@ -106,9 +106,9 @@ module NotificationsHelper
     when :merge_merge_request
       '合并合并请求'
     when :failed_pipeline
-      '管道失败'
+      '流水线失败'
     when :success_pipeline
-      '管道成功'
+      '流水线成功'
     else
       event.to_s.humanize
     end

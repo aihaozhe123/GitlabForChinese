@@ -65,7 +65,7 @@
     .well-segment.pipeline-info
       %div{ class: "icon-container ci-status-icon-#{@commit.status}" }
         = ci_icon_for_status(@commit.status)
-      管道
+      流水线
       = link_to "##{@commit.pipelines.last.id}", pipelines_namespace_project_commit_path(@project.namespace, @project, @commit.id), class: "monospace"
       的构建
       = link_to @commit.short_id, namespace_project_commit_path(@project.namespace, @project, @commit), class: "monospace"

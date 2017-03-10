@@ -12,7 +12,7 @@ class PipelinesEmailService < Service
   end
 
   def description
-    '将管道状态发送到收件人列表。'
+    '将流水线状态发送到收件人列表。'
   end
 
   def to_param
@@ -40,7 +40,7 @@ class PipelinesEmailService < Service
   end
 
   def disabled_title
-    '请在您的存储库中设置管道。'
+    '请在您的存储库中设置流水线。'
   end
 
   def test_data(project, user)
