@@ -58,16 +58,12 @@ module Files
         raise_error("您不允许推送到此分支")
       end
 
-      unless project.empty_repo?
-        unless @start_project.repository.branch_exists?(@start_branch)
-          raise_error('您只能在分支上创建或编辑文件')
-        end
+      if !@start_project.empty_repo? && !@start_project.repository.branch_exists?(@start_branch)
+        raise ValidationError, '您只能在分支上创建或编辑文件'
+      end
 
-        if different_branch?
-          if repository.branch_exists?(@target_branch)
-            raise_error('该名称的分支已存在。您需要切换到该分支以进行更改')
-          end
-        end
+      if !project.empty_repo? && different_branch? && repository.branch_exists?(@branch_name)
+        raise ValidationError, "#{@branch_name}分支已存在。您需要切换到该分支以进行更改"
       end
     end
 
