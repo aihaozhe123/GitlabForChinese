@@ -89,7 +89,7 @@ require('./pipelines_store');
         <div class="blank-state blank-state-no-icon"
           v-if="!isLoading && state.pipelines.length === 0">
           <h2 class="blank-state-title js-blank-state-title">
-            No pipelines to show
+            没有流水线显示
           </h2>
         </div>
 

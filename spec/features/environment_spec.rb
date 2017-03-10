@@ -40,7 +40,7 @@ feature 'Environment', :feature do
         end
 
         scenario 'does not show a re-deploy button for deployment without build' do
-          expect(page).not_to have_link('Re-deploy')
+          expect(page).not_to have_link('重新部署')
         end
 
         scenario 'does not show terminal button' do
@@ -61,7 +61,7 @@ feature 'Environment', :feature do
         end
 
         scenario 'does show re-deploy button' do
-          expect(page).to have_link('Re-deploy')
+          expect(page).to have_link('重新部署')
         end
 
         scenario 'does not show terminal button' do

@@ -26,10 +26,10 @@ describe('Pipelines Table', () => {
     });
 
     it('should render table head with correct columns', () => {
-      expect(component.$el.querySelector('th.js-pipeline-status').textContent).toEqual('Status');
-      expect(component.$el.querySelector('th.js-pipeline-info').textContent).toEqual('Pipeline');
-      expect(component.$el.querySelector('th.js-pipeline-commit').textContent).toEqual('Commit');
-      expect(component.$el.querySelector('th.js-pipeline-stages').textContent).toEqual('Stages');
+      expect(component.$el.querySelector('th.js-pipeline-status').textContent).toEqual('状态');
+      expect(component.$el.querySelector('th.js-pipeline-info').textContent).toEqual('流水线');
+      expect(component.$el.querySelector('th.js-pipeline-commit').textContent).toEqual('提交');
+      expect(component.$el.querySelector('th.js-pipeline-stages').textContent).toEqual('阶段');
       expect(component.$el.querySelector('th.js-pipeline-date').textContent).toEqual('');
       expect(component.$el.querySelector('th.js-pipeline-actions').textContent).toEqual('');
     });

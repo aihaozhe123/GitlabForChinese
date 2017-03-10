@@ -30,7 +30,7 @@ describe('Rollback Component', () => {
       },
     });
 
-    expect(component.$el.querySelector('span').textContent).toContain('Re-deploy');
+    expect(component.$el.querySelector('span').textContent).toContain('重新部署');
   });
 
   it('Should render Rollback label when isLastDeployment is false', () => {

@@ -39,10 +39,10 @@ require('./pipelines_table_row');
       <table class="table ci-table">
         <thead>
           <tr>
-            <th class="js-pipeline-status pipeline-status">Status</th>
-            <th class="js-pipeline-info pipeline-info">Pipeline</th>
-            <th class="js-pipeline-commit pipeline-commit">Commit</th>
-            <th class="js-pipeline-stages pipeline-stages">Stages</th>
+            <th class="js-pipeline-status pipeline-status">状态</th>
+            <th class="js-pipeline-info pipeline-info">流水线</th>
+            <th class="js-pipeline-commit pipeline-commit">提交</th>
+            <th class="js-pipeline-stages pipeline-stages">阶段</th>
             <th class="js-pipeline-date pipeline-date"></th>
             <th class="js-pipeline-actions pipeline-actions hidden-xs"></th>
           </tr>

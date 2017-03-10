@@ -7,13 +7,13 @@ const DEFAULT_EVENT_OBJECTS = require('./default_event_objects');
   global.cycleAnalytics = global.cycleAnalytics || {};
 
   const EMPTY_STAGE_TEXTS = {
-    issue: 'The issue stage shows the time it takes from creating an issue to assigning the issue to a milestone, or add the issue to a list on your Issue Board. Begin creating issues to see data for this stage.',
-    plan: 'The planning stage shows the time from the previous step to pushing your first commit. This time will be added automatically once you push your first commit.',
-    code: 'The coding stage shows the time from the first commit to creating the merge request. The data will automatically be added here once you create your first merge request.',
-    test: 'The testing stage shows the time GitLab CI takes to run every pipeline for the related merge request. The data will automatically be added after your first pipeline finishes running.',
-    review: 'The review stage shows the time from creating the merge request to merging it. The data will automatically be added after you merge your first merge request.',
-    staging: 'The staging stage shows the time between merging the MR and deploying code to the production environment. The data will be automatically added once you deploy to production for the first time.',
-    production: 'The production stage shows the total time it takes between creating an issue and deploying the code to production. The data will be automatically added once you have completed the full idea to production cycle.',
+    issue: '问题阶段显示从创建问题到将问题分配到里程碑所需的时间，或将问题添加到问题板上的列表中。开始创建问题以查看此阶段的数据。',
+    plan: '计划阶段显示从上一步到推送第一个提交的时间。一旦你第一次提交，这个时间将被自动添加。',
+    code: '编码阶段显示从第一次提交到创建合并请求的时间。创建第一个合并请求后，数据将自动添加到此处。',
+    test: '测试阶段显示GitLab CI为相关合并请求运行每个管道所花费的时间。在第一个管道运行完成后，数据将自动添加。',
+    review: '审查阶段显示从创建合并请求到合并请求的时间。在您合并第一个合并请求后，将自动添加数据。',
+    staging: '暂存阶段显示将MR和部署代码合并到生产环境之间的时间。首次部署到生产时，将自动添加数据。',
+    production: '生产阶段显示了创建问题和将代码部署到生产之间所需的总时间。一旦你完成了完整的想法到生产周期，数据将被自动添加。',
   };
 
   global.cycleAnalytics.CycleAnalyticsStore = {

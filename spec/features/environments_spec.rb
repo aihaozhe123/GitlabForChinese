@@ -20,8 +20,8 @@ feature 'Environments page', :feature, :js do
 
   describe 'page tabs' do
     scenario 'shows "Available" and "Stopped" tab with links' do
-      expect(page).to have_link('Available')
-      expect(page).to have_link('Stopped')
+      expect(page).to have_link('可用的')
+      expect(page).to have_link('停止的')
     end
   end
 
