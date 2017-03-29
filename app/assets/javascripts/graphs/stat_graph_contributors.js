@@ -95,7 +95,7 @@ export default (function() {
   ContributorsStatGraph.prototype.change_date_header = function() {
     var print, print_date_format, x_domain;
     x_domain = ContributorsGraph.prototype.x_domain;
-    print_date_format = d3.time.format("%Y-%d-%m");
+    print_date_format = d3.time.format("%Y-%m-%d");
     print = print_date_format(x_domain[0]) + " - " + print_date_format(x_domain[1]);
     return $("#date_header").text(print);
   };
