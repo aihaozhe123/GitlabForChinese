@@ -21,8 +21,8 @@
 
       .issue-info
         #{issuable_reference(issue)} &middot;
-        opened #{time_ago_with_tooltip(issue.created_at, placement: 'bottom')}
-        by #{link_to_member(@project, issue.author, avatar: false)}
+        创建于 #{time_ago_with_tooltip(issue.created_at, placement: 'bottom')}
+        ，作者：#{link_to_member(@project, issue.author, avatar: false)}
         - if issue.milestone
           &nbsp;
           = link_to namespace_project_issues_path(issue.project.namespace, issue.project, milestone_title: issue.milestone.title) do
