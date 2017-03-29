@@ -38,7 +38,7 @@
                   = todos_count_format(todos_pending_count)
             - if current_user.can_create_project?
               %li
-                = link_to new_project_path, title: 'New project', aria: { label: "New project" }, data: {toggle: 'tooltip', placement: 'bottom', container: 'body'} do
+                = link_to new_project_path, title: '新项目', aria: { label: "新项目" }, data: {toggle: 'tooltip', placement: 'bottom', container: 'body'} do
                   = icon('plus fw')
             - if Gitlab::Sherlock.enabled?
               %li
