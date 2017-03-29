@@ -43,7 +43,7 @@ export default (function() {
     commits = $('<span/>', {
       "class": 'graph-author-commits-count'
     });
-    commits.text(author.commits + " commits");
+    commits.text(author.commits + "个提交");
     return $('<span/>').append(commits);
   };
 
