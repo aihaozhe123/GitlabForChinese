@@ -39,10 +39,10 @@ module.exports = Vue.extend({
       return gon.current_username;
     },
     dropdownTitle() {
-      return `Filter by ${this.toggleLabel.toLowerCase()}`;
+      return `按作者过滤`;
     },
     inputPlaceholder() {
-      return `Search ${this.toggleLabel.toLowerCase()}`;
+      return `搜索作者`;
     },
   },
   template: `
@@ -53,7 +53,7 @@ module.exports = Vue.extend({
         type="button"
         data-toggle="dropdown"
         data-current-user="true"
-        :data-any-user="'Any ' + toggleLabel"
+        :data-any-user="任何作者"
         :data-null-user="nullUser"
         :data-field-name="fieldName"
         :data-project-id="projectId"
@@ -71,7 +71,7 @@ module.exports = Vue.extend({
           {{ dropdownTitle }}
           <button
             class="dropdown-title-button dropdown-menu-close"
-            aria-label="Close"
+            aria-label="关闭"
             type="button">
             <i class="fa fa-times dropdown-menu-close-icon"></i>
           </button>

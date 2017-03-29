@@ -27,10 +27,10 @@ const modalFilters = require('./filters');
     computed: {
       selectAllText() {
         if (ModalStore.selectedCount() !== this.issues.length || this.issues.length === 0) {
-          return 'Select all';
+          return '全选';
         }
 
-        return 'Deselect all';
+        return '反选';
       },
       showSearch() {
         return this.activeTab === 'all' && !this.loading && this.issuesCount > 0;
@@ -72,7 +72,7 @@ const modalFilters = require('./filters');
             :label-path="labelPath">
           </modal-filters>
           <input
-            placeholder="Search issues..."
+            placeholder="搜索问题..."
             class="form-control"
             type="search"
             v-model="searchTerm" />

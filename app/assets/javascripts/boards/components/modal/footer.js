@@ -22,7 +22,7 @@ require('./lists_dropdown');
       submitText() {
         const count = ModalStore.selectedCount();
 
-        return `Add ${count > 0 ? count : ''} ${gl.text.pluralize('issue', count)}`;
+        return `添加 ${count} 个问题`;
       },
     },
     methods: {
@@ -35,7 +35,7 @@ require('./lists_dropdown');
         gl.boardService.bulkUpdate(issueIds, {
           add_label_ids: [list.label.id],
         }).catch(() => {
-          new Flash('Failed to update issues, please try again.', 'alert');
+          new Flash('无法更新问题，请重试。', 'alert');
 
           selectedIssues.forEach((issue) => {
             list.removeIssue(issue);
@@ -67,7 +67,7 @@ require('./lists_dropdown');
             {{ submitText }}
           </button>
           <span class="inline add-issues-footer-to-list">
-            to list
+            到列表
           </span>
           <lists-dropdown></lists-dropdown>
         </div>
@@ -75,7 +75,7 @@ require('./lists_dropdown');
           class="btn btn-default pull-right"
           type="button"
           @click="toggleModal(false)">
-          Cancel
+          取消
         </button>
       </footer>
     `,

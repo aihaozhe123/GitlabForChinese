@@ -25,16 +25,16 @@ module.exports = Vue.extend({
         :data-milestones="milestonePath"
         ref="dropdown">
         <span class="dropdown-toggle-text">
-          Milestone
+          里程碑
         </span>
         <i class="fa fa-chevron-down"></i>
       </button>
       <div class="dropdown-menu dropdown-select dropdown-menu-selectable dropdown-menu-milestone">
         <div class="dropdown-title">
-          <span>Filter by milestone</span>
+          <span>按里程碑过滤</span>
           <button
             class="dropdown-title-button dropdown-menu-close"
-            aria-label="Close"
+            aria-label="关闭"
             type="button">
             <i class="fa fa-times dropdown-menu-close-icon"></i>
           </button>
@@ -43,7 +43,7 @@ module.exports = Vue.extend({
           <input
             type="search"
             class="dropdown-input-field"
-            placeholder="Search milestones"
+            placeholder="搜索里程碑"
             autocomplete="off" />
           <i class="fa fa-search dropdown-input-search"></i>
           <i role="button" class="fa fa-times dropdown-input-clear js-dropdown-input-clear"></i>

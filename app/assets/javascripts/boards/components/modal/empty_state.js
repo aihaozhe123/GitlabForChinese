@@ -20,18 +20,18 @@
     computed: {
       contents() {
         const obj = {
-          title: 'You haven\'t added any issues to your project yet',
+          title: '您尚未向项目添加任何问题',
           content: `
-            An issue can be a bug, a todo or a feature request that needs to be
-            discussed in a project. Besides, issues are searchable and filterable.
+            问题可能是项目中需要讨论的错误、待办事项或功能请求。
+            此外，问题是可搜索和可过滤的。
           `,
         };
 
         if (this.activeTab === 'selected') {
-          obj.title = 'You haven\'t selected any issues yet';
+          obj.title = '您尚未选择任何问题';
           obj.content = `
-            Go back to <strong>All issues</strong> and select some issues
-            to add to your board.
+            返回到 <strong>所有问题</strong> ，
+            并选择一些问题添加到您的看板。
           `;
         }
 
@@ -52,14 +52,14 @@
                 :href="newIssuePath"
                 class="btn btn-success btn-inverted"
                 v-if="activeTab === 'all'">
-                New issue
+                新问题
               </a>
               <button
                 type="button"
                 class="btn btn-default"
                 @click="changeTab('all')"
                 v-if="activeTab === 'selected'">
-                All issues
+                所有问题
               </button>
             </div>
           </div>

@@ -32,13 +32,13 @@ module.exports = Vue.extend({
       <user-filter
         dropdown-class-name="dropdown-menu-author"
         toggle-class-name="js-user-search js-author-search"
-        toggle-label="Author"
+        toggle-label="作者"
         field-name="author_id"
         :project-id="projectId"></user-filter>
       <user-filter
         dropdown-class-name="dropdown-menu-author"
         toggle-class-name="js-assignee-search"
-        toggle-label="Assignee"
+        toggle-label="指派"
         field-name="assignee_id"
         :null-user="true"
         :project-id="projectId"></user-filter>
