@@ -12,7 +12,7 @@
     = link_to_label(label, subject: @project, tooltip: false)
   - if defined?(@project) && @project.group.present?
     %span.label-type
-      = label.model_name.human.titleize
+      = label.model_name.human.titleize=='Project Label'?'项目标记':'群组标记'
   - if label.description
     %span.label-description
       = markdown_field(label, :description)
