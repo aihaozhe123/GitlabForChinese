@@ -47,7 +47,7 @@
               - if can_edit_issuable
                 \-
                 %a.js-assign-yourself{ href: '#' }
-                  指派给你自己
+                  指派给自己
 
         .selectbox.hide-collapsed
           = f.hidden_field 'assignee_id', value: issuable.assignee_id, id: 'issue_assignee_id'
@@ -107,7 +107,7 @@
                   删除截止日期
           - if can?(current_user, :"admin_#{issuable.to_ability_name}", @project)
             .selectbox.hide-collapsed
-              = f.hidden_field :due_date, value: issuable.due_date.try(:strftime, 'yy-mm-dd')
+              = f.hidden_field :due_date, value: issuable.due_date.try(:strftime, 'yyyy-mm-dd')
               .dropdown
                 %button.dropdown-menu-toggle.js-due-date-select{ type: 'button', data: { toggle: 'dropdown', field_name: "#{issuable.to_ability_name}[due_date]", ability_name: issuable.to_ability_name, issue_update: issuable_json_path(issuable) } }
                   %span.dropdown-toggle-text 截止日期
@@ -163,13 +163,13 @@
       - project_ref = cross_project_reference(@project, issuable)
       .block.project-reference
         .sidebar-collapsed-icon.dont-change-state
-          = clipboard_button(clipboard_text: project_ref, title: "Copy reference to clipboard", placement: "left")
+          = clipboard_button(clipboard_text: project_ref, title: "复制到剪贴板", placement: "left")
         .cross-project-reference.hide-collapsed
           %span
             参考：
             %cite{ title: project_ref }
               = project_ref
-          = clipboard_button(clipboard_text: project_ref, title: "Copy reference to clipboard", placement: "left")
+          = clipboard_button(clipboard_text: project_ref, title: "复制到剪贴板", placement: "left")
 
     :javascript
       gl.IssuableResource = new gl.SubbableResource('#{issuable_json_path(issuable)}');
