@@ -6,7 +6,7 @@ module Gitlab
           include Status::Extended
 
           def label
-            'manual stop action'
+            '手动停止操作'
           end
 
           def has_action?
@@ -18,7 +18,7 @@ module Gitlab
           end
 
           def action_title
-            'Stop'
+            '停止'
           end
 
           def action_path
