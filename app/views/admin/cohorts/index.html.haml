@@ -8,9 +8,9 @@
   - else
     .bs-callout.bs-callout-warning.clearfix
       %p
-        User cohorts are only shown when the
-        = link_to 'usage ping', help_page_path('user/admin_area/settings/usage_statistics', anchor: 'usage-ping'), target: '_blank'
-        is enabled. To enable it and see user cohorts,
-        visit
-        = succeed '.' do
-          = link_to 'application settings', admin_application_settings_path(anchor: 'usage-statistics')
+        仅当启用
+        = link_to '使用ping', help_page_path('user/admin_area/settings/usage_statistics', anchor: 'usage-ping'), target: '_blank'
+        时才会显示用户队列。
+        要启用它并查看用户队列，请访问
+        = succeed '。' do
+          = link_to '应用程序设置', admin_application_settings_path(anchor: 'usage-statistics')

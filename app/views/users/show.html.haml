@@ -44,7 +44,7 @@
           %span.middle-dot-divider
             @#{@user.username}
           %span.middle-dot-divider
-            注册时间： #{@user.created_at.to_date.to_s(:long)}
+            注册时间：#{time_ago_with_tooltip(@user.created_at)}
 
         .cover-desc
           - unless @user.public_email.blank?

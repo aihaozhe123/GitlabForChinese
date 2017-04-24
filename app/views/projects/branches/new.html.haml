@@ -20,7 +20,7 @@
       = hidden_field_tag :ref, params[:ref] || @project.default_branch
       = dropdown_tag(params[:ref] || @project.default_branch,
                      options: { toggle_class: 'js-branch-select wide',
-                                filter: true, dropdown_class: "dropdown-menu-selectable", placeholder: "Search branches",
+                                filter: true, dropdown_class: "dropdown-menu-selectable", placeholder: "搜索分支",
                                 data: { selected: params[:ref] || @project.default_branch, field_name: 'ref' } })
       .help-block 已存在的分支名、标签或提交 SHA
   .form-actions

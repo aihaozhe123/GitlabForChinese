@@ -28,10 +28,10 @@ require('./tabs');
     computed: {
       selectAllText() {
         if (ModalStore.selectedCount() !== this.issues.length || this.issues.length === 0) {
-          return 'Select all';
+          return '全选';
         }
 
-        return 'Deselect all';
+        return '反选';
       },
       showSearch() {
         return this.activeTab === 'all' && !this.loading && this.issuesCount > 0;

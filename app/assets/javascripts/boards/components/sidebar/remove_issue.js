@@ -30,7 +30,7 @@ import Vue from 'vue';
         gl.boardService.bulkUpdate([issue.globalId], {
           remove_label_ids: labelIds,
         }).catch(() => {
-          new Flash('Failed to remove issue from board, please try again.', 'alert');
+          new Flash('未能删除从板的问题，请再试一次。', 'alert');
 
           lists.forEach((list) => {
             list.addIssue(issue);
@@ -53,7 +53,7 @@ import Vue from 'vue';
           class="btn btn-default btn-block"
           type="button"
           @click="removeIssue">
-          Remove from board
+          从看板中删除
         </button>
       </div>
     `,

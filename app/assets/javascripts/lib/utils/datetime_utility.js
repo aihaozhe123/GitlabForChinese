@@ -16,10 +16,10 @@ window.dateFormat = require('vendor/date.format');
     if ((base = w.gl).utils == null) {
       base.utils = {};
     }
-    w.gl.utils.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    w.gl.utils.days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
     w.gl.utils.formatDate = function(datetime) {
-      return dateFormat(datetime, 'mmm d, yyyy h:MMtt Z');
+      return dateFormat(datetime, 'yyyy-mm-dd HH:MM:ss');
     };
 
     w.gl.utils.getDayName = function(date) {
@@ -49,7 +49,7 @@ window.dateFormat = require('vendor/date.format');
       if (!timeagoInstance) {
         locale = function(number, index) {
           return [
-            ['不到 1 分钟之前', '一会儿'],
+            ['不到 1 分钟之前', '刚刚'],
             ['不到 1 分钟之前', '在 %s 秒'],
             ['大约 1 分钟之前', '在 1 分钟'],
             ['%s 分钟之前', '在 %s 分钟'],
