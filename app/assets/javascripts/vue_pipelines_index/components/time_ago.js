@@ -58,12 +58,11 @@ export default {
       </p>
       <p class="finished-at" v-if='timeStopped'>
         <i class="fa fa-calendar"></i>
-        <time
+        <time class="js-timeago js-timeago-render"
           data-toggle="tooltip"
           data-placement="top"
           data-container="body"
           :data-original-title='localTimeFinished'>
-          {{timeStopped.words}}
         </time>
       </p>
     </td>

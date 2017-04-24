@@ -264,7 +264,7 @@ export default {
         <div
           class="blank-state blank-state-no-icon"
           v-if="shouldRenderNoPipelinesMessage">
-          <h2 class="blank-state-title js-blank-state-title">No pipelines to show.</h2>
+          <h2 class="blank-state-title js-blank-state-title">没有流水线显示。</h2>
         </div>
 
         <div

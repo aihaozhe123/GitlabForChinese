@@ -5,7 +5,7 @@
       %span.starred Unstar
     - else
       = icon('star-o')
-      %span Star
+      %span 星标
   .count-with-arrow
     %span.arrow
     %span.count.star-count
@@ -14,7 +14,7 @@
 - else
   = link_to new_user_session_path, class: 'btn has-tooltip star-btn', title: '必须登录后才能给项目加注星标' do
     = icon('star')
-    Star
+    星标
   .count-with-arrow
     %span.arrow
     %span.count

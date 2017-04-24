@@ -9,11 +9,11 @@ module Gitlab
         include Status::Extended
 
         def text
-          'passed'
+          '通过'
         end
 
         def label
-          'passed with warnings'
+          '通过但有警告'
         end
 
         def icon

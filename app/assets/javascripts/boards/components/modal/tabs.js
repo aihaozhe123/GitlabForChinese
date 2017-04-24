@@ -24,7 +24,7 @@ import Vue from 'vue';
               href="#"
               role="button"
               @click.prevent="changeTab('all')">
-              Open issues
+              未关闭的问题
               <span class="badge">
                 {{ issuesCount }}
               </span>
@@ -35,7 +35,7 @@ import Vue from 'vue';
               href="#"
               role="button"
               @click.prevent="changeTab('selected')">
-              Selected issues
+              已选择的问题
               <span class="badge">
                 {{ selectedCount }}
               </span>

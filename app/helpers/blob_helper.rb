@@ -224,6 +224,6 @@ module BlobHelper
   end
 
   def open_raw_file_button(path)
-    link_to icon('file-code-o'), path, class: 'btn btn-sm has-tooltip', target: '_blank', rel: 'noopener noreferrer', title: 'Open raw', data: { container: 'body' }
+    link_to icon('file-code-o'), path, class: 'btn btn-sm has-tooltip', target: '_blank', rel: 'noopener noreferrer', title: '打开原始文件', data: { container: 'body' }
   end
 end
