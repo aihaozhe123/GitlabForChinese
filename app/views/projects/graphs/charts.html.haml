@@ -31,9 +31,9 @@
     .col-md-6
       %h4
         %strong= @ref
+        分支
+        #{@commits_graph.start_date.strftime('%Y-%m-%d')} - #{@commits_graph.end_date.strftime('%Y-%m-%d')}
         的提交统计
-        #{@commits_graph.start_date.strftime('%b %d')} - #{@commits_graph.end_date.strftime('%b %d')}
-
     .col-md-6
       .tree-ref-container
         .tree-ref-holder

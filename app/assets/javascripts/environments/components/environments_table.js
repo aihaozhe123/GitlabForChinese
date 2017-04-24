@@ -49,11 +49,11 @@ export default {
     <table class="table ci-table">
       <thead>
         <tr>
-          <th class="environments-name">Environment</th>
-          <th class="environments-deploy">Last deployment</th>
-          <th class="environments-build">Job</th>
-          <th class="environments-commit">Commit</th>
-          <th class="environments-date">Updated</th>
+          <th class="environments-name">环境</th>
+          <th class="environments-deploy">最后部署</th>
+          <th class="environments-build">作业</th>
+          <th class="environments-commit">提交</th>
+          <th class="environments-date">更新时间</th>
           <th class="environments-actions"></th>
         </tr>
       </thead>

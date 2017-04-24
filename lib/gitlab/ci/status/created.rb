@@ -3,11 +3,11 @@ module Gitlab
     module Status
       class Created < Status::Core
         def text
-          'created'
+          '已创建'
         end
 
         def label
-          'created'
+          '已创建'
         end
 
         def icon

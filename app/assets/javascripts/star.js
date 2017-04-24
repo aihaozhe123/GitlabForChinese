@@ -12,10 +12,10 @@
         toggleStar = function(isStarred) {
           $this.parent().find('.star-count').text(data.star_count);
           if (isStarred) {
-            $starSpan.removeClass('starred').text('Star');
+            $starSpan.removeClass('starred').text('星标');
             $starIcon.removeClass('fa-star').addClass('fa-star-o');
           } else {
-            $starSpan.addClass('starred').text('Unstar');
+            $starSpan.addClass('starred').text('取消');
             $starIcon.removeClass('fa-star-o').addClass('fa-star');
           }
         };

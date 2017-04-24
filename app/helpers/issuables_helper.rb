@@ -13,7 +13,7 @@ module IssuablesHelper
     if current_labels && current_labels.any?
       title = current_labels.first.try(:title)
       if current_labels.size > 1
-        "超前 #{title} +#{current_labels.size - 1}"
+        "超前#{title} +#{current_labels.size - 1}"
       else
         title
       end
@@ -34,28 +34,28 @@ module IssuablesHelper
 
   def serialize_issuable(issuable)
     case issuable
-    when Issue
-      IssueSerializer.new.represent(issuable).to_json
-    when MergeRequest
-      MergeRequestSerializer.new.represent(issuable).to_json
+      when Issue
+        IssueSerializer.new.represent(issuable).to_json
+      when MergeRequest
+        MergeRequestSerializer.new.represent(issuable).to_json
     end
   end
 
   def template_dropdown_tag(issuable, &block)
     title = selected_template(issuable) || "Choose a template"
     options = {
-      toggle_class: 'js-issuable-selector',
-      title: title,
-      filter: true,
-      placeholder: 'Filter',
-      footer_content: true,
-      data: {
-        data: issuable_templates(issuable),
-        field_name: 'issuable_template',
-        selected: selected_template(issuable),
-        project_path: ref_project.path,
-        namespace_path: ref_project.namespace.full_path
-      }
+        toggle_class: 'js-issuable-selector',
+        title: title,
+        filter: true,
+        placeholder: 'Filter',
+        footer_content: true,
+        data: {
+            data: issuable_templates(issuable),
+            field_name: 'issuable_template',
+            selected: selected_template(issuable),
+            project_path: ref_project.path,
+            namespace_path: ref_project.namespace.full_path
+        }
     }
 
     dropdown_tag(title, options: options) do
@@ -91,23 +91,23 @@ module IssuablesHelper
 
   def milestone_dropdown_label(milestone_title, default_label = "里程碑")
     title =
-      case milestone_title
-      when Milestone::Upcoming.name then Milestone::Upcoming.title
-      when Milestone::Started.name then Milestone::Started.title
-      else milestone_title.presence
-      end
+        case milestone_title
+          when Milestone::Upcoming.name then Milestone::Upcoming.title
+          when Milestone::Started.name then Milestone::Started.title
+          else milestone_title.presence
+        end
 
     h(title || default_label)
   end
 
   def to_url_reference(issuable)
     case issuable
-    when Issue
-      link_to issuable.to_reference, issue_url(issuable)
-    when MergeRequest
-      link_to issuable.to_reference, merge_request_url(issuable)
-    else
-      issuable.to_reference
+      when Issue
+        link_to issuable.to_reference, issue_url(issuable)
+      when MergeRequest
+        link_to issuable.to_reference, merge_request_url(issuable)
+      else
+        issuable.to_reference
     end
   end
 
@@ -117,7 +117,7 @@ module IssuablesHelper
       concat(to_url_reference(issuable))
     end
 
-    output << " 在 #{time_ago_with_tooltip(issuable.created_at)} 由 ".html_safe
+    output << " 创建于#{time_ago_with_tooltip(issuable.created_at)}，作者：".html_safe
     output << content_tag(:strong) do
       author_output = link_to_member(project, issuable.author, size: 24, mobile_classes: "hidden-xs", tooltip: true)
       author_output << link_to_member(project, issuable.author, size: 24, by_username: true, avatar: false, mobile_classes: "hidden-sm hidden-md hidden-lg")
@@ -149,18 +149,18 @@ module IssuablesHelper
 
   def issuables_state_counter_text(issuable_type, state)
     titles = {
-      opened: "未关闭",
-      closed: "已关闭",
-      merged: "已合并",
-      all: "所有"
+        opened: "未关闭",
+        closed: "已关闭",
+        merged: "已合并",
+        all: "所有"
     }
 
     state_title = titles[state] || state.to_s.humanize
 
     count =
-      Rails.cache.fetch(issuables_state_counter_cache_key(issuable_type, state), expires_in: 2.minutes) do
-        issuables_count_for_state(issuable_type, state)
-      end
+        Rails.cache.fetch(issuables_state_counter_cache_key(issuable_type, state), expires_in: 2.minutes) do
+          issuables_count_for_state(issuable_type, state)
+        end
 
     html = content_tag(:span, state_title)
     html << " " << content_tag(:span, number_with_delimiter(count), class: 'badge')
@@ -168,20 +168,17 @@ module IssuablesHelper
     html.html_safe
   end
 
-  def cached_assigned_issuables_count(assignee, issuable_type, state)
-    cache_key = hexdigest(['assigned_issuables_count', assignee.id, issuable_type, state].join('-'))
-    Rails.cache.fetch(cache_key, expires_in: 2.minutes) do
-      assigned_issuables_count(assignee, issuable_type, state)
-    end
+  def assigned_issuables_count(issuable_type)
+    current_user.public_send("assigned_open_#{issuable_type}_count")
   end
 
   def issuable_filter_params
     [
-      :search,
-      :author_id,
-      :assignee_id,
-      :milestone_title,
-      :label_name
+        :search,
+        :author_id,
+        :assignee_id,
+        :milestone_title,
+        :label_name
     ]
   end
 
@@ -194,10 +191,6 @@ module IssuablesHelper
   end
 
   private
-
-  def assigned_issuables_count(assignee, issuable_type, state)
-    assignee.public_send("assigned_#{issuable_type}").public_send(state).count
-  end
 
   def sidebar_gutter_collapsed?
     cookies[:collapsed_gutter] == 'true'
@@ -235,14 +228,14 @@ module IssuablesHelper
 
   def issuable_templates(issuable)
     @issuable_templates ||=
-      case issuable
-      when Issue
-        issue_template_names
-      when MergeRequest
-        merge_request_template_names
-      else
-        raise '未知的问题类型!'
-      end
+        case issuable
+          when Issue
+            issue_template_names
+          when MergeRequest
+            merge_request_template_names
+          else
+            raise '未知的问题类型!'
+        end
   end
 
   def merge_request_template_names
@@ -259,16 +252,16 @@ module IssuablesHelper
 
   def issuable_todo_button_data(issuable, todo, is_collapsed)
     {
-      todo_text: "Add todo",
-      mark_text: "Mark done",
-      todo_icon: (is_collapsed ? icon('plus-square') : nil),
-      mark_icon: (is_collapsed ? icon('check-square', class: 'todo-undone') : nil),
-      issuable_id: issuable.id,
-      issuable_type: issuable.class.name.underscore,
-      url: namespace_project_todos_path(@project.namespace, @project),
-      delete_path: (dashboard_todo_path(todo) if todo),
-      placement: (is_collapsed ? 'left' : nil),
-      container: (is_collapsed ? 'body' : nil)
+        todo_text: "添加todo",
+        mark_text: "标记完成",
+        todo_icon: (is_collapsed ? icon('plus-square') : nil),
+        mark_icon: (is_collapsed ? icon('check-square', class: 'todo-undone') : nil),
+        issuable_id: issuable.id,
+        issuable_type: issuable.class.name.underscore,
+        url: namespace_project_todos_path(@project.namespace, @project),
+        delete_path: (dashboard_todo_path(todo) if todo),
+        placement: (is_collapsed ? 'left' : nil),
+        container: (is_collapsed ? 'body' : nil)
     }
   end
 end

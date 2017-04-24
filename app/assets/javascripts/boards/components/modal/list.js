@@ -125,7 +125,7 @@ import Vue from 'vue';
           </div>
           <div class="text-content">
             <h4>
-              There are no issues to show.
+              没有问题可显示。
             </h4>
           </div>
         </div>
@@ -146,7 +146,7 @@ import Vue from 'vue';
                 :root-path="rootPath">
               </issue-card-inner>
               <span
-                :aria-label="'Issue #' + issue.id + ' selected'"
+                :aria-label="'已选择问题 #' + issue.id"
                 aria-checked="true"
                 v-if="issue.selected"
                 class="issue-card-selected text-center">
