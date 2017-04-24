@@ -3,11 +3,11 @@ module Gitlab
     module Status
       class Manual < Status::Core
         def text
-          'manual'
+          '手动的'
         end
 
         def label
-          'manual action'
+          '手动操作'
         end
 
         def icon

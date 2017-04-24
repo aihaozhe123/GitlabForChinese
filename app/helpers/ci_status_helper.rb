@@ -98,7 +98,7 @@ module CiStatusHelper
       pipeline_status.sha)
 
     render_status_with_link(
-      'commit',
+      '提交',
       pipeline_status.status,
       path,
       tooltip_placement: tooltip_placement)
@@ -112,7 +112,7 @@ module CiStatusHelper
       commit)
 
     render_status_with_link(
-      'commit',
+      '提交',
       commit.status(ref),
       path,
       tooltip_placement: tooltip_placement)
@@ -121,7 +121,7 @@ module CiStatusHelper
   def render_pipeline_status(pipeline, tooltip_placement: 'auto left')
     project = pipeline.project
     path = namespace_project_pipeline_path(project.namespace, project, pipeline)
-    render_status_with_link('pipeline', pipeline.status, path, tooltip_placement: tooltip_placement)
+    render_status_with_link('流水线', pipeline.status, path, tooltip_placement: tooltip_placement)
   end
 
   def no_runners_for_project?(project)

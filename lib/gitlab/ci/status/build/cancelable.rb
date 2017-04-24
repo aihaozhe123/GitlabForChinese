@@ -24,7 +24,7 @@ module Gitlab
           end
 
           def action_title
-            'Cancel'
+            '取消'
           end
 
           def self.matches?(build, user)

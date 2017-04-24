@@ -25,10 +25,10 @@ class User < ActiveRecord::Base
   default_value_for :notified_of_own_activity, false
 
   attr_encrypted :otp_secret,
-    key:       Gitlab::Application.secrets.otp_key_base,
-    mode:      :per_attribute_iv_and_salt,
-    insecure_mode: true,
-    algorithm: 'aes-256-cbc'
+                 key:       Gitlab::Application.secrets.otp_key_base,
+                 mode:      :per_attribute_iv_and_salt,
+                 insecure_mode: true,
+                 algorithm: 'aes-256-cbc'
 
   devise :two_factor_authenticatable,
          otp_secret_encryption_key: Gitlab::Application.secrets.otp_key_base
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   serialize :otp_backup_codes, JSON
 
   devise :lockable, :recoverable, :rememberable, :trackable,
-    :validatable, :omniauthable, :confirmable, :registerable
+         :validatable, :omniauthable, :confirmable, :registerable
 
   attr_accessor :force_random_password
 
@@ -99,9 +99,6 @@ class User < ActiveRecord::Base
   has_many :award_emoji,              dependent: :destroy
   has_many :triggers,                 dependent: :destroy, class_name: 'Ci::Trigger', foreign_key: :owner_id
 
-  has_many :assigned_issues,          dependent: :nullify, foreign_key: :assignee_id, class_name: "Issue"
-  has_many :assigned_merge_requests,  dependent: :nullify, foreign_key: :assignee_id, class_name: "MergeRequest"
-
   # Issues that a user owns are expected to be moved to the "ghost" user before
   # the user is destroyed. If the user owns any issues during deletion, this
   # should be treated as an exceptional condition.
@@ -118,12 +115,12 @@ class User < ActiveRecord::Base
   validates :public_email, presence: true, uniqueness: true, email: true, allow_blank: true
   validates :bio, length: { maximum: 255 }, allow_blank: true
   validates :projects_limit,
-    presence: true,
-    numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: Gitlab::Database::MAX_INT_VALUE }
+            presence: true,
+            numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: Gitlab::Database::MAX_INT_VALUE }
   validates :username,
-    namespace: true,
-    presence: true,
-    uniqueness: { case_sensitive: false }
+            namespace: true,
+            presence: true,
+            uniqueness: { case_sensitive: false }
 
   validate :namespace_uniq, if: ->(user) { user.username_changed? }
   validate :avatar_type, if: ->(user) { user.avatar.present? && user.avatar_changed? }
@@ -197,7 +194,7 @@ class User < ActiveRecord::Base
   scope :admins, -> { where(admin: true) }
   scope :blocked, -> { with_states(:blocked, :ldap_blocked) }
   scope :external, -> { where(external: true) }
-  scope :active, -> { with_state(:active) }
+  scope :active, -> { with_state(:active).non_internal }
   scope :not_in_project, ->(project) { project.users.present? ? where("id not in (:ids)", ids: project.users.map(&:id) ) : all }
   scope :without_projects, -> { where('id NOT IN (SELECT DISTINCT(user_id) FROM members WHERE user_id IS NOT NULL AND requested_at IS NULL)') }
   scope :todo_authors, ->(user_id, state) { where(id: Todo.where(user_id: user_id, state: state).select(:author_id)) }
@@ -206,12 +203,12 @@ class User < ActiveRecord::Base
 
   def self.with_two_factor
     joins("LEFT OUTER JOIN u2f_registrations AS u2f ON u2f.user_id = users.id").
-      where("u2f.id IS NOT NULL OR otp_required_for_login = ?", true).distinct(arel_table[:id])
+        where("u2f.id IS NOT NULL OR otp_required_for_login = ?", true).distinct(arel_table[:id])
   end
 
   def self.without_two_factor
     joins("LEFT OUTER JOIN u2f_registrations AS u2f ON u2f.user_id = users.id").
-      where("u2f.id IS NULL AND otp_required_for_login = ?", false)
+        where("u2f.id IS NULL AND otp_required_for_login = ?", false)
   end
 
   #
@@ -230,10 +227,10 @@ class User < ActiveRecord::Base
 
     def sort(method)
       case method.to_s
-      when 'recent_sign_in' then order_recent_sign_in
-      when 'oldest_sign_in' then order_oldest_sign_in
-      else
-        order_by(method)
+        when 'recent_sign_in' then order_recent_sign_in
+        when 'oldest_sign_in' then order_oldest_sign_in
+        else
+          order_by(method)
       end
     end
 
@@ -253,20 +250,20 @@ class User < ActiveRecord::Base
 
     def filter(filter_name)
       case filter_name
-      when 'admins'
-        admins
-      when 'blocked'
-        blocked
-      when 'two_factor_disabled'
-        without_two_factor
-      when 'two_factor_enabled'
-        with_two_factor
-      when 'wop'
-        without_projects
-      when 'external'
-        external
-      else
-        active
+        when 'admins'
+          admins
+        when 'blocked'
+          blocked
+        when 'two_factor_disabled'
+          without_two_factor
+        when 'two_factor_enabled'
+          with_two_factor
+        when 'wop'
+          without_projects
+        when 'external'
+          external
+        else
+          active
       end
     end
 
@@ -282,9 +279,9 @@ class User < ActiveRecord::Base
       pattern = "%#{query}%"
 
       where(
-        table[:name].matches(pattern).
-          or(table[:email].matches(pattern)).
-          or(table[:username].matches(pattern))
+          table[:name].matches(pattern).
+              or(table[:email].matches(pattern)).
+              or(table[:username].matches(pattern))
       )
     end
 
@@ -299,10 +296,10 @@ class User < ActiveRecord::Base
       matched_by_emails_user_ids = email_table.project(email_table[:user_id]).where(email_table[:email].matches(pattern))
 
       where(
-        table[:name].matches(pattern).
-          or(table[:email].matches(pattern)).
-          or(table[:username].matches(pattern)).
-          or(table[:id].in(matched_by_emails_user_ids))
+          table[:name].matches(pattern).
+              or(table[:email].matches(pattern)).
+              or(table[:username].matches(pattern)).
+              or(table[:id].in(matched_by_emails_user_ids))
       )
     end
 
@@ -342,7 +339,7 @@ class User < ActiveRecord::Base
     # Pattern used to extract `@user` user references from text
     def reference_pattern
       %r{
-        #{Regexp.escape(reference_prefix)}
+      #{Regexp.escape(reference_prefix)}
         (?<user>#{Gitlab::Regex::FULL_NAMESPACE_REGEX_STR})
       }x
     end
@@ -405,12 +402,12 @@ class User < ActiveRecord::Base
   def disable_two_factor!
     transaction do
       update_attributes(
-        otp_required_for_login:      false,
-        encrypted_otp_secret:        nil,
-        encrypted_otp_secret_iv:     nil,
-        encrypted_otp_secret_salt:   nil,
-        otp_grace_period_started_at: nil,
-        otp_backup_codes:            nil
+          otp_required_for_login:      false,
+          encrypted_otp_secret:        nil,
+          encrypted_otp_secret_iv:     nil,
+          encrypted_otp_secret_salt:   nil,
+          otp_grace_period_started_at: nil,
+          otp_backup_codes:            nil
       )
       self.u2f_registrations.destroy_all
     end
@@ -476,7 +473,7 @@ class User < ActiveRecord::Base
   # Returns the groups a user has access to
   def authorized_groups
     union = Gitlab::SQL::Union.
-      new([groups.select(:id), authorized_projects.select(:namespace_id)])
+        new([groups.select(:id), authorized_projects.select(:namespace_id)])
 
     Group.where("namespaces.id IN (#{union.to_sql})")
   end
@@ -495,7 +492,7 @@ class User < ActiveRecord::Base
 
   def nested_groups_projects
     Project.joins(:namespace).where('namespaces.parent_id IS NOT NULL').
-      member_descendants(id)
+        member_descendants(id)
   end
 
   def refresh_authorized_projects
@@ -544,8 +541,8 @@ class User < ActiveRecord::Base
 
   def owned_projects
     @owned_projects ||=
-      Project.where('namespace_id IN (?) OR namespace_id = ?',
-                    owned_groups.select(:id), namespace.id).joins(:namespace)
+        Project.where('namespace_id IN (?) OR namespace_id = ?',
+                      owned_groups.select(:id), namespace.id).joins(:namespace)
   end
 
   # Returns projects which user can admin issues on (for example to move an issue to that project).
@@ -587,10 +584,6 @@ class User < ActiveRecord::Base
     name.split.first unless name.blank?
   end
 
-  def cared_merge_requests
-    MergeRequest.cared(self)
-  end
-
   def projects_limit_left
     projects_limit - personal_projects.count
   end
@@ -612,8 +605,8 @@ class User < ActiveRecord::Base
 
       if project.repository.branch_exists?(event.branch_name)
         merge_requests = MergeRequest.where("created_at >= ?", event.created_at).
-          where(source_project_id: project.id,
-                source_branch: event.branch_name)
+            where(source_project_id: project.id,
+                  source_branch: event.branch_name)
         merge_requests.empty?
       end
     end
@@ -641,8 +634,8 @@ class User < ActiveRecord::Base
 
   def fork_of(project)
     links = ForkedProjectLink.where(
-      forked_from_project_id: project,
-      forked_to_project_id: personal_projects.unscope(:order)
+        forked_from_project_id: project,
+        forked_to_project_id: personal_projects.unscope(:order)
     )
     if links.any?
       links.first.forked_to_project
@@ -745,7 +738,7 @@ class User < ActiveRecord::Base
 
   def can_leave_project?(project)
     project.namespace != namespace &&
-      project.project_member(self)
+        project.project_member(self)
   end
 
   def full_website_url
@@ -783,9 +776,9 @@ class User < ActiveRecord::Base
 
   def hook_attrs
     {
-      name: name,
-      username: username,
-      avatar_url: avatar_url
+        name: name,
+        username: username,
+        avatar_url: avatar_url
     }
   end
 
@@ -859,10 +852,10 @@ class User < ActiveRecord::Base
   # hand, using a subquery means we can get the exact same data in about 40 ms.
   def contributed_projects
     events = Event.select(:project_id).
-      contributions.where(author_id: self).
-      where("created_at > ?", Time.now - 1.year).
-      uniq.
-      reorder(nil)
+        contributions.where(author_id: self).
+        where("created_at > ?", Time.now - 1.year).
+        uniq.
+        reorder(nil)
 
     Project.where(id: events)
   end
@@ -874,8 +867,8 @@ class User < ActiveRecord::Base
   def ci_authorized_runners
     @ci_authorized_runners ||= begin
       runner_ids = Ci::RunnerProject.
-        where("ci_runner_projects.project_id IN (#{ci_projects_union.to_sql})").
-        select(:runner_id)
+          where("ci_runner_projects.project_id IN (#{ci_projects_union.to_sql})").
+          select(:runner_id)
       Ci::Runner.specific.where(id: runner_ids)
     end
   end
@@ -895,20 +888,20 @@ class User < ActiveRecord::Base
     @global_notification_setting
   end
 
-  def assigned_open_merge_request_count(force: false)
-    Rails.cache.fetch(['users', id, 'assigned_open_merge_request_count'], force: force) do
-      assigned_merge_requests.opened.count
+  def assigned_open_merge_requests_count(force: false)
+    Rails.cache.fetch(['users', id, 'assigned_open_merge_requests_count'], force: force) do
+      MergeRequestsFinder.new(self, assignee_id: self.id, state: 'opened').execute.count
     end
   end
 
   def assigned_open_issues_count(force: false)
     Rails.cache.fetch(['users', id, 'assigned_open_issues_count'], force: force) do
-      assigned_issues.opened.count
+      IssuesFinder.new(self, assignee_id: self.id, state: 'opened').execute.count
     end
   end
 
   def update_cache_counts
-    assigned_open_merge_request_count(force: true)
+    assigned_open_merge_requests_count(force: true)
     assigned_open_issues_count(force: true)
   end
 
@@ -1076,9 +1069,9 @@ class User < ActiveRecord::Base
     end
 
     scope.create(
-      username: username,
-      email: email,
-      &creation_block
+        username: username,
+        email: email,
+        &creation_block
     )
   ensure
     Gitlab::ExclusiveLease.cancel(lease_key, uuid)

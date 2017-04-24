@@ -2,9 +2,9 @@
   - if @protected_tags.empty?
     .panel-heading
       %h3.panel-title
-        Protected tag (#{@protected_tags.size})
+        受保护的标记(#{@protected_tags.size})
     %p.settings-message.text-center
-      There are currently no protected tags, protect a tag with the form above.
+      目前没有受保护的标记，用上述形式创建保护标记。
   - else
     - can_admin_project = can?(current_user, :admin_project, @project)
 
@@ -15,9 +15,9 @@
         %col{ width: "50%" }
       %thead
         %tr
-          %th Protected tag (#{@protected_tags.size})
-          %th Last commit
-          %th Allowed to create
+          %th 受保护的标记(#{@protected_tags.size})
+          %th 最后提交
+          %th 允许创建
           - if can_admin_project
             %th
       %tbody

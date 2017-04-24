@@ -158,7 +158,7 @@
                 if (showNo) {
                   extraData.unshift({
                     id: 0,
-                    title: 'No Label'
+                    title: '无标记'
                   });
                 }
                 if (showAny) {
@@ -262,7 +262,7 @@
 
             if (selected.id === 0) {
               this.selected = [];
-              return 'No Label';
+              return '无标记';
             }
             else if (isSelected) {
               this.selected.push(title);

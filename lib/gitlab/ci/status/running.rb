@@ -3,11 +3,11 @@ module Gitlab
     module Status
       class Running < Status::Core
         def text
-          'running'
+          '运行中'
         end
 
         def label
-          'running'
+          '运行中'
         end
 
         def icon

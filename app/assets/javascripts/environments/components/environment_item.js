@@ -509,7 +509,7 @@ export default {
             :author="commitAuthor"/>
         </div>
         <p v-if="!model.isFolder && !hasLastDeploymentKey" class="commit-title">
-          No deployments yet
+          尚未部署
         </p>
       </td>
 

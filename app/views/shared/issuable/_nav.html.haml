@@ -7,7 +7,7 @@
 
 %ul.nav-links.issues-state-filters
   %li{ class: active_when(params[:state] == 'opened') }>
-    = link_to page_filter_path(state: 'opened', label: true), id: 'state-opened', title: "只显示当前未关闭的 #{page_context_word} 。" do
+    = link_to page_filter_path(state: 'opened', label: true), id: 'state-opened', title: "只显示当前未关闭的#{page_context_word}。" do
       #{issuables_state_counter_text(type, :opened)}
 
   - if type == :merge_requests
@@ -24,5 +24,5 @@
         #{issuables_state_counter_text(type, :closed)}
 
   %li{ class: active_when(params[:state] == 'all') }>
-    = link_to page_filter_path(state: 'all', label: true), id: 'state-all', title: "显示全部 #{page_context_word}." do
+    = link_to page_filter_path(state: 'all', label: true), id: 'state-all', title: "显示全部#{page_context_word}。" do
       #{issuables_state_counter_text(type, :all)}

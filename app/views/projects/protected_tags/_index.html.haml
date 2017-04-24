@@ -4,13 +4,13 @@
 .row.prepend-top-default.append-bottom-default
   .col-lg-3
     %h4.prepend-top-0
-      Protected tags
+      受保护的标记
     %p.prepend-top-20
-      By default, Protected tags are designed to:
+      默认情况下，受保护的标记设计为：
       %ul
-        %li Prevent tag creation by everybody except Masters
-        %li Prevent <strong>anyone</strong> from updating the tag
-        %li Prevent <strong>anyone</strong> from deleting the tag
+        %li 除了主程序员，防止其他人创建标记
+        %li 防止 <strong>任何人</strong> 更改标记
+        %li 防止 <strong>任何人</strong> 删除标记
   .col-lg-9
     - if can? current_user, :admin_project, @project
       = render 'projects/protected_tags/create_protected_tag'
