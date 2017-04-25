@@ -10,7 +10,7 @@ export default {
     <div class="btn-group" role="group">
       <button
         class="dropdown-toggle btn btn-default build-artifacts has-tooltip js-pipeline-dropdown-download"
-        title="Artifacts"
+        title="附件"
         data-placement="top"
         data-toggle="dropdown"
         aria-label="附件">
