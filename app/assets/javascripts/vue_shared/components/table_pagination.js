@@ -1,10 +1,10 @@
 const PAGINATION_UI_BUTTON_LIMIT = 4;
 const UI_LIMIT = 6;
 const SPREAD = '...';
-const PREV = 'Prev';
-const NEXT = 'Next';
-const FIRST = '« First';
-const LAST = 'Last »';
+const PREV = '上一页';
+const NEXT = '下一页';
+const FIRST = '« 首页';
+const LAST = '尾页 »';
 
 export default {
   props: {
