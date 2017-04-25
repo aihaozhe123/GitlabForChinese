@@ -21,7 +21,7 @@
 
       .issue-info
         #{issuable_reference(issue)} &middot;
-        创建于 #{time_ago_with_tooltip(issue.created_at, placement: 'bottom')}
+        创建于#{time_ago_with_tooltip(issue.created_at, placement: 'bottom')}
         ，作者：#{link_to_member(@project, issue.author, avatar: false)}
         - if issue.milestone
           &nbsp;
@@ -43,4 +43,4 @@
             = issue.task_status
 
         .pull-right.issue-updated-at
-          %span 更新于 #{time_ago_with_tooltip(issue.updated_at, placement: 'bottom', html_class: 'issue_update_ago')}
+          %span 更新于#{time_ago_with_tooltip(issue.updated_at, placement: 'bottom', html_class: 'issue_update_ago')}
