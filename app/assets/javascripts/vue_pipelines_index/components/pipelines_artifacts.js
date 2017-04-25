@@ -13,7 +13,7 @@ export default {
         title="Artifacts"
         data-placement="top"
         data-toggle="dropdown"
-        aria-label="Artifacts">
+        aria-label="附件">
         <i class="fa fa-download" aria-hidden="true"></i>
         <i class="fa fa-caret-down" aria-hidden="true"></i>
       </button>
@@ -24,7 +24,7 @@ export default {
             download
             :href="artifact.path">
             <i class="fa fa-download" aria-hidden="true"></i>
-            <span>Download {{artifact.name}} artifacts</span>
+            <span>下载{{artifact.name}}附件</span>
           </a>
         </li>
       </ul>
