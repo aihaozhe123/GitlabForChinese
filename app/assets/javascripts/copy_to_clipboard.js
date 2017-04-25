@@ -5,7 +5,7 @@ import Clipboard from 'vendor/clipboard';
 var genericError, genericSuccess, showTooltip;
 
 genericSuccess = function(e) {
-  showTooltip(e.trigger, 'Copied');
+  showTooltip(e.trigger, '已复制');
   // Clear the selection and blur the trigger so it loses its border
   e.clearSelection();
   return $(e.trigger).blur();
@@ -30,7 +30,7 @@ showTooltip = function(target, title) {
   var originalTitle = $target.data('original-title');
 
   $target
-    .attr('title', 'Copied')
+    .attr('title', '已复制')
     .tooltip('fixTitle')
     .tooltip('show')
     .attr('title', originalTitle)
