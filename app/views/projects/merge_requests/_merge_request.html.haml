@@ -33,8 +33,8 @@
 
     .merge-request-info
       #{issuable_reference(merge_request)} &middot;
-      opened #{time_ago_with_tooltip(merge_request.created_at, placement: 'bottom')}
-      by #{link_to_member(@project, merge_request.author, avatar: false)}
+      创建于#{time_ago_with_tooltip(merge_request.created_at, placement: 'bottom')}
+      ，作者：#{link_to_member(@project, merge_request.author, avatar: false)}
       - if merge_request.target_project.default_branch != merge_request.target_branch
         &nbsp;
         = link_to namespace_project_commits_path(merge_request.project.namespace, merge_request.project, merge_request.target_branch) do
@@ -58,4 +58,4 @@
           = merge_request.task_status
 
       .pull-right.hidden-xs
-        %span updated #{time_ago_with_tooltip(merge_request.updated_at, placement: 'bottom', html_class: 'merge_request_updated_ago')}
+        %span 更新于#{time_ago_with_tooltip(merge_request.updated_at, placement: 'bottom', html_class: 'merge_request_updated_ago')}
