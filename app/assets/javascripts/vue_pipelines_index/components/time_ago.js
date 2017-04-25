@@ -27,7 +27,7 @@ export default {
       options.timeZoneName = 'short';
       const finished = this.pipeline.details.finished_at;
       if (!finished && changeTime) return false;
-      return ({ words: this.timeAgo.format(finished) });
+      return ({ words: this.timeAgo.format(finished),time:finished });
     },
     duration() {
       const { duration } = this.pipeline.details;
@@ -59,6 +59,7 @@ export default {
       <p class="finished-at" v-if='timeStopped'>
         <i class="fa fa-calendar"></i>
         <time class="js-timeago js-timeago-render"
+          :datetime='timeStopped.time'
           data-toggle="tooltip"
           data-placement="top"
           data-container="body"
