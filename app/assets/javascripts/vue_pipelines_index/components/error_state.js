@@ -11,7 +11,7 @@ export default {
 
       <div class="col-xs-12 text-center">
         <div class="text-content">
-          <h4>The API failed to fetch the pipelines.</h4>
+          <h4>API无法获取流水线。</h4>
         </div>
       </div>
     </div>
