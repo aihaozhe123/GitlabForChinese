@@ -164,7 +164,7 @@
                 if (showAny) {
                   extraData.unshift({
                     isAny: true,
-                    title: 'Any Label'
+                    title: '任何标记'
                   });
                 }
                 if (extraData.length) {
