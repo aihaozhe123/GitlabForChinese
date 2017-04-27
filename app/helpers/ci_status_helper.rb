@@ -1,3 +1,10 @@
+##
+# DEPRECATED
+#
+# These helpers are deprecated in favor of detailed CI/CD statuses.
+#
+# See 'detailed_status?` method and `Gitlab::Ci::Status` module.
+#
 module CiStatusHelper
   def ci_status_path(pipeline)
     project = pipeline.project
@@ -46,6 +53,23 @@ module CiStatusHelper
       '等待手动操作'
     else
       ci_status_zh(status)
+    end
+  end
+
+  def ci_text_for_status(status)
+    if detailed_status?(status)
+      return status.text
+    end
+
+    case status
+    when 'success'
+      'passed'
+    when 'success_with_warnings'
+      'passed'
+    when 'manual'
+      'blocked'
+    else
+      status
     end
   end
 
