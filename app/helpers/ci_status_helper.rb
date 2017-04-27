@@ -26,18 +26,6 @@ module CiStatusHelper
     end
   end
 
-  def ci_stage_zh(stage)
-    case stage
-      when 'build'
-        '构建'
-      when 'deploy'
-        '部署'
-      when 'test'
-        '测试'
-      else
-        stage.titleize
-    end
-  end
   def ci_label_for_status(status)
     if detailed_status?(status)
       return status.label
@@ -45,9 +33,9 @@ module CiStatusHelper
 
     case status
     when 'success'
-      '成功'
+      '已通过'
     when 'success_with_warnings'
-      '成功(有警告)'
+      '已通过(有警告)'
     when 'manual'
       '等待手动操作'
     else
@@ -62,13 +50,13 @@ module CiStatusHelper
 
     case status
     when 'success'
-      'passed'
+      '成功'
     when 'success_with_warnings'
-      'passed'
+      '成功(有警告)'
     when 'manual'
-      'blocked'
+      '等待手动操作'
     else
-      status
+      ci_status_zh(status)
     end
   end
 
