@@ -31,10 +31,10 @@ import iconCommit from '../svg/icon_commit.svg';
                 </a>
               </h5>
               <span>
-                First
+                首个推送
                 <span class="commit-icon">${iconCommit}</span>
                 <a :href="commit.commitUrl" class="commit-hash-link monospace">{{ commit.shortSha }}</a>
-                pushed by
+                ，作者：
                 <a :href="commit.author.webUrl" class="commit-author-link">
                   {{ commit.author.name }}
                 </a>
