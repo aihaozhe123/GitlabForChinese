@@ -9,7 +9,7 @@
     .bs-callout.bs-callout-warning.clearfix
       %p
         仅当启用
-        = link_to '使用ping', help_page_path('user/admin_area/usage_statistics'), target: '_blank'
+        = link_to '使用ping', help_page_path('user/admin_area/settings/usage_statistics', anchor: 'usage-ping'), target: '_blank'
         时才会显示用户队列。
         要启用它并查看用户队列，请访问
         = succeed '。' do
