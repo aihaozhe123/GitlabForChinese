@@ -15,7 +15,7 @@ module Gitlab
       end
 
       def legend
-        "Relative Deployed Builds"
+        "相关的部署构建"
       end
 
       def description

@@ -14,7 +14,7 @@ module Gitlab
       end
 
       def legend
-        "Relative Merged Requests"
+        "相关合并请求"
       end
 
       def description

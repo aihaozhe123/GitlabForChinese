@@ -15,7 +15,7 @@ module Gitlab
       end
 
       def legend
-        "Related Commits"
+        "关联提交"
       end
 
       def description

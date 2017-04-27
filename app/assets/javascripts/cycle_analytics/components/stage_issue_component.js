@@ -28,11 +28,11 @@ import Vue from 'vue';
               <a :href="issue.url" class="issue-link">#{{ issue.iid }}</a>
               &middot;
               <span>
-                Opened
-                <a :href="issue.url" class="issue-date">{{ issue.createdAt }}</a>
+                开始于
+                <a :href="issue.url" class="issue-date">{{ issue.createdAt.replace(/ ago/,'之前') }}</a>
               </span>
               <span>
-                by
+                ，作者：
                 <a :href="issue.author.webUrl" class="issue-author-link">
                   {{ issue.author.name }}
                 </a>

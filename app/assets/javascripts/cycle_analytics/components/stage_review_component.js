@@ -28,11 +28,11 @@ import Vue from 'vue';
               <a :href="mergeRequest.url" class="issue-link">!{{ mergeRequest.iid }}</a>
               &middot;
               <span>
-                Opened
-                <a :href="mergeRequest.url" class="issue-date">{{ mergeRequest.createdAt }}</a>
+                开始于额
+                <a :href="mergeRequest.url" class="issue-date">{{ mergeRequest.createdAt.replace(/ ago/,'之前') }}</a>
               </span>
               <span>
-                by
+                ，作者：
                 <a :href="mergeRequest.author.webUrl" class="issue-author-link">{{ mergeRequest.author.name }}</a>
               </span>
               <template v-if="mergeRequest.state === 'closed'">

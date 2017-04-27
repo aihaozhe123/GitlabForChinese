@@ -30,7 +30,7 @@
           .row
             .col-sm-3.col-xs-12.column{ "v-for" => "item in state.summary" }
               %h3.header {{ item.value }}
-              %p.text {{ item.title }}
+              %p.text {{ item.title.replace(/s/,'') }}
             .col-sm-3.col-xs-12.column
               .dropdown.inline.js-ca-dropdown
                 %button.dropdown-menu-toggle{ "data-toggle" => "dropdown", :type => "button" }
@@ -58,7 +58,7 @@
                 %i.has-tooltip.fa.fa-question-circle{ "data-placement" => "top", title: "该值位于一系列观测值的中点。 例如，在3,5,9之间，中值为5.在3,5,7,8之间，中值为（5 + 7）/ 2 = 6。", "aria-hidden" => "true" }
               %li.event-header
                 %span.stage-name
-                  {{ currentStage ? currentStage.legend : '关联问题' }}
+                  {{ currentStage ? currentStage.legend : '相关的问题' }}
                 %i.has-tooltip.fa.fa-question-circle{ "data-placement" => "top", title: "为收集该阶段数据而添加的事件集合。", "aria-hidden" => "true" }
               %li.total-time-header
                 %span.stage-name
@@ -69,7 +69,7 @@
             %ul
               %li.stage-nav-item{ ':class' => '{ active: stage.active }', '@click' => 'selectStage(stage)', "v-for" => "stage in state.stages" }
                 .stage-nav-item-cell.stage-name
-                  {{ stage.title }}
+                  {{  stage.title=='Issue'?'问题': stage.title=='Plan'?'计划': stage.title=='Code'?'编码': stage.title=='Test'?'测试': stage.title=='Review'?'评审': stage.title=='Staging'?'排期': stage.title=='Production'?'生产': stage.title }}
                 .stage-nav-item-cell.stage-median
                   %template{ "v-if" => "stage.isUserAllowed" }
                     %span{ "v-if" => "stage.value" }
