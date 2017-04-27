@@ -31,8 +31,8 @@ import iconBranch from '../svg/icon_branch.svg';
                 <a :href="build.commitUrl" class="short-sha monospace">{{ build.shortSha }}</a>
               </h5>
               <span>
-                <a :href="build.url" class="build-date">{{ build.date }}</a>
-                by
+                <a :href="build.url" class="build-date">{{ build.date.replace(/ ago/,'之前') }}</a>
+                ，作者：
                 <a :href="build.author.webUrl" class="issue-author-link">
                   {{ build.author.name }}
                 </a>

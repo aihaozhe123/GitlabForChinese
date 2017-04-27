@@ -56,7 +56,7 @@ $(() => {
     methods: {
       handleError() {
         cycleAnalyticsStore.setErrorState(true);
-        return new Flash('There was an error while fetching cycle analytics data.');
+        return new Flash('提取循环分析数据时出错。');
       },
       initDropdown() {
         const $dropdown = $('.js-ca-dropdown');
