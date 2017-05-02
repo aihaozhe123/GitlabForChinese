@@ -34,28 +34,28 @@ module IssuablesHelper
 
   def serialize_issuable(issuable)
     case issuable
-      when Issue
-        IssueSerializer.new.represent(issuable).to_json
-      when MergeRequest
-        MergeRequestSerializer.new.represent(issuable).to_json
+    when Issue
+      IssueSerializer.new.represent(issuable).to_json
+    when MergeRequest
+      MergeRequestSerializer.new.represent(issuable).to_json
     end
   end
 
   def template_dropdown_tag(issuable, &block)
     title = selected_template(issuable) || "Choose a template"
     options = {
-        toggle_class: 'js-issuable-selector',
-        title: title,
-        filter: true,
-        placeholder: 'Filter',
-        footer_content: true,
-        data: {
-            data: issuable_templates(issuable),
-            field_name: 'issuable_template',
-            selected: selected_template(issuable),
-            project_path: ref_project.path,
-            namespace_path: ref_project.namespace.full_path
-        }
+      toggle_class: 'js-issuable-selector',
+      title: title,
+      filter: true,
+      placeholder: 'Filter',
+      footer_content: true,
+      data: {
+        data: issuable_templates(issuable),
+        field_name: 'issuable_template',
+        selected: selected_template(issuable),
+        project_path: ref_project.path,
+        namespace_path: ref_project.namespace.full_path
+      }
     }
 
     dropdown_tag(title, options: options) do
@@ -91,23 +91,23 @@ module IssuablesHelper
 
   def milestone_dropdown_label(milestone_title, default_label = "里程碑")
     title =
-        case milestone_title
-          when Milestone::Upcoming.name then Milestone::Upcoming.title
-          when Milestone::Started.name then Milestone::Started.title
-          else milestone_title.presence
-        end
+      case milestone_title
+      when Milestone::Upcoming.name then Milestone::Upcoming.title
+      when Milestone::Started.name then Milestone::Started.title
+      else milestone_title.presence
+      end
 
     h(title || default_label)
   end
 
   def to_url_reference(issuable)
     case issuable
-      when Issue
-        link_to issuable.to_reference, issue_url(issuable)
-      when MergeRequest
-        link_to issuable.to_reference, merge_request_url(issuable)
-      else
-        issuable.to_reference
+    when Issue
+      link_to issuable.to_reference, issue_url(issuable)
+    when MergeRequest
+      link_to issuable.to_reference, merge_request_url(issuable)
+    else
+      issuable.to_reference
     end
   end
 
@@ -149,18 +149,18 @@ module IssuablesHelper
 
   def issuables_state_counter_text(issuable_type, state)
     titles = {
-        opened: "未关闭",
-        closed: "已关闭",
-        merged: "已合并",
-        all: "所有"
+      opened: "未关闭",
+      closed: "已关闭",
+      merged: "已合并",
+      all: "所有"
     }
 
     state_title = titles[state] || state.to_s.humanize
 
     count =
-        Rails.cache.fetch(issuables_state_counter_cache_key(issuable_type, state), expires_in: 2.minutes) do
-          issuables_count_for_state(issuable_type, state)
-        end
+      Rails.cache.fetch(issuables_state_counter_cache_key(issuable_type, state), expires_in: 2.minutes) do
+        issuables_count_for_state(issuable_type, state)
+      end
 
     html = content_tag(:span, state_title)
     html << " " << content_tag(:span, number_with_delimiter(count), class: 'badge')
@@ -168,17 +168,20 @@ module IssuablesHelper
     html.html_safe
   end
 
-  def assigned_issuables_count(issuable_type)
-    current_user.public_send("assigned_open_#{issuable_type}_count")
+  def cached_assigned_issuables_count(assignee, issuable_type, state)
+    cache_key = hexdigest(['assigned_issuables_count', assignee.id, issuable_type, state].join('-'))
+    Rails.cache.fetch(cache_key, expires_in: 2.minutes) do
+      assigned_issuables_count(assignee, issuable_type, state)
+    end
   end
 
   def issuable_filter_params
     [
-        :search,
-        :author_id,
-        :assignee_id,
-        :milestone_title,
-        :label_name
+      :search,
+      :author_id,
+      :assignee_id,
+      :milestone_title,
+      :label_name
     ]
   end
 
@@ -191,6 +194,10 @@ module IssuablesHelper
   end
 
   private
+
+  def assigned_issuables_count(assignee, issuable_type, state)
+    assignee.public_send("assigned_#{issuable_type}").public_send(state).count
+  end
 
   def sidebar_gutter_collapsed?
     cookies[:collapsed_gutter] == 'true'
@@ -228,14 +235,14 @@ module IssuablesHelper
 
   def issuable_templates(issuable)
     @issuable_templates ||=
-        case issuable
-          when Issue
-            issue_template_names
-          when MergeRequest
-            merge_request_template_names
-          else
-            raise '未知的问题类型!'
-        end
+      case issuable
+      when Issue
+        issue_template_names
+      when MergeRequest
+        merge_request_template_names
+      else
+        raise '未知的问题类型!'
+      end
   end
 
   def merge_request_template_names
