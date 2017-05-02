@@ -488,14 +488,14 @@
         .checkbox
           = f.label :usage_ping_enabled do
             = f.check_box :usage_ping_enabled
-            使用ping启用
+            启用使用率反馈
             = link_to icon('question-circle'), help_page_path("user/admin_area/settings/usage_statistics", anchor: "usage-data")
           .help-block
-            每周GitLab将向GitLab，Inc.报告许可证使用情况。
-            如果不希望发生这种情况，请禁用此选项。
+            每周 GitLab 将向 GitLab，Inc. 报告许可证使用情况。
+            如果您不希望报告使用情况，请禁用此选项。
             要查看将发送的JSON有效内容，请访问
-            = succeed '.' do
-              = link_to "队列页面", admin_cohorts_path(anchor: 'usage-ping')
+            = succeed '。' do
+              = link_to "Cohorts 页面", admin_cohorts_path(anchor: 'usage-ping')
 
   %fieldset
     %legend 邮箱
@@ -570,16 +570,14 @@
   %fieldset
     %legend 实时功能
     .form-group
-      = f.label :polling_interval_multiplier, 'Polling interval multiplier', class: 'control-label col-sm-2'
+      = f.label :polling_interval_multiplier, '轮询间隔倍数', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_field :polling_interval_multiplier, class: 'form-control'
         .help-block
-          更改此值以影响GitLab UI轮询更新的频率。
-          如果将值设置为2，则所有轮询间隔乘以2，
-          这意味着轮询发生的频率为一半。
-          乘数也可以有一个十进制值。
-          默认值（1）是大多数GitLab安装的合理选择。
-          设置为0以完全禁用轮询。
+          通过修改该值来调整 GitLab UI 轮询更新的频率。
+          如果将该值设置为2，则所有轮询间隔将乘以2，这意味着轮询频率将降为一半，
+          乘数也可以是任意的一个十进制数值。 默认值（1）是大多数 GitLab 安装的合理选择。
+          设置为0将完全禁用轮询更新功能。
           = link_to icon('question-circle'), help_page_path('administration/polling')
 
   .form-actions
