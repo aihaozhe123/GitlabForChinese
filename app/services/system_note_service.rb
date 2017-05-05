@@ -485,7 +485,7 @@ module SystemNoteService
   #
   # Returns the created Note object
   def change_task_status(noteable, project, author, new_task)
-    status_label = new_task.complete? ? Taskable::COMPLETED : Taskable::INCOMPLETE
+    status_label = new_task.complete? ? '完成' : '未完成'
     body = "将任务 **#{new_task.source}** 标记为 #{status_label}"
 
     create_note(NoteSummary.new(noteable, project, author, body, action: 'task'))

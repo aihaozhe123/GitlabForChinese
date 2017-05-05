@@ -65,7 +65,7 @@ module FilteredSearchHelpers
   end
 
   def default_placeholder
-    'Search or filter results...'
+    '搜索或过滤结果...'
   end
 
   def get_filtered_search_placeholder

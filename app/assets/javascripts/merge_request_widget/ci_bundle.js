@@ -17,7 +17,7 @@
     $(document)
     .off('click', '.accept-merge-request')
     .on('click', '.accept-merge-request', () => {
-      $('.js-merge-button, .js-merge-when-pipeline-succeeds-button').html('<i class="fa fa-spinner fa-spin"></i> Merge in progress');
+      $('.js-merge-button, .js-merge-when-pipeline-succeeds-button').html('<i class="fa fa-spinner fa-spin"></i> 合并进行中');
     });
 
     $(document)
@@ -44,7 +44,7 @@
       $(document)
       .off('click', '.js-rebase-button')
       .on('click', '.js-rebase-button', () => {
-        $('.js-rebase-button').html("<i class='fa fa-spinner fa-spin'></i> Rebase in progress");
+        $('.js-rebase-button').html("<i class='fa fa-spinner fa-spin'></i> 变基进行中");
       });
     } else {
       setTimeout(() => merge_request_widget.getMergeStatus(), 200);
