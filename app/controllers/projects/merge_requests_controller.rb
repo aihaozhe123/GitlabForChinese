@@ -438,11 +438,11 @@ class Projects::MergeRequestsController < Projects::ApplicationController
       format.html do
         case result[:count]
         when 0
-          flash[:error] = "Failed to assign you issues related to the merge request"
+          flash[:error] = "无法为您指派与合并请求相关的问题"
         when 1
-          flash[:notice] = "1 issue has been assigned to you"
+          flash[:notice] = "已将1个问题指派给您"
         else
-          flash[:notice] = "#{result[:count]} issues have been assigned to you"
+          flash[:notice] = "已将#{result[:count]}个问题指派给您"
         end
 
         redirect_to(merge_request_path(@merge_request))

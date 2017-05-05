@@ -1065,7 +1065,7 @@ describe Projects::MergeRequestsController do
     it 'shows a flash message on success' do
       post_assign_issues
 
-      expect(flash[:notice]).to eq '2 issues have been assigned to you'
+      expect(flash[:notice]).to eq '已将2个问题指派给您'
     end
 
     it 'correctly pluralizes flash message on success' do
@@ -1073,7 +1073,7 @@ describe Projects::MergeRequestsController do
 
       post_assign_issues
 
-      expect(flash[:notice]).to eq '1 issue has been assigned to you'
+      expect(flash[:notice]).to eq '已将1个问题指派给您'
     end
 
     it 'calls MergeRequests::AssignIssuesService' do

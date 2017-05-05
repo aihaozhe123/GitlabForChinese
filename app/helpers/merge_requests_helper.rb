@@ -92,8 +92,8 @@ module MergeRequestsHelper
                                                    ).assignable_issues
     path = assign_related_issues_namespace_project_merge_request_path(@project.namespace, @project, @merge_request)
     if issues.present?
-      pluralize_this_issue = issues.count > 1 ? "these issues" : "this issue"
-      link_to "Assign yourself to #{pluralize_this_issue}", path, method: :post
+      pluralize_this_issue = issues.count > 1 ? "这些" : "这个"
+      link_to "将#{pluralize_this_issue}问题指派给自己", path, method: :post
     end
   end
 

@@ -33,7 +33,7 @@ describe 'Issue Boards add issue modal', :feature, :js do
     page.within('.add-issues-modal') do
       expect(find('.form-control').value).to eq('')
       expect(page).to have_selector('.clear-search', visible: false)
-      expect(find('.form-control')[:placeholder]).to eq('Search or filter results...')
+      expect(find('.form-control')[:placeholder]).to eq('搜索或过滤结果...')
     end
   end
 

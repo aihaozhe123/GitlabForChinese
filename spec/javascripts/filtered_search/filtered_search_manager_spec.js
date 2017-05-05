@@ -15,7 +15,7 @@ const FilteredSearchSpecHelper = require('../helpers/filtered_search_spec_helper
     let input;
     let manager;
     let tokensContainer;
-    const placeholder = 'Search or filter results...';
+    const placeholder = '搜索或过滤结果...';
 
     function dispatchBackspaceEvent(element, eventType) {
       const backspaceKey = 8;

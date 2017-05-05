@@ -240,7 +240,7 @@ import eventHub from './event_hub';
 
     handleInputPlaceholder() {
       const query = gl.DropdownUtils.getSearchQuery();
-      const placeholder = 'Search or filter results...';
+      const placeholder = '搜索或过滤结果...';
       const currentPlaceholder = this.filteredSearchInput.placeholder;
 
       if (query.length === 0 && currentPlaceholder !== placeholder) {

@@ -79,7 +79,7 @@ class Projects::BranchesController < Projects::ApplicationController
     DeleteMergedBranchesService.new(@project, current_user).async_execute
 
     redirect_to namespace_project_branches_path(@project.namespace, @project),
-      notice: 'Merged branches are being deleted. This can take some time depending on the number of branches. Please refresh the page to see changes.'
+      notice: '合并分支正在被删除。这可能需要一些时间，取决于分支数量。请刷新页面以查看更改。'
   end
 
   private
