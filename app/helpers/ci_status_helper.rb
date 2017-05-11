@@ -11,6 +11,7 @@ module CiStatusHelper
     namespace_project_pipeline_path(project.namespace, project, pipeline)
   end
 
+  # Is used by Commit and Merge Request Widget
   def ci_status_zh(status)
     case status
       when 'pending'
