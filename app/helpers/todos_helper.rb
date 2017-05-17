@@ -19,7 +19,7 @@ module TodosHelper
     when Todo::MARKED then '向您标记了'
     when Todo::APPROVAL_REQUIRED then '请您审批'
     when Todo::UNMERGEABLE then '无法合并'
-    when Todo::DIRECTLY_ADDRESSED then 'directly addressed you on'
+    when Todo::DIRECTLY_ADDRESSED then '@你了'
     end
   end
 

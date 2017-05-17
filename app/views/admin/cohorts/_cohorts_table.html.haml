@@ -1,7 +1,7 @@
 .bs-callout.clearfix
   %p
-    显示过去#{@cohorts[:months_included]}个月的用户队列。
-    只有活跃的用户才能计入队列总数，
+    显示过去#{@cohorts[:months_included]}个月的用户使用率。
+    只有活跃的用户才能计入使用率总数，
     非活跃用户单独计算。
     = link_to icon('question-circle'), help_page_path('user/admin_area/user_cohorts', anchor: 'cohorts'), title: 'About this feature', target: '_blank'
 

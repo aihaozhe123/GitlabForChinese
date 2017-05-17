@@ -113,7 +113,7 @@ module Banzai
           data = data_attribute(project: project.id, author: author.try(:id))
           content = link_content || User.reference_prefix + 'all'
 
-          link_tag(url, data, content, 'All Project and Group Members')
+          link_tag(url, data, content, '所有项目和群组成员')
         end
       end
 

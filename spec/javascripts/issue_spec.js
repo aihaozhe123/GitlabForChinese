@@ -43,19 +43,19 @@ describe('Issue', function() {
   function findElements() {
     $boxClosed = $('div.status-box-closed');
     expect($boxClosed).toExist();
-    expect($boxClosed).toHaveText('Closed');
+    expect($boxClosed).toHaveText('已关闭');
 
     $boxOpen = $('div.status-box-open');
     expect($boxOpen).toExist();
-    expect($boxOpen).toHaveText('Open');
+    expect($boxOpen).toHaveText('未关闭');
 
     $btnClose = $('.btn-close.btn-grouped');
     expect($btnClose).toExist();
-    expect($btnClose).toHaveText('Close issue');
+    expect($btnClose).toHaveText('关闭问题');
 
     $btnReopen = $('.btn-reopen.btn-grouped');
     expect($btnReopen).toExist();
-    expect($btnReopen).toHaveText('Reopen issue');
+    expect($btnReopen).toHaveText('重新打开问题');
   }
 
   describe('task lists', function() {

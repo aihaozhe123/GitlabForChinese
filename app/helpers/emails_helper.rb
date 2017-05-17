@@ -47,9 +47,9 @@ module EmailsHelper
   end
 
   def reset_token_expire_message
-    link_tag = link_to('申请一个新的', new_user_password_url(user_email: @user.email))
+    link_tag = link_to('申请', new_user_password_url(user_email: @user.email))
     msg = "此链接在 #{password_reset_token_valid_time}内有效。"
-    msg << "过期后请#{link_tag}。"
+    msg << "过期后请重新#{link_tag}。"
   end
 
   def header_logo
