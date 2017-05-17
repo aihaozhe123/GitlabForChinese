@@ -1,14 +1,14 @@
 .well-confirmation.text-center.append-bottom-20
   %h1.prepend-top-0
-    Almost there...
+    差不多了...
   %p.lead.append-bottom-20
-    Please check your email to confirm your account
+    请检查您的电子邮件以确认您的帐户
   %hr
 - if current_application_settings.after_sign_up_text.present?
   .well-confirmation.text-center
     = markdown_field(current_application_settings, :after_sign_up_text)
 %p.text-center
-  No confirmation email received? Please check your spam folder or
+  没有收到确认电子邮件？请检查您的垃圾邮件文件夹或
 .append-bottom-20.prepend-top-20.text-center
   %a.btn.btn-lg.btn-success{ href: new_user_confirmation_path }
-    Request new confirmation email
+    重新发送确认邮件
