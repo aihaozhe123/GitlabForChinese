@@ -13,7 +13,7 @@ import d3 from 'd3';
       this.daySpace = 1;
       this.daySize = 15;
       this.daySizeWithSpace = this.daySize + (this.daySpace * 2);
-      this.monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      this.monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
       this.months = [];
       // Loop through the timestamps to create a group of objects
       // The group of objects will be grouped based on the day of the week they are
@@ -118,11 +118,11 @@ import d3 from 'd3';
         return function(stamp) {
           var contribText, date, dateText;
           date = new Date(stamp.date);
-          contribText = 'No contributions';
+          contribText = '没有贡献';
           if (stamp.count > 0) {
-            contribText = stamp.count + " contribution" + (stamp.count > 1 ? 's' : '');
+            contribText = stamp.count + "次贡献";
           }
-          dateText = date.format('mmm d, yyyy');
+          dateText = date.format('yyyy-mm-dd');
           return contribText + "<br />" + (gl.utils.getDayName(date)) + " " + dateText;
         };
       })(this)).attr('class', 'user-contrib-cell js-tooltip').attr('fill', (function(_this) {
@@ -140,13 +140,13 @@ import d3 from 'd3';
       var days;
       days = [
         {
-          text: 'M',
+          text: '一',
           y: 29 + (this.daySizeWithSpace * 1)
         }, {
-          text: 'W',
+          text: '三',
           y: 29 + (this.daySizeWithSpace * 3)
         }, {
-          text: 'F',
+          text: '五',
           y: 29 + (this.daySizeWithSpace * 5)
         }
       ];

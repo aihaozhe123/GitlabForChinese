@@ -2,15 +2,15 @@
   - if @resource.unconfirmed_email.present?
     #content
       %h2= @resource.unconfirmed_email
-      %p Click the link below to confirm your email address.
+      %p 点击下面的链接确认您的电子邮件地址。
     #cta
-      = link_to 'Confirm your email address', confirmation_url(@resource, confirmation_token: @token)
+      = link_to '请确认您的电邮地址', confirmation_url(@resource, confirmation_token: @token)
   - else
     #content
       - if Gitlab.com?
-        %h2 Thanks for signing up to GitLab!
+        %h2 感谢您注册GitLab！
       - else
-        %h2 Welcome, #{@resource.name}!
-      %p To get started, click the link below to confirm your account.
+        %h2 欢迎您，#{@resource.name}!
+      %p 要开始使用，请点击下面的链接确认您的帐户。
     #cta
-      = link_to 'Confirm your account', confirmation_url(@resource, confirmation_token: @token)
+      = link_to '请确认您的电邮地址', confirmation_url(@resource, confirmation_token: @token)

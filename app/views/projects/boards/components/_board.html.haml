@@ -5,7 +5,7 @@
       %h3.board-title.js-board-handle{ ":class" => '{ "user-can-drag": (!disabled && !list.preset) }' }
         %span.has-tooltip{ ":title" => '(list.label ? list.label.description : "")',
           data: { container: "body", placement: "bottom" } }
-          {{ list.title }}
+          {{ list.title=='Closed'?'已关闭':list.title }}
         .board-issue-count-holder.pull-right.clearfix{ "v-if" => 'list.type !== "blank"' }
           %span.board-issue-count.pull-left{ ":class" => '{ "has-btn": list.type !== "closed" && !disabled }' }
             {{ list.issuesSize }}

@@ -36,7 +36,7 @@ module IssuableActions
       format.json do
         render json: {
           errors: [
-            "Someone edited this #{issuable.human_class_name} at the same time you did. Please refresh your browser and make sure your changes will not unintentionally remove theirs."
+            "此#{issuable.human_class_name}已被修改。请刷新您的浏览器，并确保您的更改不会无意中覆盖他们的更改。"
           ]
         }, status: 409
       end

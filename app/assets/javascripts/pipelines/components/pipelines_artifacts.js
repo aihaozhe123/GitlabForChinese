@@ -10,10 +10,10 @@ export default {
     <div class="btn-group" role="group">
       <button
         class="dropdown-toggle btn btn-default build-artifacts has-tooltip js-pipeline-dropdown-download"
-        title="Artifacts"
+        title="工件"
         data-placement="top"
         data-toggle="dropdown"
-        aria-label="Artifacts">
+        aria-label="工件">
         <i class="fa fa-download" aria-hidden="true"></i>
         <i class="fa fa-caret-down" aria-hidden="true"></i>
       </button>
@@ -24,7 +24,7 @@ export default {
             download
             :href="artifact.path">
             <i class="fa fa-download" aria-hidden="true"></i>
-            <span>Download {{artifact.name}} artifacts</span>
+            <span>下载{{artifact.name}}工件</span>
           </a>
         </li>
       </ul>

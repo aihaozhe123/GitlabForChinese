@@ -167,7 +167,7 @@ export default {
         </li>
         <li :class="{ active : scope === 'stopped' }">
           <a :href="projectStoppedEnvironmentsPath">
-            Stopped
+            停用的
             <span class="badge js-stopped-environments-count">
               {{state.stoppedCounter}}
             </span>
@@ -180,7 +180,7 @@ export default {
         <a
           :href="newEnvironmentPath"
           class="btn btn-create">
-          New environment
+          新建运行环境
         </a>
       </div>
     </div>

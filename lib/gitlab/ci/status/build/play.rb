@@ -4,7 +4,7 @@ module Gitlab
       module Build
         class Play < Status::Extended
           def label
-            'manual play action'
+            '手动运行操作'
           end
 
           def has_action?
@@ -16,7 +16,7 @@ module Gitlab
           end
 
           def action_title
-            'Play'
+            '运行'
           end
 
           def action_path

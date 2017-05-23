@@ -10,6 +10,10 @@ module Gitlab
           @value ||= count_commits
         end
 
+        def title
+          '提交'
+        end
+
         private
 
         # Don't use the `Gitlab::Git::Repository#log` method, because it enforces

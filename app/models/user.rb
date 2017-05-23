@@ -1028,7 +1028,7 @@ class User < ActiveRecord::Base
     if current_application_settings.domain_blacklist_enabled?
       blocked_domains = current_application_settings.domain_blacklist
       if domain_matches?(blocked_domains, email)
-        error = 'is not from an allowed domain.'
+        error = '不是来自允许的域名。'
         valid = false
       end
     end
@@ -1038,7 +1038,7 @@ class User < ActiveRecord::Base
       if domain_matches?(allowed_domains, email)
         valid = true
       else
-        error = "domain is not authorized for sign-up"
+        error = "域名无权注册"
         valid = false
       end
     end

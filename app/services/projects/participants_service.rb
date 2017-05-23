@@ -42,7 +42,7 @@ module Projects
 
     def all_members
       count = project.team.members.flatten.count
-      [{ username: "all", name: "All Project and Group Members", count: count }]
+      [{ username: "所有", name: "所有项目和群组成员", count: count }]
     end
   end
 end

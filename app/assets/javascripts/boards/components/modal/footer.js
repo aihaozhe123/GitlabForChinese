@@ -22,7 +22,7 @@ gl.issueBoards.ModalFooter = Vue.extend({
     submitText() {
       const count = ModalStore.selectedCount();
 
-      return `添加 ${count > 0 ? count : ''} ${gl.text.pluralize('问题', count)}`;
+      return `添加${count}个问题`;
     },
   },
   methods: {

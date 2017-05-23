@@ -14,7 +14,7 @@ export default {
         class="js-pipeline-url-link">
         <span class="pipeline-id">#{{pipeline.id}}</span>
       </a>
-      <span>by</span>
+      <span> 作者：</span>
       <a
         class="js-pipeline-url-user"
         v-if="user"
@@ -35,21 +35,21 @@ export default {
       <span
         v-if="pipeline.flags.latest"
         class="js-pipeline-url-lastest label label-success has-tooltip"
-        title="Latest pipeline for this branch"
-        data-original-title="Latest pipeline for this branch">
-        latest
+        title="此分支的最新流水线"
+        data-original-title="此分支的最新流水线">
+        最新
       </span>
       <span
         v-if="pipeline.flags.yaml_errors"
         class="js-pipeline-url-yaml label label-danger has-tooltip"
         :title="pipeline.yaml_errors"
         :data-original-title="pipeline.yaml_errors">
-        yaml invalid
+        yaml无效
       </span>
       <span
         v-if="pipeline.flags.stuck"
         class="js-pipeline-url-stuck label label-warning">
-        stuck
+        等待
       </span>
     </td>
   `,

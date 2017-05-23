@@ -13,7 +13,7 @@ import MiniPipelineGraph from './mini_pipeline_graph_dropdown';
        <div class="ci_widget ci-success">
          <%= ci_success_icon %>
          <span>
-           Deployed to
+           部署到
            <a href="<%- url %>" target="_blank" rel="noopener noreferrer" class="environment">
              <%- name %>
            </a>
@@ -22,13 +22,13 @@ import MiniPipelineGraph from './mini_pipeline_graph_dropdown';
            </span>
            <a class="js-environment-link" href="<%- external_url %>" target="_blank" rel="noopener noreferrer">
              <i class="fa fa-external-link"></i>
-             View on <%- external_url_formatted %>
+             查看 <%- external_url_formatted %>
            </a>
          </span>
          <span class="stop-env-container js-stop-env-link">
           <a href="<%- stop_url %>" class="close-evn-link" data-method="post" rel="nofollow" data-confirm="Are you sure you want to stop this environment?">
             <i class="fa fa-stop-circle-o"/>
-            Stop environment
+            停止环境
           </a>
          </span>
        </div>

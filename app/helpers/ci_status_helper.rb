@@ -11,6 +11,7 @@ module CiStatusHelper
     namespace_project_pipeline_path(project.namespace, project, pipeline)
   end
 
+  # Is used by Commit and Merge Request Widget
   def ci_status_zh(status)
     case status
       when 'pending'
@@ -26,18 +27,6 @@ module CiStatusHelper
     end
   end
 
-  def ci_stage_zh(stage)
-    case stage
-      when 'build'
-        '构建'
-      when 'deploy'
-        '部署'
-      when 'test'
-        '测试'
-      else
-        stage.titleize
-    end
-  end
   def ci_label_for_status(status)
     if detailed_status?(status)
       return status.label
@@ -45,9 +34,9 @@ module CiStatusHelper
 
     case status
     when 'success'
-      '成功'
+      '已通过'
     when 'success_with_warnings'
-      '成功(有警告)'
+      '已通过(有警告)'
     when 'manual'
       '等待手动操作'
     else
@@ -62,13 +51,13 @@ module CiStatusHelper
 
     case status
     when 'success'
-      'passed'
+      '已通过'
     when 'success_with_warnings'
-      'passed'
+      '已通过(有警告)'
     when 'manual'
-      'blocked'
+      '等待手动操作'
     else
-      status
+      ci_status_zh(status)
     end
   end
 
@@ -121,7 +110,7 @@ module CiStatusHelper
       pipeline_status.sha)
 
     render_status_with_link(
-      'commit',
+      '提交',
       pipeline_status.status,
       path,
       tooltip_placement: tooltip_placement)
@@ -135,7 +124,7 @@ module CiStatusHelper
       commit)
 
     render_status_with_link(
-      'commit',
+      '提交',
       commit.status(ref),
       path,
       tooltip_placement: tooltip_placement)
@@ -144,7 +133,7 @@ module CiStatusHelper
   def render_pipeline_status(pipeline, tooltip_placement: 'auto left')
     project = pipeline.project
     path = namespace_project_pipeline_path(project.namespace, project, pipeline)
-    render_status_with_link('pipeline', pipeline.status, path, tooltip_placement: tooltip_placement)
+    render_status_with_link('流水线', pipeline.status, path, tooltip_placement: tooltip_placement)
   end
 
   def no_runners_for_project?(project)

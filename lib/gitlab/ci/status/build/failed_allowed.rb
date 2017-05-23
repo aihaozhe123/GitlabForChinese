@@ -4,7 +4,7 @@ module Gitlab
       module Build
         class FailedAllowed < Status::Extended
           def label
-            'failed (allowed to fail)'
+            '失败（允许失败）'
           end
 
           def icon

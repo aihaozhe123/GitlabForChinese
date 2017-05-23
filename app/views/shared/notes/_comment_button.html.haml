@@ -14,7 +14,7 @@
           .description
             %strong 评论
             %p
-              向 #{noteable_name} 添加一般评论。
+              向#{noteable_name=='merge request'?'合并请求':noteable_name}添加一般评论。
 
       %li.divider.droplab-item-ignore
 
@@ -24,7 +24,7 @@
           .description
             %strong 开始讨论
             %p
-              = succeed '.' do
+              = succeed '。' do
                 讨论一个
                 - if @note.noteable.supports_resolvable_notes?
                   需要解决的

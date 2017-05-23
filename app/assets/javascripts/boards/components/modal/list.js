@@ -124,7 +124,7 @@ gl.issueBoards.ModalList = Vue.extend({
         </div>
         <div class="text-content">
           <h4>
-            There are no issues to show.
+            没有问题可显示。
           </h4>
         </div>
       </div>
@@ -145,7 +145,7 @@ gl.issueBoards.ModalList = Vue.extend({
               :root-path="rootPath">
             </issue-card-inner>
             <span
-              :aria-label="'Issue #' + issue.id + ' selected'"
+              :aria-label="'已选择问 #' + issue.id"
               aria-checked="true"
               v-if="issue.selected"
               class="issue-card-selected text-center">

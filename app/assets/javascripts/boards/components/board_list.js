@@ -191,10 +191,10 @@ export default {
             v-show="list.loadingMore">
           </i>
           <span v-if="list.issues.length === list.issuesSize">
-            Showing all issues
+            显示所有问题
           </span>
           <span v-else>
-            Showing {{ list.issues.length }} of {{ list.issuesSize }} issues
+            显示{{ list.issues.length }到{{ list.issuesSize }}的问题
           </span>
         </li>
       </ul>

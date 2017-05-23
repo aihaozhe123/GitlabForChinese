@@ -35,7 +35,7 @@ global.cycleAnalytics.StageTestComponent = Vue.extend({
             </h5>
             <span>
               <a :href="build.url" class="issue-date">
-                {{ build.date }}
+                {{ build.date.replace(/ ago/,'之前') }}
               </a>
             </span>
           </div>
