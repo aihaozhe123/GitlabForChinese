@@ -73,7 +73,7 @@
         = f.select :public_email, options_for_select(@user.all_emails, selected: @user.public_email), { include_blank: '不在个人资料中显示' }, class: "select2"
         %span.help-block 此邮箱将显示在公开的个人资料上。
       .form-group
-        = f.label :preferred_language, class: "label-light"
+        = f.label :preferred_language, '首选语言', class: "label-light"
         = f.select :preferred_language, Gitlab::I18n::AVAILABLE_LANGUAGES.map { |value, label| [label, value] },
           {}, class: "select2"
         %span.help-block 此功能是实验性的，翻译尚未完成。
