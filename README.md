@@ -22,48 +22,22 @@ CentOS 7 最小安装后操作
 	`mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup`  
 	`wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS7-Base-163.repo`  
 	`yum clean all && yum makecache && yum -y update`  
-4. 安装依赖  
-    `sudo yum -y install gcc gcc-c++ zlib-devel openssl-devel postgresql-devel patch libicu-devel libstdc++-devel cmake` 
-5. 安装Ruby  
-    `mkdir /tmp/ruby && cd /tmp/ruby`  
-	`wget https://ruby.taobao.org/mirrors/ruby/2.3/ruby-2.3.4.tar.gz`  
-	`tar xzf ruby-* && cd ruby-* && ./configure --disable-install-rdoc`  
-	`make && make install`  
-6. 安装GEM  
-	`mkdir /tmp/gem && cd /tmp/gem`  
-	`wget https://rubygems.org/rubygems/rubygems-2.6.12.tgz`  
-	`tar xzf rubygems-* && cd rubygems-* && ruby setup.rb`  
-7. 安装bundler  
-	`gem install bundler --no-ri --no-rdoc`  
-	`bundle config mirror.https://rubygems.org https://gems.ruby-china.org`
-8. 安装Node.js  
-	`cd /tmp && wget https://nodejs.org/download/release/v7.10.0/node-v7.10.0-linux-x64.tar.gz | tar xz`  
-	`sudo tar --strip-components 1 -xzvf node-v* -C /usr/local`
-9. 安装Yarn  
-	`npm install --global yarn`  
-	`yarn config set registry https://registry.npm.taobao.org`
-10. 安装GItlab
+4. 安装GItlab
 	1. 安装最新Gitlab  
 		`sudo yum install gitlab-ce`
 	2. 安装指定版本  
-		`cd /tmp && wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-9.2.0-ce.0.el7.x86_64.rpm`  
-		`rpm -i gitlab-ce-9.2.0-*.rpm`  
-11. 编辑gitlab.rb文件  
+		`cd /tmp && wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-9.5.0-ce.0.el7.x86_64.rpm`  
+		`rpm -i gitlab-ce-9.5.0-*.rpm`  
+5. 编辑gitlab.rb文件  
 	1. `vi /etc/gitlab/gitlab.rb`
 	2. 将`external_url 'http://localhost'`改成将`external_url 'http://您服务器的ip或域名'`
-12. 汉化  
-	`cd /opt && curl -LJO https://github.com/htve/GitlabForChinese/releases/download/v9.2.0.zh/v9.2.0.zh1.diff`  
-	`patch -d /opt/gitlab/embedded/service/gitlab-rails -p1 < v9.2.0.*.diff`
-13. 重新编译Assets (耗时大约20分钟)  
-	`sudo gitlab-ctl reconfigure`  
-    `rm -rf /opt/gitlab/etc/gitlab-rails/env/EXECJS_RUNTIME`  
-	`cd /opt/gitlab/embedded/service/gitlab-rails && bundle install --deployment --without development test mysql aws kerberos`  
-	`yarn install --production --pure-lockfile`  
-	`NO_PRIVILEGE_DROP=true USE_DB=false bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production` 
-14. 配置gitlab  
+6. 汉化  
+	`cd /opt && curl -LJO https://github.com/htve/GitlabForChinese/releases/download/v9.5.0/v9.5.0.zh1.diff`  
+	`patch -d /opt/gitlab/embedded/service/gitlab-rails -p1 < v9.5.0.*.diff`
+7. 配置gitlab  
 	`sudo gitlab-ctl reconfigure`  
 	`sudo gitlab-ctl restart`  
-15. 开启防火墙  
+8. 开启防火墙  
     `firewall-cmd --zone=public --add-port=80/tcp --permanent`
     `firewall-cmd --reload`
     `systemctl restart firewalld.service` 
@@ -75,4 +49,4 @@ CentOS 7 安装后更新
 2. 删除卸载后残留  
 	`rm -rf /opt/gitlab`  
 3. 执行安装的  
-	10,12,13,14
+	4,6,7
